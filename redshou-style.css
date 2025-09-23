@@ -62,6 +62,20 @@ body {
     transition: var(--transition);
 }
 
+/* Logo Styles */
+.nav-logo, .footer-logo {
+    height: 30px;
+    width: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+    filter: brightness(1.2) contrast(1.1);
+    transition: var(--transition);
+}
+
+.nav-logo:hover, .footer-logo:hover {
+    filter: brightness(1.5) drop-shadow(0 0 10px var(--red-glow));
+}
+
 .navbar.scrolled {
     background: rgba(0, 0, 0, 0.95);
     padding: 20px 0;
