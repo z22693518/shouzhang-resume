@@ -3,539 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ SHOU - FIGHTER'S BEATS | 熱血格鬥電音</title>
+    <title>DJ SHOU - Tropical Electronic Music Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fighter-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Fighter Background -->
-    <div class="fighter-bg">
-        <div class="bg-flames"></div>
-        <div class="bg-lightning"></div>
-        <div class="bg-energy-waves"></div>
-    </div>
-    
-    <!-- Loading Screen -->
-    <div class="fighter-loader" id="loader">
-        <div class="loader-arena">
-            <div class="arena-floor"></div>
-            <div class="fighter-silhouette">
-                <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="DJ Fighter" class="loader-fighter">
-                <div class="power-aura"></div>
-            </div>
-            <div class="loading-bar-container">
-                <div class="loading-label">LOADING FIGHTER DATA...</div>
-                <div class="health-bar loading-bar">
-                    <div class="health-fill loading-progress"></div>
-                </div>
-            </div>
-        </div>
-        <div class="loading-effects">
-            <div class="spark"></div>
-            <div class="spark"></div>
-            <div class="spark"></div>
-        </div>
-    </div>
-
-    <!-- Navigation */
-    <nav class="fighter-nav" id="navbar">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="Fighter Logo" class="logo-img">
-                <div class="logo-flame"></div>
+                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo" class="logo-img">
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link" data-command="HOME">
-                    <i class="fas fa-fist-raised"></i>
-                    <span>主場</span>
-                    <div class="link-fire"></div>
-                </a></li>
-                <li><a href="#fighter" class="nav-link" data-command="FIGHTER">
-                    <i class="fas fa-user-ninja"></i>
-                    <span>戰士</span>
-                    <div class="link-fire"></div>
-                </a></li>
-                <li><a href="#beats" class="nav-link" data-command="BEATS">
-                    <i class="fas fa-drum"></i>
-                    <span>節拍</span>
-                    <div class="link-fire"></div>
-                </a></li>
-                <li><a href="#battles" class="nav-link" data-command="BATTLES">
-                    <i class="fas fa-trophy"></i>
-                    <span>戰場</span>
-                    <div class="link-fire"></div>
-                </a></li>
-                <li><a href="#contact" class="nav-link" data-command="CONTACT">
-                    <i class="fas fa-bolt"></i>
-                    <span>聯絡</span>
-                    <div class="link-fire"></div>
-                </a></li>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#music" class="nav-link">Music</a></li>
+                <li><a href="#shows" class="nav-link">Shows</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="fighter-hero">
-        <div class="arena-bg">
-            <div class="arena-lights"></div>
-            <div class="crowd-silhouette"></div>
+    <section id="home" class="hero">
+        <div class="hero-video-bg">
+            <div class="tropical-overlay"></div>
+            <div class="palm-trees">
+                <div class="palm palm-1"></div>
+                <div class="palm palm-2"></div>
+                <div class="palm palm-3"></div>
+            </div>
+            <div class="floating-elements">
+                <div class="element element-1"></div>
+                <div class="element element-2"></div>
+                <div class="element element-3"></div>
+                <div class="element element-4"></div>
+            </div>
         </div>
-        
         <div class="hero-content">
-            <!-- Fighter Profile -->
-            <div class="fighter-profile">
-                <div class="profile-frame">
-                    <div class="frame-corners">
-                        <div class="corner top-left"></div>
-                        <div class="corner top-right"></div>
-                        <div class="corner bottom-left"></div>
-                        <div class="corner bottom-right"></div>
-                    </div>
-                    
-                    <div class="fighter-image">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="DJ SHOU Fighter" class="fighter-img">
-                        <div class="energy-aura"></div>
-                        <div class="lightning-effects">
-                            <div class="lightning bolt-1"></div>
-                            <div class="lightning bolt-2"></div>
-                            <div class="lightning bolt-3"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="fighter-name-plate">
-                        <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="Fighter Name" class="name-logo">
-                        <div class="name-glow"></div>
+            <div class="dj-profile">
+                <div class="profile-image">
+                    <img src="https://i.ibb.co/7JLgjp8N/IMG-9559-removebg-preview.png" alt="DJ SHOU" class="dj-photo">
+                    <div class="pulse-ring"></div>
+                </div>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-main">DJ SHOU</span>
+                <span class="title-sub">TROPICAL BEATS</span>
+            </h1>
+            <p class="hero-subtitle">Electronic Music • Tropical Vibes • Party Experience</p>
+            <div class="hero-buttons">
+                <a href="#music" class="btn-primary">
+                    <i class="fas fa-play"></i> LISTEN NOW
+                </a>
+                <a href="#shows" class="btn-secondary">VIEW SHOWS</a>
+            </div>
+            <div class="social-preview">
+                <a href="#" class="social-icon"><i class="fab fa-spotify"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-soundcloud"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music" class="music-section">
+        <div class="section-header">
+            <h2 class="section-title">LATEST TRACKS</h2>
+            <p class="section-subtitle">Dive into the tropical electronic soundscape</p>
+        </div>
+        <div class="music-player-container">
+            <div class="featured-track">
+                <div class="track-artwork">
+                    <img src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400" alt="Featured Track">
+                    <div class="play-overlay">
+                        <button class="play-btn-main">
+                            <i class="fas fa-play"></i>
+                        </button>
                     </div>
                 </div>
-                
-                <!-- Fighter Stats -->
-                <div class="fighter-stats">
-                    <div class="stat-row">
-                        <span class="stat-label">POWER</span>
-                        <div class="stat-bar">
-                            <div class="stat-fill power-stat"></div>
-                        </div>
-                        <span class="stat-value">98</span>
-                    </div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">SPEED</span>
-                        <div class="stat-bar">
-                            <div class="stat-fill speed-stat"></div>
-                        </div>
-                        <span class="stat-value">95</span>
-                    </div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">TECHNIQUE</span>
-                        <div class="stat-bar">
-                            <div class="stat-fill tech-stat"></div>
-                        </div>
-                        <span class="stat-value">99</span>
+                <div class="track-details">
+                    <h3 class="track-name">Tropical Paradise (Original Mix)</h3>
+                    <p class="track-artist">DJ SHOU</p>
+                    <div class="track-info">
+                        <span><i class="fas fa-clock"></i> 5:23</span>
+                        <span><i class="fas fa-fire"></i> 128 BPM</span>
+                        <span><i class="fas fa-headphones"></i> 250K plays</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Battle Info -->
-            <div class="battle-info">
-                <div class="round-display">
-                    <div class="round-text">ROUND 1</div>
-                    <div class="fight-text">FIGHT!</div>
-                </div>
-                
-                <div class="title-card">
-                    <h1 class="hero-title">
-                        <span class="title-line-1">DJ SHOU</span>
-                        <span class="title-line-2">BEAT FIGHTER</span>
-                        <span class="title-subtitle">電音格鬥王</span>
-                    </h1>
-                </div>
-                
-                <div class="special-moves">
-                    <h3>必殺技</h3>
-                    <div class="move-list">
-                        <div class="move-item">
-                            <span class="move-input">↓↘→ + P</span>
-                            <span class="move-name">BASS DROP PUNCH</span>
-                        </div>
-                        <div class="move-item">
-                            <span class="move-input">←→← + K</span>
-                            <span class="move-name">TECHNO TORNADO</span>
-                        </div>
-                        <div class="move-item">
-                            <span class="move-input">↓↙← + P+K</span>
-                            <span class="move-name">BEAT BLAST ULTIMATE</span>
-                        </div>
+            <div class="tracks-list">
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://images.unsplash.com/photo-1618609378039-b572f64c5b42?w=200" alt="Track">
+                        <div class="play-btn-small"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="track-meta">
+                        <h4>Sunset Vibes</h4>
+                        <p>DJ SHOU</p>
+                        <span>4:15</span>
                     </div>
                 </div>
                 
-                <div class="action-buttons">
-                    <a href="#beats" class="fighter-btn primary">
-                        <span class="btn-text">START BATTLE</span>
-                        <div class="btn-explosion"></div>
-                    </a>
-                    <a href="#battles" class="fighter-btn secondary">
-                        <span class="btn-text">VIEW TOURNAMENTS</span>
-                        <div class="btn-explosion"></div>
-                    </a>
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=200" alt="Track">
+                        <div class="play-btn-small"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="track-meta">
+                        <h4>Beach Party Anthem</h4>
+                        <p>DJ SHOU</p>
+                        <span>6:42</span>
+                    </div>
+                </div>
+                
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200" alt="Track">
+                        <div class="play-btn-small"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="track-meta">
+                        <h4>Island Groove</h4>
+                        <p>DJ SHOU</p>
+                        <span>7:18</span>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Combat UI Elements -->
-        <div class="combat-ui">
-            <div class="health-bars">
-                <div class="player-health">
-                    <div class="health-label">DJ SHOU</div>
-                    <div class="health-bar">
-                        <div class="health-fill player-hp"></div>
+        <div class="streaming-platforms">
+            <h4>Available on:</h4>
+            <div class="platforms">
+                <a href="#" class="platform-link">
+                    <i class="fab fa-spotify"></i> Spotify
+                </a>
+                <a href="#" class="platform-link">
+                    <i class="fab fa-apple"></i> Apple Music
+                </a>
+                <a href="#" class="platform-link">
+                    <i class="fab fa-soundcloud"></i> SoundCloud
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shows Section -->
+    <section id="shows" class="shows-section">
+        <div class="section-header">
+            <h2 class="section-title">UPCOMING SHOWS</h2>
+            <p class="section-subtitle">Join the tropical party experience</p>
+        </div>
+        <div class="shows-grid">
+            <div class="show-card">
+                <div class="show-date">
+                    <div class="month">DEC</div>
+                    <div class="day">31</div>
+                    <div class="year">2024</div>
+                </div>
+                <div class="show-info">
+                    <h3>NEW YEAR TROPICAL RAVE</h3>
+                    <p class="venue">Taipei Beach Club</p>
+                    <p class="location">Taipei, Taiwan</p>
+                    <div class="show-tags">
+                        <span class="tag">Tropical House</span>
+                        <span class="tag">Beach Party</span>
                     </div>
                 </div>
-                <div class="timer">99</div>
-                <div class="opponent-health">
-                    <div class="health-label">OPPONENT</div>
-                    <div class="health-bar">
-                        <div class="health-fill opponent-hp"></div>
-                    </div>
+                <div class="show-action">
+                    <a href="#" class="tickets-btn">GET TICKETS</a>
                 </div>
             </div>
-            
-            <div class="combo-counter">
-                <span class="combo-hits">25</span>
-                <span class="combo-text">HITS</span>
+
+            <div class="show-card">
+                <div class="show-date">
+                    <div class="month">JAN</div>
+                    <div class="day">15</div>
+                    <div class="year">2025</div>
+                </div>
+                <div class="show-info">
+                    <h3>PARADISE FESTIVAL</h3>
+                    <p class="venue">Kenting Beach</p>
+                    <p class="location">Pingtung, Taiwan</p>
+                    <div class="show-tags">
+                        <span class="tag">Festival</span>
+                        <span class="tag">Outdoor</span>
+                    </div>
+                </div>
+                <div class="show-action">
+                    <a href="#" class="tickets-btn">GET TICKETS</a>
+                </div>
             </div>
-            
-            <div class="super-meter">
-                <div class="super-label">SUPER</div>
-                <div class="super-bar">
-                    <div class="super-fill"></div>
+
+            <div class="show-card">
+                <div class="show-date">
+                    <div class="month">FEB</div>
+                    <div class="day">20</div>
+                    <div class="year">2025</div>
+                </div>
+                <div class="show-info">
+                    <h3>SUNSET SESSIONS</h3>
+                    <p class="venue">Rooftop 101</p>
+                    <p class="location">Bangkok, Thailand</p>
+                    <div class="show-tags">
+                        <span class="tag">Rooftop</span>
+                        <span class="tag">Sunset</span>
+                    </div>
+                </div>
+                <div class="show-action">
+                    <a href="#" class="tickets-btn sold-out">SOLD OUT</a>
+                </div>
+            </div>
+
+            <div class="show-card">
+                <div class="show-date">
+                    <div class="month">MAR</div>
+                    <div class="day">10</div>
+                    <div class="year">2025</div>
+                </div>
+                <div class="show-info">
+                    <h3>ELECTRIC ISLAND</h3>
+                    <p class="venue">Sentosa Beach</p>
+                    <p class="location">Singapore</p>
+                    <div class="show-tags">
+                        <span class="tag">Island</span>
+                        <span class="tag">Electronic</span>
+                    </div>
+                </div>
+                <div class="show-action">
+                    <a href="#" class="tickets-btn">GET TICKETS</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Fighter Bio Section -->
-    <section id="fighter" class="fighter-bio">
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
         <div class="section-header">
-            <h2 class="section-title">
-                <span class="title-flame">🔥</span>
-                FIGHTER BIOGRAPHY
-                <span class="title-flame">🔥</span>
-            </h2>
-            <div class="title-lightning"></div>
+            <h2 class="section-title">PHOTO GALLERY</h2>
+            <p class="section-subtitle">Moments from the tropical dance floor</p>
         </div>
-        
-        <div class="bio-content">
-            <div class="bio-image">
-                <div class="image-arena">
-                    <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Fighter Bio">
-                    <div class="arena-effects">
-                        <div class="flame-left"></div>
-                        <div class="flame-right"></div>
-                        <div class="sparks"></div>
-                    </div>
+        <div class="gallery-grid">
+            <div class="gallery-item large">
+                <img src="https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=600" alt="Main Event">
+                <div class="gallery-overlay">
+                    <h4>Ultra Taiwan 2024</h4>
+                    <p>Main Stage Performance</p>
                 </div>
             </div>
-            
-            <div class="bio-data">
-                <div class="data-terminal">
-                    <div class="terminal-header">FIGHTER DATABASE</div>
-                    
-                    <div class="fighter-info">
-                        <div class="info-row">
-                            <span class="info-label">NAME:</span>
-                            <span class="info-value">DJ SHOU</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">ORIGIN:</span>
-                            <span class="info-value">TAIWAN</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">FIGHTING STYLE:</span>
-                            <span class="info-value">ELECTRONIC BEATS</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">RANK:</span>
-                            <span class="info-value">S-CLASS</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bio-text">
-                        <h3>LEGEND OF THE BEAT WARRIOR</h3>
-                        <p>從台灣地下競技場崛起的傳奇DJ戰士，掌握著將電子音樂轉化為戰鬥力量的神秘技術。每一次節拍都是致命一擊，每一段旋律都能震撼整個競技場。</p>
-                        <p>在無數場激烈的音樂對戰中磨練出的超凡技藝，讓DJ SHOU成為了電音格鬥界的不敗王者。</p>
-                    </div>
-                    
-                    <div class="achievements-display">
-                        <div class="achievement-item">
-                            <div class="achievement-icon">👑</div>
-                            <div class="achievement-data">
-                                <div class="achievement-number">500+</div>
-                                <div class="achievement-label">VICTORIES</div>
-                            </div>
-                        </div>
-                        
-                        <div class="achievement-item">
-                            <div class="achievement-icon">🏆</div>
-                            <div class="achievement-data">
-                                <div class="achievement-number">50M+</div>
-                                <div class="achievement-label">COMBO HITS</div>
-                            </div>
-                        </div>
-                        
-                        <div class="achievement-item">
-                            <div class="achievement-icon">🌍</div>
-                            <div class="achievement-data">
-                                <div class="achievement-number">30+</div>
-                                <div class="achievement-label">ARENAS</div>
-                            </div>
-                        </div>
-                        
-                        <div class="achievement-item">
-                            <div class="achievement-icon">⚡</div>
-                            <div class="achievement-data">
-                                <div class="achievement-number">#1</div>
-                                <div class="achievement-label">WORLDWIDE</div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1549046675-dd779977de88?w=400" alt="Performance">
+                <div class="gallery-overlay">
+                    <h4>Beach Festival</h4>
+                    <p>Sunset Set</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?w=400" alt="Club Night">
+                <div class="gallery-overlay">
+                    <h4>Club Paradise</h4>
+                    <p>Saturday Night</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400" alt="Festival">
+                <div class="gallery-overlay">
+                    <h4>Island Vibes</h4>
+                    <p>Festival Performance</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1508854710579-5cecc3a9ff17?w=400" alt="Backstage">
+                <div class="gallery-overlay">
+                    <h4>Behind the Decks</h4>
+                    <p>Studio Session</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instagram-section">
+            <h3>Follow @djshou_official</h3>
+            <div class="instagram-grid">
+                <div class="insta-post">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=300" alt="Instagram">
+                </div>
+                <div class="insta-post">
+                    <img src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=300" alt="Instagram">
+                </div>
+                <div class="insta-post">
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=300" alt="Instagram">
+                </div>
+                <div class="insta-post">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=300" alt="Instagram">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Beats Section -->
-    <section id="beats" class="fighter-beats">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="title-flame">⚔️</span>
-                BATTLE BEATS ARSENAL
-                <span class="title-flame">⚔️</span>
-            </h2>
-            <div class="title-lightning"></div>
-        </div>
-        
-        <div class="beats-console">
-            <div class="console-frame">
-                <div class="console-header">
-                    <div class="console-title">BEAT WEAPON SYSTEM v2.0</div>
-                    <div class="console-power">
-                        <div class="power-indicator active"></div>
-                        <span>ONLINE</span>
-                    </div>
-                </div>
-                
-                <div class="current-weapon">
-                    <div class="weapon-display">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Current Beat Weapon">
-                        <div class="weapon-effects">
-                            <div class="energy-ring"></div>
-                            <div class="power-sparks"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="weapon-info">
-                        <h3 class="weapon-name">⚡ THUNDER TECHNO BLAST ⚡</h3>
-                        <div class="weapon-stats">
-                            <div class="stat">
-                                <span class="stat-name">DAMAGE:</span>
-                                <span class="stat-value">9999</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-name">SPEED:</span>
-                                <span class="stat-value">150 BPM</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-name">ENERGY:</span>
-                                <span class="stat-value">MAX</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="beat-visualizer">
-                    <div class="visualizer-screen">
-                        <div class="beat-waves">
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="weapon-controls">
-                    <button class="control-btn prev-btn">
-                        <i class="fas fa-step-backward"></i>
-                    </button>
-                    <button class="control-btn fire-btn">
-                        <i class="fas fa-play"></i>
-                        <span>FIRE!</span>
-                    </button>
-                    <button class="control-btn next-btn">
-                        <i class="fas fa-step-forward"></i>
-                    </button>
-                    
-                    <div class="power-slider">
-                        <label>POWER LEVEL</label>
-                        <div class="slider-track">
-                            <div class="slider-fill"></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://i.ibb.co/7JLgjp8N/IMG-9559-removebg-preview.png" alt="DJ SHOU">
+                <div class="image-decoration"></div>
             </div>
-        </div>
-        
-        <div class="weapon-arsenal">
-            <h3>WEAPON SELECTION</h3>
-            <div class="weapons-grid">
-                <div class="weapon-card active">
-                    <div class="weapon-icon">⚡</div>
-                    <div class="weapon-cover">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Weapon 1">
+            <div class="about-content">
+                <h2>THE TROPICAL SOUND</h2>
+                <p class="about-text">
+                    DJ SHOU brings the ultimate tropical electronic experience to dance floors across Asia. Specializing in tropical house, deep house, and progressive beats that transport listeners to paradise.
+                </p>
+                <p class="about-text">
+                    From intimate beach clubs to massive festival main stages, every set is crafted to create an unforgettable journey through tropical soundscapes and euphoric drops.
+                </p>
+                <div class="achievements">
+                    <div class="achievement">
+                        <div class="number">500+</div>
+                        <div class="label">Live Shows</div>
                     </div>
-                    <div class="weapon-meta">
-                        <h5>THUNDER TECHNO BLAST</h5>
-                        <span class="weapon-type">LIGHTNING TYPE</span>
+                    <div class="achievement">
+                        <div class="number">2M+</div>
+                        <div class="label">Monthly Listeners</div>
                     </div>
-                </div>
-                
-                <div class="weapon-card">
-                    <div class="weapon-icon">🔥</div>
-                    <div class="weapon-cover">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Weapon 2">
+                    <div class="achievement">
+                        <div class="number">15+</div>
+                        <div class="label">Countries</div>
                     </div>
-                    <div class="weapon-meta">
-                        <h5>FIRE BASS CANNON</h5>
-                        <span class="weapon-type">FLAME TYPE</span>
-                    </div>
-                </div>
-                
-                <div class="weapon-card">
-                    <div class="weapon-icon">❄️</div>
-                    <div class="weapon-cover">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Weapon 3">
-                    </div>
-                    <div class="weapon-meta">
-                        <h5>ICE BEAT STORM</h5>
-                        <span class="weapon-type">ICE TYPE</span>
+                    <div class="achievement">
+                        <div class="number">50+</div>
+                        <div class="label">Festivals</div>
                     </div>
                 </div>
-                
-                <div class="weapon-card">
-                    <div class="weapon-icon">💀</div>
-                    <div class="weapon-cover">
-                        <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Weapon 4">
-                    </div>
-                    <div class="weapon-meta">
-                        <h5>DARK BASS DESTROYER</h5>
-                        <span class="weapon-type">DARK TYPE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Battles Section -->
-    <section id="battles" class="fighter-battles">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="title-flame">🏟️</span>
-                TOURNAMENT BATTLES
-                <span class="title-flame">🏟️</span>
-            </h2>
-            <div class="title-lightning"></div>
-        </div>
-        
-        <div class="tournament-board">
-            <div class="board-header">
-                <h3>UPCOMING TOURNAMENTS</h3>
-                <div class="board-decoration">
-                    <div class="flame-deco left"></div>
-                    <div class="flame-deco right"></div>
-                </div>
-            </div>
-            
-            <div class="battles-list">
-                <div class="battle-card championship">
-                    <div class="battle-rank">CHAMPIONSHIP</div>
-                    <div class="battle-date">
-                        <div class="date-day">31</div>
-                        <div class="date-month">DEC</div>
-                        <div class="date-year">2024</div>
-                    </div>
-                    <div class="battle-info">
-                        <h4 class="battle-name">🔥 NEW YEAR BEAT BATTLE ROYALE 🔥</h4>
-                        <p class="battle-venue">📍 TAIWAN FIGHTING ARENA</p>
-                        <p class="battle-time">⚔️ 23:00 - DAWN</p>
-                        <div class="battle-description">
-                            終極電音格鬥錦標賽！來自世界各地的頂尖DJ戰士將在此決一死戰！
-                        </div>
-                        <div class="battle-prize">
-                            <span class="prize-label">PRIZE:</span>
-                            <span class="prize-amount">$100,000</span>
-                        </div>
-                        <a href="#" class="battle-btn">
-                            <i class="fas fa-fist-raised"></i>
-                            ENTER BATTLE
-                        </a>
-                    </div>
-                    <div class="battle-effects">
-                        <div class="effect-spark spark-1"></div>
-                        <div class="effect-spark spark-2"></div>
-                        <div class="effect-spark spark-3"></div>
-                    </div>
-                </div>
-                
-                <div class="battle-card">
-                    <div class="battle-rank">QUALIFIER</div>
-                    <div class="battle-date">
-                        <div class="date-day">18</div>
-                        <div class="date-month">JAN</div>
-                        <div class="date-year">2025</div>
-                    </div>
-                    <div class="battle-info">
-                        <h4 class="battle-name">⚡ LIGHTNING SPEED BATTLE</h4>
-                        <p class="battle-venue">📍 SINGAPORE COMBAT ZONE</p>
-                        <p class="battle-time">⚔️ 22:00 - 04:00</p>
-                        <a href="#" class="battle-btn">JOIN FIGHT</a>
-                    </div>
-                </div>
-                
-                <div class="battle-card">
-                    <div class="battle-rank">SPECIAL</div>
-                    <div class="battle-date">
-                        <div class="date-day">14</div>
-                        <div class="date-month">FEB</div>
-                        <div class="date-year">2025</div>
-                    </div>
-                    <div class="battle-info">
-                        <h4 class="battle-name">💕 VALENTINE'S DAY SHOWDOWN</h4>
-                        <p class="battle-venue">📍 BANGKOK BATTLE DOME</p>
-                        <p class="battle-time">⚔️ 21:00 - 05:00</p>
-                        <a href="#" class="battle-btn">JOIN FIGHT</a>
-                    </div>
-                </div>
-                
-                <div class="battle-card">
-                    <div class="battle-rank">ULTIMATE</div>
-                    <div class="battle-date">
-                        <div class="date-day">22</div>
-                        <div class="date-month">MAR</div>
-                        <div class="date-year">2025</div>
-                    </div>
-                    <div class="battle-info">
-                        <h4 class="battle-name">🌟 ULTRA FIGHTER CHAMPIONSHIP</h4>
-                        <p class="battle-venue">📍 TOKYO MEGA ARENA</p>
-                        <p class="battle-time">⚔️ 15:00 - 16:30</p>
-                        <a href="#" class="battle-btn sold-out">FULL</a>
+                <div class="music-style">
+                    <h4>Musical Style</h4>
+                    <div class="style-tags">
+                        <span>Tropical House</span>
+                        <span>Deep House</span>
+                        <span>Progressive</span>
+                        <span>Electronic</span>
                     </div>
                 </div>
             </div>
@@ -543,129 +357,88 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="fighter-contact">
-        <div class="section-header">
-            <h2 class="section-title">
-                <span class="title-flame">📡</span>
-                FIGHTER COMMUNICATION
-                <span class="title-flame">📡</span>
-            </h2>
-            <div class="title-lightning"></div>
-        </div>
-        
-        <div class="contact-arena">
-            <div class="contact-fighter">
-                <img src="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" alt="Contact Fighter">
-                <div class="fighter-aura"></div>
-                <div class="speech-balloon">
-                    <p>想要與傳奇戰士聯手作戰嗎？發送你的挑戰書！⚔️</p>
-                    <div class="balloon-tail"></div>
-                </div>
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <div class="section-header">
+                <h2 class="section-title">GET IN TOUCH</h2>
+                <p class="section-subtitle">Ready to bring the tropical vibes to your event?</p>
             </div>
-            
-            <div class="contact-terminal">
-                <div class="terminal-screen">
-                    <div class="terminal-header">
-                        <span>FIGHTER COMMUNICATION SYSTEM</span>
-                        <div class="terminal-status">
-                            <div class="status-light active"></div>
-                            <span>ONLINE</span>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-music"></i>
                         </div>
+                        <h4>Bookings</h4>
+                        <p>For club nights, festivals & private events</p>
+                        <a href="mailto:booking@djshou.com">booking@djshou.com</a>
                     </div>
                     
-                    <div class="contact-options">
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-info">
-                                <h4>BATTLE INVITATION</h4>
-                                <p>booking@djshou.com</p>
-                                <span class="method-type">BUSINESS FIGHTS</span>
-                            </div>
-                            <div class="method-power">⚡</div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
                         </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="method-info">
-                                <h4>MANAGER HOTLINE</h4>
-                                <p>+886 912-345-678</p>
-                                <span class="method-type">URGENT BATTLES</span>
-                            </div>
-                            <div class="method-power">🔥</div>
+                        <h4>Management</h4>
+                        <p>Business inquiries & partnerships</p>
+                        <a href="tel:+886912345678">+886 912-345-678</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
                         </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-headphones"></i>
-                            </div>
-                            <div class="method-info">
-                                <h4>BEAT SUBMISSION</h4>
-                                <p>demo@djshou.com</p>
-                                <span class="method-type">NEW WEAPONS</span>
-                            </div>
-                            <div class="method-power">💀</div>
-                        </div>
+                        <h4>Collaborations</h4>
+                        <p>Remixes, features & label inquiries</p>
+                        <a href="mailto:collab@djshou.com">collab@djshou.com</a>
                     </div>
                 </div>
                 
-                <div class="social-fighters">
-                    <h3>🔥 FOLLOW THE FIGHTER 🔥</h3>
-                    <div class="social-grid">
-                        <a href="#" class="social-fighter spotify">
-                            <i class="fab fa-spotify"></i>
-                            <span>SPOTIFY ARENA</span>
-                            <div class="fighter-effect"></div>
-                        </a>
-                        <a href="#" class="social-fighter soundcloud">
-                            <i class="fab fa-soundcloud"></i>
-                            <span>SOUNDCLOUD DOJO</span>
-                            <div class="fighter-effect"></div>
-                        </a>
-                        <a href="#" class="social-fighter instagram">
-                            <i class="fab fa-instagram"></i>
-                            <span>INSTAGRAM BATTLE</span>
-                            <div class="fighter-effect"></div>
-                        </a>
-                        <a href="#" class="social-fighter youtube">
-                            <i class="fab fa-youtube"></i>
-                            <span>YOUTUBE TOURNAMENT</span>
-                            <div class="fighter-effect"></div>
-                        </a>
-                        <a href="#" class="social-fighter tiktok">
-                            <i class="fab fa-tiktok"></i>
-                            <span>TIKTOK FIGHTS</span>
-                            <div class="fighter-effect"></div>
-                        </a>
-                    </div>
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> SEND MESSAGE
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="fighter-footer">
-        <div class="footer-arena">
-            <div class="footer-champion">
-                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="Champion Logo">
-                <div class="champion-aura"></div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo">
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-apple"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-soundcloud"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
             </div>
             <div class="footer-text">
-                <p>© 2024 DJ SHOU - BEAT FIGHTER CHAMPION | 音樂格鬥之王 👑</p>
-            </div>
-            <div class="footer-flames">
-                <div class="flame-element">🔥</div>
-                <div class="flame-element">⚡</div>
-                <div class="flame-element">💥</div>
-                <div class="flame-element">⚔️</div>
-                <div class="flame-element">🔥</div>
+                <p>&copy; 2024 DJ SHOU. All rights reserved.</p>
+                <p>Bringing tropical vibes to the world</p>
             </div>
         </div>
     </footer>
 
-    <script src="fighter-script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
