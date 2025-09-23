@@ -33,9 +33,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <video class="hero-video" autoplay muted loop>
-            <source src="https://cdn.coverr.co/videos/coverr-dj-mixing-music-7915/1080p.mp4" type="video/mp4">
-        </video>
+        <div class="hero-bg-animated dj-mix" id="heroBackground"></div>
         <div class="hero-overlay"></div>
         <div class="glitch-lines">
             <div class="glitch-line" style="top: 10%; animation-delay: 0s;"></div>
@@ -303,6 +301,25 @@
         </div>
     </section>
 
+    <!-- Background Switcher -->
+    <div class="bg-switcher">
+        <button class="bg-btn active" data-bg="dj-mix" data-tooltip="DJ Mixing">
+            <i class="fas fa-headphones"></i>
+        </button>
+        <button class="bg-btn" data-bg="techno-lights" data-tooltip="Techno Lights">
+            <i class="fas fa-stroopwafel"></i>
+        </button>
+        <button class="bg-btn" data-bg="club-crowd" data-tooltip="Club Crowd">
+            <i class="fas fa-users"></i>
+        </button>
+        <button class="bg-btn" data-bg="laser-show" data-tooltip="Laser Show">
+            <i class="fas fa-bolt"></i>
+        </button>
+        <button class="bg-btn" data-bg="vinyl-spin" data-tooltip="Vinyl Spinning">
+            <i class="fas fa-record-vinyl"></i>
+        </button>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -365,12 +382,48 @@
             }
         });
 
-        // Parallax effect for hero
+        // Background switcher functionality
+        const bgButtons = document.querySelectorAll('.bg-btn');
+        const heroBackground = document.getElementById('heroBackground');
+
+        bgButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                bgButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Remove all background classes
+                heroBackground.className = 'hero-bg-animated';
+                
+                // Add new background class
+                const bgClass = button.getAttribute('data-bg');
+                heroBackground.classList.add(bgClass);
+            });
+        });
+
+        // Auto-change background every 10 seconds
+        let currentBgIndex = 0;
+        const backgrounds = ['dj-mix', 'techno-lights', 'club-crowd', 'laser-show', 'vinyl-spin'];
+        
+        setInterval(() => {
+            currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
+            
+            // Update button states
+            bgButtons.forEach(btn => btn.classList.remove('active'));
+            bgButtons[currentBgIndex].classList.add('active');
+            
+            // Update background
+            heroBackground.className = 'hero-bg-animated';
+            heroBackground.classList.add(backgrounds[currentBgIndex]);
+        }, 10000);
+
+        // Parallax effect for hero background
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-video');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (heroBackground) {
+                heroBackground.style.transform = `translateY(${scrolled * 0.3}px)`;
             }
         });
     </script>
