@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shou Zhang - 個人履歷</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 導航列 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">Shou Zhang</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">首頁</a></li>
+                <li><a href="#about" class="nav-link">關於我</a></li>
+                <li><a href="#experience" class="nav-link">工作經歷</a></li>
+                <li><a href="#skills" class="nav-link">專業技能</a></li>
+                <li><a href="#projects" class="nav-link">專案作品</a></li>
+                <li><a href="#contact" class="nav-link">聯絡方式</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 首頁區塊 -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="profile-img">
+                <img src="https://via.placeholder.com/200" alt="Profile Photo">
+            </div>
+            <h1 class="hero-title">Hi, 我是 <span class="highlight">Shou Zhang</span></h1>
+            <p class="hero-subtitle">全端工程師 | DevOps 專家 | 系統架構師</p>
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:shouzhang@example.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <a href="#contact" class="btn btn-primary">聯絡我</a>
+            <a href="#" class="btn btn-secondary">下載履歷 PDF</a>
+        </div>
+    </section>
+
+    <!-- 關於我 -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">關於我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        我是一位充滿熱情的全端工程師，擁有超過 5 年的軟體開發經驗。
+                        專精於建構高效能、可擴展的網頁應用程式，並且對於新技術保持高度的學習熱忱。
+                    </p>
+                    <p>
+                        目前專注於雲端架構、DevOps 實踐和自動化流程的優化。
+                        擅長使用 Docker、Kubernetes、n8n 等工具來建立現代化的開發和部署流程。
+                    </p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>姓名：</strong> Shou Zhang
+                        </div>
+                        <div class="info-item">
+                            <strong>地點：</strong> 台灣
+                        </div>
+                        <div class="info-item">
+                            <strong>Email：</strong> shouzhang@example.com
+                        </div>
+                        <div class="info-item">
+                            <strong>狀態：</strong> 開放新機會
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作經歷 -->
+    <section id="experience" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">工作經歷</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2022 - 現在</div>
+                    <div class="timeline-content">
+                        <h3>資深全端工程師</h3>
+                        <h4>科技公司 A</h4>
+                        <ul>
+                            <li>負責設計和開發高流量的電商平台</li>
+                            <li>導入 CI/CD 流程，縮短部署時間 70%</li>
+                            <li>使用 n8n 建立自動化工作流程，提升團隊效率</li>
+                            <li>管理 Docker 容器化應用和 Kubernetes 集群</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - 2022</div>
+                    <div class="timeline-content">
+                        <h3>後端工程師</h3>
+                        <h4>新創公司 B</h4>
+                        <ul>
+                            <li>開發 RESTful API 和微服務架構</li>
+                            <li>優化資料庫查詢，提升系統效能 50%</li>
+                            <li>實施自動化測試，確保代碼品質</li>
+                            <li>參與敏捷開發流程和代碼審查</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2018 - 2020</div>
+                    <div class="timeline-content">
+                        <h3>前端工程師</h3>
+                        <h4>數位代理商 C</h4>
+                        <ul>
+                            <li>使用 React 和 Vue.js 開發響應式網站</li>
+                            <li>與設計團隊合作實現 UI/UX 設計</li>
+                            <li>優化網站載入速度和 SEO</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 專業技能 -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">專業技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> 程式語言</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Bash</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code"></i> 前端技術</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> 後端技術</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> DevOps & 工具</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">n8n</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Nginx</span>
+                        <span class="skill-tag">AWS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 專案作品 -->
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">專案作品</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 1">
+                    </div>
+                    <div class="project-content">
+                        <h3>匯率監控系統</h3>
+                        <p>使用 n8n 和 Slack 整合的即時匯率監控系統，自動追蹤多種貨幣並發送通知。</p>
+                        <div class="project-tags">
+                            <span class="tag">n8n</span>
+                            <span class="tag">API Integration</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn-small">查看專案</a>
+                            <a href="#" class="btn-small">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 2">
+                    </div>
+                    <div class="project-content">
+                        <h3>電商平台</h3>
+                        <p>全功能的電商網站，包含產品管理、購物車、訂單處理和支付整合。</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn-small">查看專案</a>
+                            <a href="#" class="btn-small">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 3">
+                    </div>
+                    <div class="project-content">
+                        <h3>DevOps 自動化</h3>
+                        <p>建立完整的 CI/CD 管道，實現自動化測試、建置和部署流程。</p>
+                        <div class="project-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">GitHub Actions</span>
+                            <span class="tag">Kubernetes</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn-small">查看專案</a>
+                            <a href="#" class="btn-small">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯絡方式 -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">聯絡方式</h2>
+            <div class="contact-content">
+                <p class="contact-text">如果您有任何合作機會或想要討論專案，歡迎隨時與我聯繫！</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>shouzhang@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>電話</h4>
+                            <p>+886 912 345 678</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>地點</h4>
+                            <p>台灣, 台北</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="您的 Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="訊息內容" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">發送訊息</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Shou Zhang. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
