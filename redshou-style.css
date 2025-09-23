@@ -64,13 +64,13 @@ body {
 
 /* Logo Styles */
 .nav-logo, .footer-logo {
-    height: 40px;
+    height: 50px;
     width: auto;
-    margin-right: 15px;
+    margin: 0;
     vertical-align: middle;
     filter: brightness(1.5) contrast(1.2);
     transition: var(--transition);
-    display: inline-block;
+    display: block;
 }
 
 .nav-logo:hover, .footer-logo:hover {
@@ -98,12 +98,7 @@ body {
 .nav-brand {
     display: flex;
     align-items: center;
-    font-size: 36px;
-    font-weight: 900;
-    color: var(--red-primary);
-    letter-spacing: 3px;
-    text-shadow: var(--text-shadow);
-    animation: pulse 2s infinite;
+    justify-content: center;
 }
 
 @keyframes pulse {
@@ -891,10 +886,7 @@ body {
 .footer-brand {
     display: flex;
     align-items: center;
-    font-size: 36px;
-    font-weight: 900;
-    color: var(--red-primary);
-    letter-spacing: 3px;
+    justify-content: center;
 }
 
 .footer-social {
