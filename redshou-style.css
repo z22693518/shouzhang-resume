@@ -64,17 +64,21 @@ body {
 
 /* Logo Styles */
 .nav-logo, .footer-logo {
-    height: 30px;
+    height: 40px;
     width: auto;
-    margin-right: 10px;
+    margin-right: 15px;
     vertical-align: middle;
-    filter: brightness(1.2) contrast(1.1);
+    filter: brightness(1.5) contrast(1.2);
     transition: var(--transition);
+    display: inline-block;
 }
 
 .nav-logo:hover, .footer-logo:hover {
-    filter: brightness(1.5) drop-shadow(0 0 10px var(--red-glow));
+    filter: brightness(2) drop-shadow(0 0 15px var(--red-glow));
+    transform: scale(1.05);
 }
+
+/* Brand styling will be handled by individual selectors */
 
 .navbar.scrolled {
     background: rgba(0, 0, 0, 0.95);
@@ -92,6 +96,8 @@ body {
 }
 
 .nav-brand {
+    display: flex;
+    align-items: center;
     font-size: 36px;
     font-weight: 900;
     color: var(--red-primary);
@@ -883,6 +889,8 @@ body {
 }
 
 .footer-brand {
+    display: flex;
+    align-items: center;
     font-size: 36px;
     font-weight: 900;
     color: var(--red-primary);
