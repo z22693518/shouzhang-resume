@@ -233,6 +233,48 @@ body {
     padding: 0 60px;
 }
 
+/* Hero Profile Image */
+.hero-profile {
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+.hero-profile-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid var(--red-primary);
+    box-shadow: 
+        0 0 30px rgba(255, 0, 64, 0.5),
+        0 0 60px rgba(255, 0, 64, 0.3),
+        inset 0 0 30px rgba(255, 0, 64, 0.1);
+    object-fit: cover;
+    filter: contrast(1.1) brightness(1.1);
+    transition: var(--transition);
+    animation: profileGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes profileGlow {
+    from {
+        box-shadow: 
+            0 0 30px rgba(255, 0, 64, 0.5),
+            0 0 60px rgba(255, 0, 64, 0.3),
+            inset 0 0 30px rgba(255, 0, 64, 0.1);
+    }
+    to {
+        box-shadow: 
+            0 0 40px rgba(255, 0, 64, 0.7),
+            0 0 80px rgba(255, 0, 64, 0.4),
+            inset 0 0 40px rgba(255, 0, 64, 0.2);
+    }
+}
+
+.hero-profile-img:hover {
+    transform: scale(1.05);
+    filter: contrast(1.2) brightness(1.2);
+}
+
 .hero-title {
     font-size: clamp(100px, 15vw, 200px);
     font-weight: 900;
