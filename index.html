@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DJ Shou Zhang - 電子音樂製作人 & 表演藝術家</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="modern-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -26,20 +29,25 @@
     <!-- 首頁區塊 -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="profile-img">
-                <img src="https://via.placeholder.com/200" alt="DJ Shou Zhang">
+            <div class="hero-text">
+                <h1 class="hero-title">DJ <span class="highlight">SHOU ZHANG</span></h1>
+                <p class="hero-subtitle">Electronic Music Producer | Techno & House DJ | Live Performer</p>
+                <p class="hero-description">從地下派對到國際音樂節，用音樂創造獨特的聲音景觀，帶領舞池進入忘我的音樂之旅。</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-soundcloud"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-spotify"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-mixcloud"></i></a>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">預約演出</a>
+                    <a href="#releases" class="btn btn-secondary">聆聽作品</a>
+                </div>
             </div>
-            <h1 class="hero-title">DJ <span class="highlight">SHOU ZHANG</span></h1>
-            <p class="hero-subtitle">Electronic Music Producer | Techno & House DJ | Live Performer</p>
-            <div class="social-links">
-                <a href="#" target="_blank"><i class="fab fa-soundcloud"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-spotify"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-mixcloud"></i></a>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?ixlib=rb-4.0.3" alt="DJ Shou Zhang">
             </div>
-            <a href="#contact" class="btn btn-primary">預約演出</a>
-            <a href="#" class="btn btn-secondary">聆聽最新 Mix</a>
         </div>
     </section>
 
@@ -47,19 +55,24 @@
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">關於 DJ Shou Zhang</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>擁有超過 10 年的 DJ 經驗，專精於 Techno、House 和 Progressive House 音樂風格。從地下派對到大型音樂節，我的音樂旅程橫跨亞洲各大城市的知名夜店和音樂場館。</p>
-                    <p>我的混音風格融合了深沉的低音線、迷幻的合成器音色和動感的節奏，創造出獨特的聲音景觀，帶領舞池進入忘我的音樂之旅。除了 DJ 演出，我也是一名音樂製作人，已在多個知名廠牌發行原創作品。</p>
-                    <p>音樂對我來說不只是節奏和旋律，更是一種情感的表達和能量的傳遞。每一場演出都是一次獨特的體驗，透過音樂與舞池產生深層的連結。</p>
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1598387993441-a364f854c3e1?ixlib=rb-4.0.3" alt="DJ Setup">
                 </div>
-                <div class="info-grid">
-                    <div class="info-item"><strong>藝名：</strong>DJ Shou Zhang</div>
-                    <div class="info-item"><strong>活躍年份：</strong>2014 - 至今</div>
-                    <div class="info-item"><strong>音樂風格：</strong>Techno / House / Progressive</div>
-                    <div class="info-item"><strong>駐場：</strong>台北 OMNI Nightclub</div>
-                    <div class="info-item"><strong>廠牌：</strong>Underground Asia Records</div>
-                    <div class="info-item"><strong>設備：</strong>Pioneer CDJ-3000 / DJM-900NXS2</div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>擁有超過 10 年的 DJ 經驗，專精於 Techno、House 和 Progressive House 音樂風格。從地下派對到大型音樂節，我的音樂旅程橫跨亞洲各大城市的知名夜店和音樂場館。</p>
+                        <p>我的混音風格融合了深沉的低音線、迷幻的合成器音色和動感的節奏，創造出獨特的聲音景觀，帶領舞池進入忘我的音樂之旅。除了 DJ 演出，我也是一名音樂製作人，已在多個知名廠牌發行原創作品。</p>
+                        <p>音樂對我來說不只是節奏和旋律，更是一種情感的表達和能量的傳遞。每一場演出都是一次獨特的體驗，透過音樂與舞池產生深層的連結。</p>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item"><strong>藝名</strong>DJ Shou Zhang</div>
+                        <div class="info-item"><strong>活躍年份</strong>2014 - 至今</div>
+                        <div class="info-item"><strong>音樂風格</strong>Techno / House / Progressive</div>
+                        <div class="info-item"><strong>駐場</strong>台北 OMNI Nightclub</div>
+                        <div class="info-item"><strong>廠牌</strong>Underground Asia Records</div>
+                        <div class="info-item"><strong>設備</strong>Pioneer CDJ-3000 / DJM-900NXS2</div>
+                    </div>
                 </div>
             </div>
         </div>
