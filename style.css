@@ -1890,8 +1890,8 @@ section {
 }
 
 .experience-item.with-photo .item-photo {
-    width: 140px;
-    height: 105px;
+    width: 200px;
+    height: 150px;
     border-radius: 6px;
     overflow: hidden;
     border: 1px solid var(--blood-red);
