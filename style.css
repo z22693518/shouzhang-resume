@@ -1796,6 +1796,55 @@ section {
     align-items: start;
 }
 
+/* International Section with Photo */
+.international-section .international-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.international-photo {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--blood-red);
+    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.international-photo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.5);
+}
+
+.international-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: var(--white);
+    padding: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .international-section .international-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
 .experience-left,
 .experience-right {
     display: flex;
