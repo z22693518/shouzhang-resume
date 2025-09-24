@@ -3,170 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ SHOU - Professional Electronic Music Producer</title>
+    <title>DJ SHOU - Dark Electronic Music Producer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="gothic-loader" id="gothicLoader">
+        <div class="loader-content">
+            <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo" class="loader-logo">
+            <div class="loader-text">ENTERING THE DARK REALM</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo" class="logo-img">
-                <span class="logo-text">DJ SHOU</span>
+            <div class="nav-brand">
+                <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo" class="nav-logo">
             </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#music" class="nav-link">Music</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#events" class="nav-link">Events</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">HOME</a></li>
+                <li><a href="#about" class="nav-link">ABOUT</a></li>
+                <li><a href="#music" class="nav-link">MUSIC</a></li>
+                <li><a href="#events" class="nav-link">EVENTS</a></li>
+                <li><a href="#gallery" class="nav-link">GALLERY</a></li>
+                <li><a href="#contact" class="nav-link">CONTACT</a></li>
             </ul>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="geometric-overlay">
-                <div class="geometric-shape shape-1"></div>
-                <div class="geometric-shape shape-2"></div>
-                <div class="geometric-shape shape-3"></div>
-                <div class="geometric-shape shape-4"></div>
-            </div>
+        <div class="gothic-background">
+            <div class="marble-texture"></div>
+            <div class="metal-overlay"></div>
+            <div class="shadow-effects"></div>
         </div>
+        <div class="gothic-particles" id="gothicParticles"></div>
         <div class="hero-content">
-            <div class="hero-badge">
-                <span>Professional DJ & Producer</span>
+            <div class="hero-image">
+                <img src="https://i.ibb.co/7JLgjp8N/IMG-9559-removebg-preview.png" alt="DJ SHOU" class="dj-portrait">
+                <div class="gothic-frame"></div>
             </div>
             <h1 class="hero-title">
-                <span class="title-line-1">DJ SHOU</span>
-                <span class="title-line-2">ELECTRONIC MUSIC MASTERY</span>
+                <span class="title-main">DJ SHOU</span>
             </h1>
+            <p class="hero-subtitle">DARK ELECTRONIC • INDUSTRIAL • GOTHIC</p>
             <p class="hero-description">
-                Elevating events with premium electronic music experiences. 
-                Specializing in corporate events, luxury venues, and exclusive private parties.
+                Descend into the shadows of electronic music where darkness meets rhythm, 
+                and every beat resonates with the essence of the underground.
             </p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">Events</div>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Years</div>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Cities</div>
-                </div>
-            </div>
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">
-                    <span>Book Now</span>
-                    <i class="fas fa-arrow-right"></i>
+                <a href="#music" class="btn-gothic btn-primary">
+                    <i class="fas fa-play"></i> ENTER THE DARKNESS
                 </a>
-                <a href="#music" class="btn-secondary">
-                    <i class="fas fa-play"></i>
-                    <span>Listen</span>
-                </a>
+                <a href="#events" class="btn-gothic btn-secondary">UPCOMING RITUALS</a>
             </div>
         </div>
-        <div class="hero-image">
-            <div class="image-container">
-                <img src="https://i.ibb.co/7JLgjp8N/IMG-9559-removebg-preview.png" alt="DJ SHOU Professional" class="dj-image">
-                <div class="image-glow"></div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about-section">
-        <div class="container">
+        <div class="section-container">
             <div class="section-header">
-                <div class="section-badge">About</div>
-                <h2 class="section-title">Professional Excellence</h2>
-                <p class="section-subtitle">
-                    With over 15 years of experience in the electronic music industry, DJ SHOU delivers 
-                    unparalleled musical experiences for discerning clients worldwide.
-                </p>
+                <h2 class="section-title">THE DARK ARTIST</h2>
+                <p class="section-subtitle">Born from shadows, forged in darkness</p>
             </div>
             <div class="about-content">
-                <div class="about-grid">
-                    <div class="about-text">
-                        <h3>Musical Expertise</h3>
-                        <p>Specializing in sophisticated electronic music curation for high-end events. From intimate corporate gatherings to large-scale luxury celebrations, every performance is meticulously crafted to match the venue's atmosphere and client's vision.</p>
+                <div class="about-text">
+                    <div class="gothic-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>In the depths of electronic darkness, I craft soundscapes that awaken the soul's deepest resonance. Each track is a journey through the shadowed corridors of industrial beats and gothic melodies.</p>
+                    </div>
+                    <div class="about-story">
+                        <h3>The Journey</h3>
+                        <p>From the underground clubs of Taipei to the industrial warehouses across Asia, DJ SHOU has become synonymous with dark electronic music. Specializing in industrial techno, gothic house, and darkwave, my sets transport listeners into ethereal realms where light and shadow dance in perfect harmony.</p>
                         
-                        <div class="expertise-list">
-                            <div class="expertise-item">
-                                <i class="fas fa-check"></i>
-                                <span>Corporate Event Specialist</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-check"></i>
-                                <span>Luxury Venue Expert</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-check"></i>
-                                <span>International Experience</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-check"></i>
-                                <span>Custom Music Curation</span>
-                            </div>
-                        </div>
+                        <p>With over a decade of experience crafting atmospheric soundscapes, I've performed at underground venues, gothic festivals, and alternative music events, building a loyal following among those who seek music that speaks to their darker nature.</p>
                     </div>
-                    <div class="about-achievements">
-                        <div class="achievement-grid">
-                            <div class="achievement-card">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="achievement-content">
-                                    <h4>Award Winning</h4>
-                                    <p>DJ of the Year 2023</p>
-                                </div>
-                            </div>
-                            <div class="achievement-card">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="achievement-content">
-                                    <h4>5-Star Rating</h4>
-                                    <p>Client Satisfaction</p>
-                                </div>
-                            </div>
-                            <div class="achievement-card">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <div class="achievement-content">
-                                    <h4>Global Reach</h4>
-                                    <p>50+ Countries</p>
-                                </div>
-                            </div>
-                            <div class="achievement-card">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-headphones"></i>
-                                </div>
-                                <div class="achievement-content">
-                                    <h4>Premium Quality</h4>
-                                    <p>Professional Equipment</p>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://i.ibb.co/7JLgjp8N/IMG-9559-removebg-preview.png" alt="DJ SHOU Performance" class="about-portrait">
+                    <div class="image-effects">
+                        <div class="gothic-border"></div>
+                        <div class="shadow-glow"></div>
                     </div>
+                </div>
+            </div>
+            <div class="dark-stats">
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Dark Rituals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15M+</div>
+                    <div class="stat-label">Soul Connections</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Underground Venues</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Years in Shadows</div>
                 </div>
             </div>
         </div>
@@ -174,150 +128,62 @@
 
     <!-- Music Section -->
     <section id="music" class="music-section">
-        <div class="container">
+        <div class="section-container">
             <div class="section-header">
-                <div class="section-badge">Portfolio</div>
-                <h2 class="section-title">Latest Productions</h2>
-                <p class="section-subtitle">Explore a selection of professionally crafted electronic music sets and original productions.</p>
+                <h2 class="section-title">DARK COMPOSITIONS</h2>
+                <p class="section-subtitle">Explore the depths of electronic darkness</p>
             </div>
-            <div class="music-grid">
-                <div class="music-card featured">
-                    <div class="music-image">
-                        <img src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=500" alt="Featured Track">
+            <div class="music-content">
+                <div class="featured-album">
+                    <div class="album-cover">
+                        <img src="https://images.unsplash.com/photo-1571266028243-d220c6a43ce2?w=500" alt="Latest Album">
                         <div class="play-overlay">
-                            <button class="play-button">
+                            <button class="play-btn-large">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="music-info">
-                        <div class="music-meta">
-                            <span class="music-category">Featured Mix</span>
-                            <span class="music-duration">58:42</span>
-                        </div>
-                        <h3 class="music-title">Corporate Elite Sessions Vol. 3</h3>
-                        <p class="music-description">A sophisticated blend of deep house and ambient electronic music, perfect for high-end corporate events and luxury venues.</p>
-                        <div class="music-stats">
-                            <span><i class="fas fa-play"></i> 125K plays</span>
-                            <span><i class="fas fa-heart"></i> 2.8K likes</span>
+                    <div class="album-info">
+                        <h3>SHADOW RESONANCE</h3>
+                        <p class="album-genre">Dark Electronic • Industrial</p>
+                        <p class="album-description">
+                            A journey through the darkest corners of electronic music, where industrial beats meet gothic atmospheres in perfect harmony.
+                        </p>
+                        <div class="album-tracks">
+                            <div class="track-preview">
+                                <span class="track-number">01</span>
+                                <span class="track-name">Descent Into Darkness</span>
+                                <span class="track-duration">6:42</span>
+                            </div>
+                            <div class="track-preview">
+                                <span class="track-number">02</span>
+                                <span class="track-name">Industrial Sanctum</span>
+                                <span class="track-duration">7:18</span>
+                            </div>
+                            <div class="track-preview">
+                                <span class="track-number">03</span>
+                                <span class="track-name">Gothic Resonance</span>
+                                <span class="track-duration">8:24</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="music-card">
-                    <div class="music-image">
-                        <img src="https://images.unsplash.com/photo-1618609378039-b572f64c5b42?w=300" alt="Track">
-                        <div class="play-overlay">
-                            <button class="play-button">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
+                <div class="music-genres">
+                    <div class="genre-card">
+                        <i class="fas fa-skull"></i>
+                        <h4>Industrial Techno</h4>
+                        <p>Heavy mechanical beats with dark atmospheric layers</p>
                     </div>
-                    <div class="music-info">
-                        <div class="music-meta">
-                            <span class="music-category">Original</span>
-                            <span class="music-duration">6:15</span>
-                        </div>
-                        <h3 class="music-title">Golden Hours</h3>
-                        <p class="music-description">An uplifting progressive house track.</p>
+                    <div class="genre-card">
+                        <i class="fas fa-moon"></i>
+                        <h4>Gothic House</h4>
+                        <p>Ethereal melodies wrapped in shadows and mystery</p>
                     </div>
-                </div>
-
-                <div class="music-card">
-                    <div class="music-image">
-                        <img src="https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=300" alt="Track">
-                        <div class="play-overlay">
-                            <button class="play-button">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
+                    <div class="genre-card">
+                        <i class="fas fa-ghost"></i>
+                        <h4>Darkwave</h4>
+                        <p>Synthesized darkness with haunting progressions</p>
                     </div>
-                    <div class="music-info">
-                        <div class="music-meta">
-                            <span class="music-category">Remix</span>
-                            <span class="music-duration">7:32</span>
-                        </div>
-                        <h3 class="music-title">Midnight Elegance</h3>
-                        <p class="music-description">Sophisticated deep house remix.</p>
-                    </div>
-                </div>
-
-                <div class="music-card">
-                    <div class="music-image">
-                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300" alt="Track">
-                        <div class="play-overlay">
-                            <button class="play-button">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="music-info">
-                        <div class="music-meta">
-                            <span class="music-category">Live Set</span>
-                            <span class="music-duration">45:18</span>
-                        </div>
-                        <h3 class="music-title">Executive Lounge Sessions</h3>
-                        <p class="music-description">Exclusive live performance recording.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">Services</div>
-                <h2 class="section-title">Professional DJ Services</h2>
-                <p class="section-subtitle">Comprehensive entertainment solutions for every occasion.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3 class="service-title">Corporate Events</h3>
-                    <p class="service-description">Professional DJ services for corporate functions, product launches, and business celebrations.</p>
-                    <ul class="service-features">
-                        <li>Background music curation</li>
-                        <li>Wireless microphone systems</li>
-                        <li>Professional sound equipment</li>
-                        <li>Event coordination</li>
-                    </ul>
-                    <div class="service-price">From $2,500</div>
-                </div>
-
-                <div class="service-card featured">
-                    <div class="service-badge">Most Popular</div>
-                    <div class="service-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3 class="service-title">Luxury Weddings</h3>
-                    <p class="service-description">Elegant musical experiences for sophisticated wedding celebrations and receptions.</p>
-                    <ul class="service-features">
-                        <li>Ceremony & reception music</li>
-                        <li>Custom playlist creation</li>
-                        <li>Premium sound systems</li>
-                        <li>Lighting coordination</li>
-                        <li>Master of ceremonies</li>
-                    </ul>
-                    <div class="service-price">From $4,500</div>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-champagne-glasses"></i>
-                    </div>
-                    <h3 class="service-title">Private Parties</h3>
-                    <p class="service-description">Exclusive entertainment for intimate gatherings and private celebrations.</p>
-                    <ul class="service-features">
-                        <li>Personalized music selection</li>
-                        <li>Intimate sound setup</li>
-                        <li>Guest request handling</li>
-                        <li>Atmosphere management</li>
-                    </ul>
-                    <div class="service-price">From $1,800</div>
                 </div>
             </div>
         </div>
@@ -325,88 +191,117 @@
 
     <!-- Events Section -->
     <section id="events" class="events-section">
-        <div class="container">
+        <div class="section-container">
             <div class="section-header">
-                <div class="section-badge">Schedule</div>
-                <h2 class="section-title">Upcoming Events</h2>
-                <p class="section-subtitle">Professional performances at premium venues worldwide.</p>
+                <h2 class="section-title">DARK RITUALS</h2>
+                <p class="section-subtitle">Join me in the shadows</p>
             </div>
             <div class="events-timeline">
-                <div class="event-item">
+                <div class="event-card">
                     <div class="event-date">
-                        <div class="date-day">28</div>
+                        <div class="date-day">31</div>
                         <div class="date-month">DEC</div>
                         <div class="date-year">2024</div>
                     </div>
-                    <div class="event-content">
-                        <div class="event-badge">Corporate Gala</div>
-                        <h3 class="event-title">New Year Corporate Celebration</h3>
-                        <div class="event-details">
-                            <div class="event-venue">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Grand Hyatt Taipei</span>
-                            </div>
-                            <div class="event-time">
-                                <i class="fas fa-clock"></i>
-                                <span>7:00 PM - 12:00 AM</span>
-                            </div>
+                    <div class="event-info">
+                        <h3>MIDNIGHT DESCENT</h3>
+                        <p class="event-venue">Underground Warehouse</p>
+                        <p class="event-location">Taipei, Taiwan</p>
+                        <div class="event-tags">
+                            <span class="tag">Industrial</span>
+                            <span class="tag">18+</span>
                         </div>
-                        <p class="event-description">Exclusive corporate new year celebration featuring sophisticated electronic music and premium entertainment.</p>
                     </div>
-                    <div class="event-status">
-                        <span class="status-label private">Private Event</span>
-                    </div>
+                    <div class="event-status available">AVAILABLE</div>
                 </div>
 
-                <div class="event-item">
+                <div class="event-card">
                     <div class="event-date">
                         <div class="date-day">15</div>
                         <div class="date-month">JAN</div>
                         <div class="date-year">2025</div>
                     </div>
-                    <div class="event-content">
-                        <div class="event-badge">Wedding Reception</div>
-                        <h3 class="event-title">Luxury Wedding Reception</h3>
-                        <div class="event-details">
-                            <div class="event-venue">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>The Ritz-Carlton, Singapore</span>
-                            </div>
-                            <div class="event-time">
-                                <i class="fas fa-clock"></i>
-                                <span>6:00 PM - 11:00 PM</span>
-                            </div>
+                    <div class="event-info">
+                        <h3>GOTHIC SANCTUARY</h3>
+                        <p class="event-venue">Dark Cathedral</p>
+                        <p class="event-location">Seoul, Korea</p>
+                        <div class="event-tags">
+                            <span class="tag">Gothic</span>
+                            <span class="tag">Exclusive</span>
                         </div>
-                        <p class="event-description">Elegant wedding reception with carefully curated music for an unforgettable celebration.</p>
                     </div>
-                    <div class="event-status">
-                        <span class="status-label private">Private Event</span>
-                    </div>
+                    <div class="event-status available">AVAILABLE</div>
                 </div>
 
-                <div class="event-item">
+                <div class="event-card">
                     <div class="event-date">
-                        <div class="date-day">08</div>
+                        <div class="date-day">28</div>
                         <div class="date-month">FEB</div>
                         <div class="date-year">2025</div>
                     </div>
-                    <div class="event-content">
-                        <div class="event-badge">Product Launch</div>
-                        <h3 class="event-title">Tech Innovation Summit</h3>
-                        <div class="event-details">
-                            <div class="event-venue">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Four Seasons Tokyo</span>
-                            </div>
-                            <div class="event-time">
-                                <i class="fas fa-clock"></i>
-                                <span>5:00 PM - 10:00 PM</span>
-                            </div>
+                    <div class="event-info">
+                        <h3>INDUSTRIAL UPRISING</h3>
+                        <p class="event-venue">Factory Complex</p>
+                        <p class="event-location">Bangkok, Thailand</p>
+                        <div class="event-tags">
+                            <span class="tag">Industrial</span>
+                            <span class="tag">Limited</span>
                         </div>
-                        <p class="event-description">Premium entertainment for a high-profile technology product launch event.</p>
                     </div>
-                    <div class="event-status">
-                        <span class="status-label available">Inquire</span>
+                    <div class="event-status sold-out">SOLD OUT</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">VISUAL DARKNESS</h2>
+                <p class="section-subtitle">Moments captured in shadow</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571266028243-d220c6a43ce2?w=400" alt="Performance 1">
+                    <div class="gallery-overlay">
+                        <h4>Underground Ritual</h4>
+                        <p>Taipei Warehouse</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1598387993441-a364f854c3e1?w=400" alt="Performance 2">
+                    <div class="gallery-overlay">
+                        <h4>Gothic Cathedral</h4>
+                        <p>Seoul Performance</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=400" alt="Performance 3">
+                    <div class="gallery-overlay">
+                        <h4>Industrial Complex</h4>
+                        <p>Bangkok Event</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1549046675-dd779977de88?w=400" alt="Performance 4">
+                    <div class="gallery-overlay">
+                        <h4>Dark Festival</h4>
+                        <p>Alternative Music</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?w=400" alt="Performance 5">
+                    <div class="gallery-overlay">
+                        <h4>Midnight Session</h4>
+                        <p>Underground Club</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400" alt="Performance 6">
+                    <div class="gallery-overlay">
+                        <h4>Shadow Dance</h4>
+                        <p>Dark Electronic</p>
                     </div>
                 </div>
             </div>
@@ -415,94 +310,54 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
-        <div class="container">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">SUMMON THE DARKNESS</h2>
+                <p class="section-subtitle">Connect with the shadows</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="section-header">
-                        <div class="section-badge">Contact</div>
-                        <h2 class="section-title">Let's Create Something Extraordinary</h2>
-                        <p class="section-subtitle">Ready to elevate your event with professional DJ services? Get in touch for a personalized consultation.</p>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>BOOKINGS</h4>
+                        <p><a href="mailto:booking@djshou.dark">booking@djshou.dark</a></p>
                     </div>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Phone</h4>
-                                <p>+886 912-345-678</p>
-                                <span>Mon-Fri 9AM-6PM</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Email</h4>
-                                <p>booking@djshou.com</p>
-                                <span>24h response time</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-calendar"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Consultation</h4>
-                                <p>Schedule a meeting</p>
-                                <span>Free initial consultation</span>
-                            </div>
-                        </div>
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h4>MANAGEMENT</h4>
+                        <p><a href="tel:+886912345678">+886 912-345-678</a></p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-music"></i>
+                        <h4>COLLABORATIONS</h4>
+                        <p><a href="mailto:collab@djshou.dark">collab@djshou.dark</a></p>
                     </div>
                 </div>
-                
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contact-form">
+                <div class="contact-form">
+                    <form class="gothic-form">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
+                            <label for="name">NAME</label>
                             <input type="text" id="name" name="name" required>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="event-type">Event Type</label>
-                                <select id="event-type" name="event-type" required>
-                                    <option value="">Select Event Type</option>
-                                    <option value="corporate">Corporate Event</option>
-                                    <option value="wedding">Wedding</option>
-                                    <option value="private">Private Party</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-date">Event Date</label>
-                                <input type="date" id="event-date" name="event-date">
-                            </div>
-                        </div>
-                        
                         <div class="form-group">
-                            <label for="message">Event Details</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Tell us about your event, venue, expected guests, and any specific requirements..."></textarea>
+                            <label for="email">EMAIL</label>
+                            <input type="email" id="email" name="email" required>
                         </div>
-                        
-                        <button type="submit" class="btn-submit">
-                            <span>Send Inquiry</span>
-                            <i class="fas fa-paper-plane"></i>
+                        <div class="form-group">
+                            <label for="event-type">EVENT TYPE</label>
+                            <select id="event-type" name="event-type">
+                                <option value="club">Underground Club</option>
+                                <option value="festival">Gothic Festival</option>
+                                <option value="private">Private Ritual</option>
+                                <option value="collaboration">Music Collaboration</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">MESSAGE</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-gothic btn-submit">
+                            <i class="fas fa-paper-plane"></i> SEND INTO THE VOID
                         </button>
                     </form>
                 </div>
@@ -512,50 +367,34 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="section-container">
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" alt="DJ SHOU Logo" class="footer-logo">
-                    <span class="footer-brand-text">DJ SHOU</span>
-                    <p class="footer-tagline">Professional Electronic Music Excellence</p>
+                    <p>Where darkness meets rhythm, and shadows dance with sound.</p>
                 </div>
-                
                 <div class="footer-links">
-                    <div class="footer-section">
-                        <h4>Services</h4>
-                        <ul>
-                            <li><a href="#services">Corporate Events</a></li>
-                            <li><a href="#services">Luxury Weddings</a></li>
-                            <li><a href="#services">Private Parties</a></li>
-                            <li><a href="#music">Music Production</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#events">Events</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li><a href="#">Press Kit</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4>Follow</h4>
-                        <div class="social-links">
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-soundcloud"></i></a>
-                        </div>
+                    <h4>QUICK LINKS</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#music">Music</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>FOLLOW THE DARKNESS</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-soundcloud"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-mixcloud"></i></a>
                     </div>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 DJ SHOU. All rights reserved. Professional DJ Services Worldwide.</p>
+                <p>&copy; 2024 DJ SHOU. All rights reserved. | Crafted in the shadows of electronic darkness.</p>
             </div>
         </div>
     </footer>
