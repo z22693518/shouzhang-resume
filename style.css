@@ -1778,6 +1778,98 @@ section {
     text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
 }
 
+/* Experience Columns Layout */
+.experience-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.experience-left,
+.experience-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Simplified Experience Items */
+.experience-item {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(192, 192, 192, 0.05));
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    padding: 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.experience-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--metal-silver);
+    box-shadow: var(--shadow-glow);
+}
+
+.experience-item.featured {
+    border-color: var(--gothic-gold);
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1), rgba(192, 192, 192, 0.05));
+}
+
+.experience-item.cultural {
+    border-color: var(--crimson);
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(192, 192, 192, 0.05));
+}
+
+.event-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.venue-info {
+    font-size: 0.9rem;
+    color: var(--gothic-gold);
+    font-weight: 600;
+}
+
+/* Venue Categories - Simplified */
+.venue-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.venue-category h5 {
+    font-size: 1rem;
+    color: var(--metal-silver);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.venue-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.venue-list .venue-item {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(192, 192, 192, 0.05));
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 6px;
+    color: var(--white);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.venue-list .venue-item:hover {
+    transform: translateY(-1px);
+    border-color: var(--metal-silver);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+}
+
 .music-philosophy {
     margin-bottom: 0;
 }
@@ -2034,8 +2126,9 @@ section {
         font-size: 1.1rem;
     }
     
-    .venue-grid {
+    .experience-columns {
         grid-template-columns: 1fr;
+        gap: 3rem;
     }
     
     .experience-title {
