@@ -1878,6 +1878,42 @@ section {
     background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(192, 192, 192, 0.05));
 }
 
+/* Experience Items with Photos */
+.experience-item.with-photo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.experience-item.with-photo .item-content {
+    flex: 1;
+}
+
+.experience-item.with-photo .item-photo {
+    width: 80px;
+    height: 60px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--blood-red);
+    transition: all 0.3s ease;
+}
+
+.experience-item.with-photo .item-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.experience-item.with-photo:hover .item-photo {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+}
+
+.experience-item.with-photo:hover .item-photo img {
+    transform: scale(1.1);
+}
+
 .event-name {
     font-size: 1rem;
     font-weight: bold;
