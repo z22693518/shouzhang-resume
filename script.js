@@ -179,13 +179,13 @@ document.querySelectorAll('.event-card').forEach(card => {
     });
 });
 
-// Gallery item interactions
-document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', function() {
-        const title = this.querySelector('h4').textContent;
-        showGothicNotification(`Viewing: ${title} - Captured in shadow`, 'info');
-    });
-});
+// Gallery item interactions (disabled)
+// document.querySelectorAll('.gallery-item').forEach(item => {
+//     item.addEventListener('click', function() {
+//         const title = this.querySelector('h4').textContent;
+//         showGothicNotification(`Viewing: ${title} - Captured in shadow`, 'info');
+//     });
+// });
 
 // Contact form handling
 const contactForm = document.querySelector('.gothic-form');
