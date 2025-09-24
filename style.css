@@ -1753,12 +1753,22 @@ section {
     text-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
 }
 
-.intro-paragraph {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: var(--light-gray);
+.intro-story {
     max-width: 1000px;
     margin: 0 auto;
+}
+
+.intro-paragraph {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--light-gray);
+    margin-bottom: 1.5rem;
+    text-align: left;
+    text-indent: 2em;
+}
+
+.intro-paragraph:last-child {
+    margin-bottom: 0;
 }
 
 .intro-paragraph strong {
