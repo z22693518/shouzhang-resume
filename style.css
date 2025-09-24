@@ -575,15 +575,34 @@ section {
 }
 
 .about-portrait {
-    width: 400px;
-    height: 500px;
-    object-fit: cover;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
     filter: grayscale(30%) contrast(1.3);
     transition: all 0.5s ease;
+    display: block;
 }
 
 .about-portrait:hover {
     filter: grayscale(0%) contrast(1.5);
+}
+
+.about-logo {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.about-logo-img {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.5));
+    transition: all 0.3s ease;
+}
+
+.about-logo-img:hover {
+    filter: drop-shadow(0 0 30px rgba(139, 0, 0, 0.8));
+    transform: scale(1.05);
 }
 
 .image-effects {
