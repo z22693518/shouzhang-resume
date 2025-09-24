@@ -61,18 +61,9 @@ body {
 .loader-logo {
     width: 120px;
     height: auto;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     filter: drop-shadow(var(--shadow-glow));
     animation: gothicPulse 2s ease-in-out infinite;
-}
-
-.loader-text {
-    font-family: var(--font-gothic);
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    margin-bottom: 2rem;
-    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
 }
 
 .loader-progress {
@@ -296,8 +287,9 @@ body {
 
 .hero-image {
     position: relative;
-    margin-bottom: 3rem;
+    margin: 2rem 0 4rem 0;
     display: inline-block;
+    transform: translateY(30px);
 }
 
 .dj-portrait {
