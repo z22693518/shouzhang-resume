@@ -1882,7 +1882,8 @@ section {
 .experience-item.with-photo {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .experience-item.with-photo .item-content {
@@ -1890,13 +1891,14 @@ section {
 }
 
 .experience-item.with-photo .item-photo {
-    width: 200px;
-    height: 150px;
-    border-radius: 6px;
+    width: 280px;
+    height: 210px;
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid var(--blood-red);
+    border: 2px solid var(--blood-red);
     transition: all 0.3s ease;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .experience-item.with-photo .item-photo a {
