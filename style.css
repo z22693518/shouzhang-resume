@@ -1701,9 +1701,17 @@ section {
     margin-right: 0.5rem;
 }
 
-/* New About Me Styles */
+/* New About Me Two-Column Layout */
+.about-left,
+.about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Left Column Styles */
 .personal-intro {
-    margin-bottom: 3rem;
+    margin-bottom: 0;
 }
 
 .personal-intro h3 {
@@ -1728,7 +1736,7 @@ section {
 }
 
 .music-philosophy {
-    margin-bottom: 3rem;
+    margin-bottom: 0;
 }
 
 .music-philosophy h3 {
@@ -1742,8 +1750,8 @@ section {
 
 .philosophy-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
 }
 
 .philosophy-item {
@@ -1751,36 +1759,41 @@ section {
     border: 1px solid rgba(139, 0, 0, 0.3);
     padding: 1.5rem;
     border-radius: 8px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     transition: all 0.3s ease;
 }
 
 .philosophy-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     border-color: var(--metal-silver);
     box-shadow: var(--shadow-glow);
 }
 
 .philosophy-item i {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--gothic-gold);
-    margin-bottom: 1rem;
+    flex-shrink: 0;
 }
 
 .philosophy-item h4 {
     font-size: 1.1rem;
     color: var(--white);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.3rem;
     font-weight: 600;
 }
 
 .philosophy-item p {
     color: var(--light-gray);
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.4;
+    margin: 0;
 }
 
-.career-highlights h3 {
+/* Right Column Styles */
+.career-highlights h3,
+.music-skills h3 {
     font-family: var(--font-gothic);
     font-size: 1.6rem;
     color: var(--blood-red);
@@ -1789,11 +1802,11 @@ section {
     letter-spacing: 2px;
 }
 
-.highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.highlights-list {
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .highlight-item {
@@ -1880,4 +1893,104 @@ section {
     color: var(--metal-silver);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* Skills Section Styles */
+.music-skills {
+    margin-bottom: 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.skill-item {
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.8), rgba(139, 0, 0, 0.05));
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--metal-silver);
+    box-shadow: var(--shadow-glow);
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.skill-name {
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+}
+
+.skill-level {
+    font-size: 0.8rem;
+    color: var(--gothic-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--tertiary-black);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--dark-silver);
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blood-red), var(--crimson), var(--gothic-gold));
+    border-radius: 4px;
+    transition: width 2s ease-in-out;
+    position: relative;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: skillShimmer 2s infinite;
+}
+
+@keyframes skillShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Responsive adjustments for new layout */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .philosophy-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .philosophy-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    
+    .philosophy-item i {
+        font-size: 2rem;
+    }
 }

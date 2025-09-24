@@ -9,7 +9,40 @@ window.addEventListener('load', () => {
             }, 1000);
         }
     }, 3500);
+    
+    // Initialize skill bars animation
+    initializeSkillBars();
 });
+
+// Skill bars animation
+function initializeSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBar = entry.target;
+                const width = skillBar.getAttribute('data-width');
+                
+                setTimeout(() => {
+                    skillBar.style.width = width;
+                }, 200);
+                
+                observer.unobserve(skillBar);
+            }
+        });
+    }, observerOptions);
+    
+    skillBars.forEach(bar => {
+        bar.style.width = '0%';
+        observer.observe(bar);
+    });
+}
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
