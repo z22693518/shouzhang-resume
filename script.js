@@ -487,5 +487,5 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-console.log('🌙 DJ SHOU - Gothic Dark Electronic Website Loaded Successfully ⚡');
+console.log('🌙 REDSHoU - Gothic Dark Electronic Website Loaded Successfully ⚡');
 console.log('Enter the darkness... where shadows dance with sound.');
