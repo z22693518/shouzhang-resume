@@ -10,41 +10,43 @@ window.addEventListener('load', () => {
         }
     }, 3500);
     
-    // Initialize video background
-    initializeVideoBackground();
+    // Initialize animated background
+    initializeAnimatedBackground();
     
     // Initialize skill bars animation
     initializeSkillBars();
 });
 
-// Video Background Initialization
-function initializeVideoBackground() {
-    const video = document.querySelector('.background-video');
-    const fallback = document.querySelector('.video-fallback');
+// Animated Background Initialization
+function initializeAnimatedBackground() {
+    const animatedBg = document.querySelector('.animated-background');
     
-    if (video) {
-        // Force video to play
-        video.play().catch(e => {
-            console.log('Video autoplay failed:', e);
-            // Show fallback animation if video fails
-            if (fallback) {
-                fallback.style.display = 'block';
-            }
-        });
-        
-        // Handle video load errors
-        video.addEventListener('error', () => {
-            console.log('Video failed to load');
-            if (fallback) {
-                fallback.style.display = 'block';
-            }
-        });
-        
-        // Ensure video loops
-        video.addEventListener('ended', () => {
-            video.currentTime = 0;
-            video.play();
-        });
+    if (animatedBg) {
+        // Add extra dynamic particles
+        createDynamicParticles();
+    }
+}
+
+function createDynamicParticles() {
+    const container = document.querySelector('.floating-particles');
+    if (!container) return;
+    
+    // Create additional floating elements
+    for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'dynamic-particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 4 + 1}px;
+            height: ${Math.random() * 4 + 1}px;
+            background: ${i % 2 ? 'var(--blood-red)' : 'var(--metal-silver)'};
+            border-radius: 50%;
+            top: ${Math.random() * 100}%;
+            left: ${Math.random() * 100}%;
+            animation: floatRandom ${Math.random() * 10 + 10}s linear infinite;
+            opacity: 0.7;
+        `;
+        container.appendChild(particle);
     }
 }
 
