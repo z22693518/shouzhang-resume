@@ -203,155 +203,165 @@ body {
 }
 
 
-.floating-particles {
+/* Cyberpunk Glitch Effects */
+.glitch-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(4px 4px at 20px 30px, var(--metal-silver), transparent),
-        radial-gradient(6px 6px at 40px 70px, var(--blood-red), transparent),
-        radial-gradient(3px 3px at 90px 40px, var(--gothic-gold), transparent),
-        radial-gradient(5px 5px at 130px 80px, var(--metal-silver), transparent),
-        radial-gradient(4px 4px at 160px 30px, var(--blood-red), transparent),
-        radial-gradient(3px 3px at 180px 50px, rgba(255, 255, 255, 0.8), transparent);
-    background-repeat: repeat;
-    background-size: 200px 100px;
-    animation: particlesFloat 12s linear infinite;
-    opacity: 1;
-}
-
-@keyframes particlesFloat {
-    0% { transform: translateY(0px) translateX(0px); }
-    33% { transform: translateY(-100px) translateX(100px); }
-    66% { transform: translateY(-200px) translateX(-50px); }
-    100% { transform: translateY(-300px) translateX(0px); }
-}
-
-.wave-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 300%;
     height: 100%;
     background: linear-gradient(
         90deg,
-        transparent 20%,
-        rgba(139, 0, 0, 0.4) 40%,
-        rgba(255, 255, 255, 0.2) 50%,
-        rgba(192, 192, 192, 0.3) 60%,
-        transparent 80%
+        transparent 0%,
+        rgba(0, 255, 255, 0.03) 25%,
+        transparent 26%,
+        transparent 74%,
+        rgba(255, 0, 255, 0.03) 75%,
+        transparent 100%
     );
-    animation: waveMove 4s ease-in-out infinite;
+    animation: glitchEffect 3s infinite;
+    mix-blend-mode: screen;
 }
 
-@keyframes waveMove {
-    0% { transform: translateX(-50%); }
-    50% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-}
-
-.pulse-circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.pulse-circles::before,
-.pulse-circles::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid rgba(139, 0, 0, 0.3);
-    animation: pulseExpand 4s ease-out infinite;
-}
-
-.pulse-circles::before {
-    top: 20%;
-    left: 10%;
-    width: 100px;
-    height: 100px;
-    animation-delay: 0s;
-}
-
-.pulse-circles::after {
-    top: 60%;
-    right: 20%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 2s;
-}
-
-@keyframes pulseExpand {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-@keyframes floatRandom {
+@keyframes glitchEffect {
     0% { 
-        transform: translateY(0px) translateX(0px) rotate(0deg);
-        opacity: 0;
+        transform: translateX(0);
+        filter: hue-rotate(0deg);
     }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
+    10% { 
+        transform: translateX(-2px);
+        filter: hue-rotate(90deg);
+    }
+    20% { 
+        transform: translateX(2px);
+        filter: hue-rotate(180deg);
+    }
+    30% { 
+        transform: translateX(0);
+        filter: hue-rotate(270deg);
+    }
+    40% { 
+        transform: translateX(1px);
+        filter: hue-rotate(360deg);
+    }
+    50% { 
+        transform: translateX(-1px);
+        filter: hue-rotate(0deg);
+    }
     100% { 
-        transform: translateY(-100vh) translateX(100px) rotate(360deg);
-        opacity: 0;
+        transform: translateX(0);
+        filter: hue-rotate(0deg);
     }
 }
 
-.spotlight-effects {
+.digital-rain {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
-        radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
-        radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
-    animation: spotlightSweep 12s ease-in-out infinite;
+        linear-gradient(
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.3) 2px,
+            rgba(0, 255, 0, 0.3) 4px,
+            transparent 4px
+        ),
+        linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.2) 2px,
+            rgba(0, 255, 255, 0.2) 4px,
+            transparent 4px
+        );
+    background-size: 20px 20px, 30px 30px;
+    animation: digitalRainFall 8s linear infinite;
+    opacity: 0.6;
 }
 
-@keyframes spotlightSweep {
+@keyframes digitalRainFall {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 100px, 100px 0; }
+}
+
+.scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 255, 255, 0.08) 50%,
+        transparent 52%
+    );
+    background-size: 100% 4px;
+    animation: scanLineMove 2s linear infinite;
+}
+
+@keyframes scanLineMove {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+.static-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 2%),
+        radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.1) 0%, transparent 1%),
+        radial-gradient(circle at 50% 60%, rgba(255, 0, 255, 0.1) 0%, transparent 1%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 2%),
+        radial-gradient(circle at 90% 30%, rgba(0, 255, 0, 0.1) 0%, transparent 1%);
+    animation: staticFlicker 0.1s infinite;
+}
+
+@keyframes staticFlicker {
+    0% { opacity: 0.8; }
+    25% { opacity: 0.2; }
+    50% { opacity: 0.6; }
+    75% { opacity: 0.3; }
+    100% { opacity: 0.9; }
+}
+
+.neon-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(
+            rgba(0, 255, 255, 0.1) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 0, 255, 0.1) 1px,
+            transparent 1px
+        );
+    background-size: 50px 50px;
+    animation: gridPulse 6s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+@keyframes gridPulse {
     0% { 
-        background: 
-            radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
-            radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
-            radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
-    }
-    25% { 
-        background: 
-            radial-gradient(circle 200px at 60% 80%, rgba(139, 0, 0, 0.3), transparent),
-            radial-gradient(circle 150px at 30% 20%, rgba(192, 192, 192, 0.2), transparent),
-            radial-gradient(circle 100px at 90% 60%, rgba(184, 134, 11, 0.25), transparent);
+        opacity: 0.3;
+        background-size: 50px 50px;
     }
     50% { 
-        background: 
-            radial-gradient(circle 200px at 80% 40%, rgba(139, 0, 0, 0.3), transparent),
-            radial-gradient(circle 150px at 10% 90%, rgba(192, 192, 192, 0.2), transparent),
-            radial-gradient(circle 100px at 40% 10%, rgba(184, 134, 11, 0.25), transparent);
-    }
-    75% { 
-        background: 
-            radial-gradient(circle 200px at 40% 20%, rgba(139, 0, 0, 0.3), transparent),
-            radial-gradient(circle 150px at 70% 50%, rgba(192, 192, 192, 0.2), transparent),
-            radial-gradient(circle 100px at 20% 80%, rgba(184, 134, 11, 0.25), transparent);
+        opacity: 0.6;
+        background-size: 60px 60px;
     }
     100% { 
-        background: 
-            radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
-            radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
-            radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
+        opacity: 0.3;
+        background-size: 50px 50px;
     }
 }
 
