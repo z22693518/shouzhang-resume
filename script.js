@@ -10,43 +10,68 @@ window.addEventListener('load', () => {
         }
     }, 3500);
     
-    // Initialize animated background
-    initializeAnimatedBackground();
+    // Initialize video background
+    initializeVideoBackground();
     
     // Initialize skill bars animation
     initializeSkillBars();
 });
 
-// Animated Background Initialization
-function initializeAnimatedBackground() {
-    const animatedBg = document.querySelector('.animated-background');
+// Video Background Initialization
+function initializeVideoBackground() {
+    const video = document.getElementById('bgVideo');
+    const videoSource = document.getElementById('videoSource');
+    const fallbackBg = document.getElementById('fallbackBg');
     
-    if (animatedBg) {
-        // Add extra dynamic particles
-        createDynamicParticles();
+    // 如果沒有設定影片 URL，顯示靜態背景
+    if (!videoSource.src || videoSource.src === '') {
+        showFallbackBackground();
+        return;
     }
+    
+    // 處理影片載入成功
+    video.addEventListener('loadeddata', () => {
+        console.log('影片載入成功');
+        video.style.display = 'block';
+        fallbackBg.style.display = 'none';
+    });
+    
+    // 處理影片載入失敗
+    video.addEventListener('error', () => {
+        console.log('影片載入失敗，切換到靜態背景');
+        showFallbackBackground();
+    });
+    
+    // 確保影片循環播放
+    video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+    });
+    
+    // 嘗試播放影片
+    video.play().catch(e => {
+        console.log('影片自動播放失敗:', e);
+        showFallbackBackground();
+    });
 }
 
-function createDynamicParticles() {
-    const container = document.querySelector('.floating-particles');
-    if (!container) return;
+function showFallbackBackground() {
+    const video = document.getElementById('bgVideo');
+    const fallbackBg = document.getElementById('fallbackBg');
     
-    // Create additional floating elements
-    for (let i = 0; i < 5; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'dynamic-particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 4 + 1}px;
-            height: ${Math.random() * 4 + 1}px;
-            background: ${i % 2 ? 'var(--blood-red)' : 'var(--metal-silver)'};
-            border-radius: 50%;
-            top: ${Math.random() * 100}%;
-            left: ${Math.random() * 100}%;
-            animation: floatRandom ${Math.random() * 10 + 10}s linear infinite;
-            opacity: 0.7;
-        `;
-        container.appendChild(particle);
+    if (video) video.style.display = 'none';
+    if (fallbackBg) fallbackBg.style.display = 'block';
+}
+
+// 更新影片 URL 的函數
+function setVideoBackground(videoUrl) {
+    const videoSource = document.getElementById('videoSource');
+    const video = document.getElementById('bgVideo');
+    
+    if (videoSource && video) {
+        videoSource.src = videoUrl;
+        video.load();
+        initializeVideoBackground();
     }
 }
 

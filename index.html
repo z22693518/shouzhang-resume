@@ -49,8 +49,16 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Basic Background -->
-        <div class="basic-background"></div>
+        <!-- Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline class="bg-video" id="bgVideo">
+                <source src="" type="video/mp4" id="videoSource">
+                <!-- 您可以將影片 URL 放在 src 屬性中 -->
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <!-- Fallback Background -->
+        <div class="basic-background" id="fallbackBg"></div>
         <div class="floating-elements">
             <div class="music-note note-1">♪</div>
             <div class="music-note note-2">♫</div>
