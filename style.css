@@ -190,39 +190,123 @@ body {
     overflow: hidden;
 }
 
-/* Enhanced Red Background */
+/* Softer Red Background */
 .basic-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 30% 20%, rgba(139, 0, 0, 0.6) 0%, transparent 60%),
-        radial-gradient(circle at 70% 80%, rgba(220, 20, 60, 0.4) 0%, transparent 50%),
-        linear-gradient(
-            135deg, 
-            rgba(0, 0, 0, 0.8) 0%, 
-            rgba(139, 0, 0, 0.5) 30%,
-            rgba(75, 0, 0, 0.7) 70%,
-            rgba(0, 0, 0, 0.9) 100%
-        );
+    background: linear-gradient(
+        135deg, 
+        rgba(0, 0, 0, 0.7) 0%, 
+        rgba(139, 0, 0, 0.3) 50%, 
+        rgba(0, 0, 0, 0.8) 100%
+    );
     z-index: 1;
-    animation: redGlow 6s ease-in-out infinite;
 }
 
-@keyframes redGlow {
-    0% { 
-        opacity: 0.8;
-        filter: brightness(1); 
+/* Floating Music Notes */
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.music-note {
+    position: absolute;
+    color: rgba(192, 192, 192, 0.6);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.note-1 {
+    left: 10%;
+    animation: floatUp1 8s infinite;
+    animation-delay: 0s;
+}
+
+.note-2 {
+    left: 25%;
+    animation: floatUp2 6s infinite;
+    animation-delay: 1s;
+}
+
+.note-3 {
+    left: 40%;
+    animation: floatUp3 7s infinite;
+    animation-delay: 2s;
+}
+
+.note-4 {
+    left: 60%;
+    animation: floatUp1 5s infinite;
+    animation-delay: 3s;
+}
+
+.note-5 {
+    left: 75%;
+    animation: floatUp2 9s infinite;
+    animation-delay: 4s;
+}
+
+.note-6 {
+    left: 90%;
+    animation: floatUp3 6s infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes floatUp1 {
+    0% {
+        bottom: -50px;
+        transform: translateX(0px) rotate(0deg);
+        opacity: 0;
     }
-    50% { 
-        opacity: 1;
-        filter: brightness(1.1); 
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        bottom: 100vh;
+        transform: translateX(30px) rotate(360deg);
+        opacity: 0;
     }
-    100% { 
-        opacity: 0.8;
-        filter: brightness(1); 
+}
+
+@keyframes floatUp2 {
+    0% {
+        bottom: -50px;
+        transform: translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        bottom: 100vh;
+        transform: translateX(-20px) rotate(-360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes floatUp3 {
+    0% {
+        bottom: -50px;
+        transform: translateX(0px) scale(0.5);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    50% { transform: translateX(15px) scale(1.2); }
+    90% { opacity: 1; }
+    100% {
+        bottom: 100vh;
+        transform: translateX(-10px) scale(0.8);
+        opacity: 0;
     }
 }
 
