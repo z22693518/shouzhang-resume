@@ -211,7 +211,32 @@ body {
     height: auto;
     transform: translateX(-50%) translateY(-50%);
     object-fit: cover;
-    opacity: 0.3; /* Make video subtle */
+    opacity: 0.4; /* Slightly more visible */
+    filter: blur(1px) brightness(0.7) contrast(1.2);
+}
+
+.video-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.2) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 40%, rgba(139, 0, 0, 0.1) 50%, transparent 60%);
+    animation: backgroundPulse 4s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.6;
+        transform: scale(1.02);
+    }
 }
 
 .video-overlay {

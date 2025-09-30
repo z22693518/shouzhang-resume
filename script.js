@@ -10,9 +10,43 @@ window.addEventListener('load', () => {
         }
     }, 3500);
     
+    // Initialize video background
+    initializeVideoBackground();
+    
     // Initialize skill bars animation
     initializeSkillBars();
 });
+
+// Video Background Initialization
+function initializeVideoBackground() {
+    const video = document.querySelector('.background-video');
+    const fallback = document.querySelector('.video-fallback');
+    
+    if (video) {
+        // Force video to play
+        video.play().catch(e => {
+            console.log('Video autoplay failed:', e);
+            // Show fallback animation if video fails
+            if (fallback) {
+                fallback.style.display = 'block';
+            }
+        });
+        
+        // Handle video load errors
+        video.addEventListener('error', () => {
+            console.log('Video failed to load');
+            if (fallback) {
+                fallback.style.display = 'block';
+            }
+        });
+        
+        // Ensure video loops
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play();
+        });
+    }
+}
 
 // Skill bars animation
 function initializeSkillBars() {

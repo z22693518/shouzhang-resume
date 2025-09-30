@@ -51,9 +51,11 @@
     <section id="home" class="hero">
         <!-- Video Background -->
         <div class="video-background">
-            <video autoplay muted loop playsinline class="background-video">
-                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
-                <!-- Fallback for browsers that don't support video -->
+            <video autoplay muted loop playsinline class="background-video" preload="auto">
+                <source src="https://videos.pexels.com/video-files/6603527/6603527-uhd_2560_1440_25fps.mp4" type="video/mp4">
+                <source src="https://player.vimeo.com/external/321094850.hd.mp4?s=7d82068f62c53143cb13fa3e4c3a0143b9e7f2bc&profile_id=175" type="video/mp4">
+                <!-- Fallback animated background -->
+                <div class="video-fallback"></div>
             </video>
             <div class="video-overlay"></div>
         </div>
