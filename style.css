@@ -201,24 +201,6 @@ body {
     overflow: hidden;
 }
 
-.test-animation {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: red;
-    font-size: 3rem;
-    font-weight: bold;
-    z-index: 100;
-    animation: testBounce 2s ease-in-out infinite;
-    background: yellow;
-    padding: 20px;
-}
-
-@keyframes testBounce {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-}
 
 .floating-particles {
     position: absolute;
@@ -227,15 +209,16 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(2px 2px at 20px 30px, var(--metal-silver), transparent),
-        radial-gradient(2px 2px at 40px 70px, var(--blood-red), transparent),
-        radial-gradient(1px 1px at 90px 40px, var(--gothic-gold), transparent),
-        radial-gradient(1px 1px at 130px 80px, var(--metal-silver), transparent),
-        radial-gradient(2px 2px at 160px 30px, var(--blood-red), transparent);
+        radial-gradient(4px 4px at 20px 30px, var(--metal-silver), transparent),
+        radial-gradient(6px 6px at 40px 70px, var(--blood-red), transparent),
+        radial-gradient(3px 3px at 90px 40px, var(--gothic-gold), transparent),
+        radial-gradient(5px 5px at 130px 80px, var(--metal-silver), transparent),
+        radial-gradient(4px 4px at 160px 30px, var(--blood-red), transparent),
+        radial-gradient(3px 3px at 180px 50px, rgba(255, 255, 255, 0.8), transparent);
     background-repeat: repeat;
     background-size: 200px 100px;
-    animation: particlesFloat 20s linear infinite;
-    opacity: 0.6;
+    animation: particlesFloat 15s linear infinite;
+    opacity: 0.9;
 }
 
 @keyframes particlesFloat {
@@ -249,17 +232,17 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%;
+    width: 300%;
     height: 100%;
     background: linear-gradient(
         90deg,
-        transparent,
-        rgba(139, 0, 0, 0.1),
-        transparent,
-        rgba(192, 192, 192, 0.1),
-        transparent
+        transparent 20%,
+        rgba(139, 0, 0, 0.4) 40%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(192, 192, 192, 0.3) 60%,
+        transparent 80%
     );
-    animation: waveMove 8s ease-in-out infinite;
+    animation: waveMove 6s ease-in-out infinite;
 }
 
 @keyframes waveMove {
@@ -322,6 +305,52 @@ body {
     100% { 
         transform: translateY(-100vh) translateX(100px) rotate(360deg);
         opacity: 0;
+    }
+}
+
+.spotlight-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
+        radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
+        radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
+    animation: spotlightSweep 12s ease-in-out infinite;
+}
+
+@keyframes spotlightSweep {
+    0% { 
+        background: 
+            radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
+            radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
+            radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
+    }
+    25% { 
+        background: 
+            radial-gradient(circle 200px at 60% 80%, rgba(139, 0, 0, 0.3), transparent),
+            radial-gradient(circle 150px at 30% 20%, rgba(192, 192, 192, 0.2), transparent),
+            radial-gradient(circle 100px at 90% 60%, rgba(184, 134, 11, 0.25), transparent);
+    }
+    50% { 
+        background: 
+            radial-gradient(circle 200px at 80% 40%, rgba(139, 0, 0, 0.3), transparent),
+            radial-gradient(circle 150px at 10% 90%, rgba(192, 192, 192, 0.2), transparent),
+            radial-gradient(circle 100px at 40% 10%, rgba(184, 134, 11, 0.25), transparent);
+    }
+    75% { 
+        background: 
+            radial-gradient(circle 200px at 40% 20%, rgba(139, 0, 0, 0.3), transparent),
+            radial-gradient(circle 150px at 70% 50%, rgba(192, 192, 192, 0.2), transparent),
+            radial-gradient(circle 100px at 20% 80%, rgba(184, 134, 11, 0.25), transparent);
+    }
+    100% { 
+        background: 
+            radial-gradient(circle 200px at 20% 30%, rgba(139, 0, 0, 0.3), transparent),
+            radial-gradient(circle 150px at 80% 70%, rgba(192, 192, 192, 0.2), transparent),
+            radial-gradient(circle 100px at 50% 20%, rgba(184, 134, 11, 0.25), transparent);
     }
 }
 
