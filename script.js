@@ -23,10 +23,9 @@ function initializeVideoBackground() {
     const videoSource = document.getElementById('videoSource');
     const fallbackBg = document.getElementById('fallbackBg');
     
-    // 如果沒有設定影片 URL，顯示靜態背景
-    if (!videoSource.src || videoSource.src === '') {
-        showFallbackBackground();
-        return;
+    // 檢查影片來源
+    if (!videoSource.src || videoSource.src === '' || !videoSource.src.includes('background-video.mp4')) {
+        console.log('載入背景影片...');
     }
     
     // 處理影片載入成功
