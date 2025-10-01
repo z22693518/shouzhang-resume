@@ -25,19 +25,17 @@ function initializeVideoBackground() {
     
     // 檢查影片來源
     if (!videoSource.src || videoSource.src === '' || !videoSource.src.includes('background-video.mp4')) {
-        console.log('載入背景影片...');
+        // 載入背景影片
     }
     
     // 處理影片載入成功
     video.addEventListener('loadeddata', () => {
-        console.log('影片載入成功');
         video.style.display = 'block';
         fallbackBg.style.display = 'none';
     });
     
     // 處理影片載入失敗
     video.addEventListener('error', () => {
-        console.log('影片載入失敗，切換到靜態背景');
         showFallbackBackground();
     });
     
@@ -49,7 +47,6 @@ function initializeVideoBackground() {
     
     // 嘗試播放影片
     video.play().catch(e => {
-        console.log('影片自動播放失敗:', e);
         showFallbackBackground();
     });
 }

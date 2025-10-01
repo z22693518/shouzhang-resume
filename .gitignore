@@ -1,0 +1,36 @@
+# 開發相關檔案
+*.md
+*.txt
+push_to_github.sh
+dj-portfolio.html
+
+# 個人檔案
+*.personal
+*.private
+
+# macOS 系統檔案
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 備份檔案
+*.bak
+*.backup
+
+# 臨時檔案
+*.tmp
+*.temp
+
+# 編輯器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 測試檔案
+test.*
+debug.*
