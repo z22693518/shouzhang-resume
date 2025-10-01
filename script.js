@@ -51,7 +51,13 @@ const translations = {
         'gallery-music-title': '音樂現場',
         'gallery-music-desc': '電子音樂的魅力',
         'gallery-amazing-title': '精彩演出',
-        'gallery-amazing-desc': '帶動全場的能量'
+        'gallery-amazing-desc': '帶動全場的能量',
+        // 新增的翻譯項目
+        'taipei-nightlife-title': '台北夜生活場所駐場經歷',
+        'nightclub-title': '夜店',
+        'bar-title': '酒吧',
+        'recent-works-title': '近期精選作品',
+        'footer-about-link': '關於'
     },
     en: {
         'nav-home': 'Home',
@@ -104,7 +110,13 @@ const translations = {
         'gallery-music-title': 'Music Scene',
         'gallery-music-desc': 'The charm of electronic music',
         'gallery-amazing-title': 'Amazing Performance',
-        'gallery-amazing-desc': 'Energy that drives the whole crowd'
+        'gallery-amazing-desc': 'Energy that drives the whole crowd',
+        // 新增的翻譯項目
+        'taipei-nightlife-title': 'Taipei Nightlife Residency Experience',
+        'nightclub-title': 'Nightclubs',
+        'bar-title': 'Bars',
+        'recent-works-title': 'Recent Featured Works',
+        'footer-about-link': 'About'
     }
 };
 
@@ -419,7 +431,7 @@ function updateMetaTags(lang) {
     const twitterDescription = document.querySelector('meta[name="twitter:description"]');
     
     if (lang === 'en') {
-        if (title) title.textContent = 'DJ REDSHOU - EDM • Hip Hop • Electronic Music';
+        if (title) title.textContent = 'DJ REDSHOU - EDM • Hip Hop';
         if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
         if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
         if (description) description.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
