@@ -927,3 +927,115 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// 延遲載入音樂播放器功能
+class LazyMusicPlayer {
+    constructor() {
+        this.loadedPlayers = new Set();
+        this.init();
+    }
+
+    init() {
+        // 綁定所有音樂播放器點擊事件
+        document.querySelectorAll('.music-player-container').forEach((container, index) => {
+            container.addEventListener('click', () => this.loadPlayer(container, index));
+        });
+    }
+
+    loadPlayer(container, index) {
+        const feed = container.dataset.feed;
+        const height = container.dataset.height;
+        const playerKey = `${feed}-${height}`;
+
+        // 避免重複載入
+        if (this.loadedPlayers.has(playerKey)) {
+            return;
+        }
+
+        this.loadedPlayers.add(playerKey);
+
+        // 創建iframe
+        const iframe = document.createElement('iframe');
+        iframe.width = '100%';
+        iframe.height = height;
+        iframe.src = `https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&mini=${height === '60' ? '1' : '0'}&feed=${feed}`;
+        iframe.frameBorder = '0';
+        iframe.allow = 'autoplay';
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+
+        // 載入動畫
+        const placeholder = container.querySelector('.music-placeholder');
+        placeholder.style.opacity = '0.5';
+        placeholder.innerHTML = `
+            <div class="loading-spinner" style="
+                width: 30px; 
+                height: 30px; 
+                border: 3px solid rgba(139, 0, 0, 0.3); 
+                border-top: 3px solid var(--blood-red); 
+                border-radius: 50%; 
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            "></div>
+        `;
+
+        // 添加旋轉動畫
+        if (!document.querySelector('#spin-keyframes')) {
+            const style = document.createElement('style');
+            style.id = 'spin-keyframes';
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // 載入iframe
+        setTimeout(() => {
+            container.innerHTML = '';
+            container.appendChild(iframe);
+            
+            // 顯示成功通知
+            showGothicNotification(`音樂播放器 #${index + 1} 已載入`, 'success');
+        }, 800);
+    }
+}
+
+// 初始化延遲載入音樂播放器
+document.addEventListener('DOMContentLoaded', () => {
+    new LazyMusicPlayer();
+});
+
+// 性能監控：記錄外部資源載入
+const resourceMonitor = {
+    externalResources: [],
+    
+    trackResource(url, type) {
+        this.externalResources.push({
+            url,
+            type,
+            timestamp: Date.now()
+        });
+    },
+    
+    getReport() {
+        const grouped = this.externalResources.reduce((acc, resource) => {
+            const domain = new URL(resource.url).hostname;
+            if (!acc[domain]) acc[domain] = [];
+            acc[domain].push(resource);
+            return acc;
+        }, {});
+        
+        return grouped;
+    }
+};
+
+// 攔截和監控外部資源載入
+const originalOpen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function(method, url, ...args) {
+    if (url.includes('mixcloud.com') || url.includes('player-widget')) {
+        resourceMonitor.trackResource(url, 'xhr');
+    }
+    return originalOpen.call(this, method, url, ...args);
+};
+
