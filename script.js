@@ -191,10 +191,11 @@ function optimizePagePerformance() {
     }
 }
 
-// 簡化的快速載入
+// 假動畫載入系統 - 背景準備頁面，前台播放動畫
 let isLoaded = false;
+let pageReady = false;
 
-// 快速隱藏載入畫面
+// 隱藏載入畫面
 function hideLoader() {
     if (isLoaded) return;
     isLoaded = true;
@@ -204,53 +205,67 @@ function hideLoader() {
         loader.style.opacity = '0';
         setTimeout(() => {
             loader.style.display = 'none';
-        }, 300);
+        }, 500);
     }
 }
 
-// 快速初始化關鍵功能
-function quickInitialize() {
+// 背景準備頁面功能
+function preparePageInBackground() {
     try {
+        // 立即初始化關鍵功能
         initializeLanguage();
         
-        // 延遲載入非關鍵功能
+        // 快速初始化圖片懶加載
         setTimeout(() => {
             try {
                 addLazyLoadingToImages();
-            } catch (e) {
-                console.warn('懶加載初始化警告:', e);
-            }
-        }, 100);
-        
-        // 進一步延遲載入的功能
-        setTimeout(() => {
-            try {
                 initializeVideoBackground();
                 initializeSkillBars();
+                pageReady = true;
+                console.log('📦 頁面資源準備完成');
             } catch (e) {
-                console.warn('次要功能初始化警告:', e);
+                console.warn('資源準備警告:', e);
+                pageReady = true;
             }
-        }, 500);
+        }, 200);
         
     } catch (e) {
-        console.warn('核心功能初始化警告:', e);
+        console.warn('頁面準備警告:', e);
+        pageReady = true;
     }
 }
 
-// DOM 載入完成就開始
+// 等待假動畫完成再隱藏
+function waitForAnimationComplete() {
+    // 假動畫播放 2.5 秒，再等 0.8 秒讓使用者看到完成
+    setTimeout(() => {
+        hideLoader();
+    }, 3300);
+}
+
+// DOM 載入完成
 document.addEventListener('DOMContentLoaded', () => {
-    quickInitialize();
-    // DOM 完成後短暫延遲就隱藏載入畫面
-    setTimeout(hideLoader, 500);
+    // 背景準備頁面
+    preparePageInBackground();
+    
+    // 開始假動畫計時
+    waitForAnimationComplete();
 });
 
-// 備用機制
+// window.load 備用機制
 window.addEventListener('load', () => {
-    setTimeout(hideLoader, 200);
+    if (!pageReady) {
+        preparePageInBackground();
+    }
 });
 
-// 強制回退 - 2秒後必定完成
-setTimeout(hideLoader, 2000);
+// 緊急回退 - 5秒後強制完成
+setTimeout(() => {
+    if (!isLoaded) {
+        console.warn('⚠️ 緊急完成載入');
+        hideLoader();
+    }
+}, 5000);
 
 // 極速懶加載系統
 function addLazyLoadingToImages() {
