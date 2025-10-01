@@ -191,230 +191,79 @@ function optimizePagePerformance() {
     }
 }
 
-// 載入進度追蹤
-let loadingProgress = {
-    dom: false,
-    images: false,
-    fonts: false,
-    resources: false,
-    complete: false
-};
+// 簡化的快速載入
+let isLoaded = false;
 
-// 更新載入進度
-function updateLoadingProgress() {
-    const progress = Object.values(loadingProgress).filter(Boolean).length;
-    const total = Object.keys(loadingProgress).length - 1; // 減去 complete
-    const percentage = Math.round((progress / total) * 100);
-    
-    // 更新進度條
-    const progressBar = document.querySelector('.progress-bar');
-    if (progressBar) {
-        progressBar.style.width = `${percentage}%`;
-    }
-    
-    // 更新載入狀態文字
-    const statusElement = document.getElementById('loadingStatus');
-    if (statusElement) {
-        let statusText = '正在載入...';
-        if (loadingProgress.dom) statusText = '載入頁面結構...';
-        if (loadingProgress.images) statusText = '載入圖片資源...';
-        if (loadingProgress.fonts) statusText = '載入字體...';
-        if (loadingProgress.resources) statusText = '初始化功能...';
-        if (percentage >= 100) statusText = '載入完成！';
-        
-        statusElement.textContent = statusText;
-    }
-    
-    console.log(`載入進度: ${percentage}% (${progress}/${total}) - ${statusElement?.textContent}`);
-    
-    // 檢查是否全部完成
-    if (progress >= total && !loadingProgress.complete) {
-        loadingProgress.complete = true;
-        setTimeout(hideLoader, 800); // 讓使用者看到完成狀態
-    }
-}
-
-// 隱藏載入畫面
+// 快速隱藏載入畫面
 function hideLoader() {
+    if (isLoaded) return;
+    isLoaded = true;
+    
     const loader = document.getElementById('gothicLoader');
     if (loader) {
         loader.style.opacity = '0';
         setTimeout(() => {
             loader.style.display = 'none';
-            console.log('✅ 載入完成，移除載入畫面');
-        }, 500);
+        }, 300);
     }
 }
 
-// 檢查關鍵圖片載入
-function checkCriticalImages() {
-    const criticalImages = [
-        'https://i.ibb.co/W4Yycq12/REDSHOU-logo.png',
-        'https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png'
-    ];
-    
-    let loadedCount = 0;
-    const totalImages = criticalImages.length;
-    
-    criticalImages.forEach(src => {
-        const img = new Image();
-        img.onload = () => {
-            loadedCount++;
-            if (loadedCount >= totalImages) {
-                loadingProgress.images = true;
-                updateLoadingProgress();
-            }
-        };
-        img.onerror = () => {
-            loadedCount++; // 即使失敗也計數，避免卡住
-            if (loadedCount >= totalImages) {
-                loadingProgress.images = true;
-                updateLoadingProgress();
-            }
-        };
-        img.src = src;
-    });
-}
-
-// 檢查字體載入
-function checkFonts() {
-    if ('fonts' in document) {
-        document.fonts.ready.then(() => {
-            loadingProgress.fonts = true;
-            updateLoadingProgress();
-        });
-    } else {
-        // 不支援字體 API，直接標記完成
-        setTimeout(() => {
-            loadingProgress.fonts = true;
-            updateLoadingProgress();
-        }, 1000);
-    }
-}
-
-// 檢查資源初始化
-function checkResourcesInitialization() {
+// 快速初始化關鍵功能
+function quickInitialize() {
     try {
-        // 初始化基本功能
         initializeLanguage();
         
-        // 檢查視頻背景
-        const video = document.getElementById('bgVideo');
-        if (video) {
-            if (video.readyState >= 3) { // HAVE_FUTURE_DATA
-                loadingProgress.resources = true;
-                updateLoadingProgress();
-            } else {
-                video.addEventListener('canplaythrough', () => {
-                    loadingProgress.resources = true;
-                    updateLoadingProgress();
-                });
-                // 3秒後無論如何都標記完成
-                setTimeout(() => {
-                    if (!loadingProgress.resources) {
-                        loadingProgress.resources = true;
-                        updateLoadingProgress();
-                    }
-                }, 3000);
+        // 延遲載入非關鍵功能
+        setTimeout(() => {
+            try {
+                addLazyLoadingToImages();
+            } catch (e) {
+                console.warn('懶加載初始化警告:', e);
             }
-        } else {
-            loadingProgress.resources = true;
-            updateLoadingProgress();
-        }
+        }, 100);
+        
+        // 進一步延遲載入的功能
+        setTimeout(() => {
+            try {
+                initializeVideoBackground();
+                initializeSkillBars();
+            } catch (e) {
+                console.warn('次要功能初始化警告:', e);
+            }
+        }, 500);
+        
     } catch (e) {
-        console.warn('資源初始化警告:', e);
-        loadingProgress.resources = true;
-        updateLoadingProgress();
+        console.warn('核心功能初始化警告:', e);
     }
 }
 
-// DOM 載入完成
+// DOM 載入完成就開始
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📄 DOM 載入完成');
-    loadingProgress.dom = true;
-    updateLoadingProgress();
-    
-    // 開始檢查其他資源
-    checkCriticalImages();
-    checkFonts();
+    quickInitialize();
+    // DOM 完成後短暫延遲就隱藏載入畫面
+    setTimeout(hideLoader, 500);
 });
 
-// 所有資源載入完成
+// 備用機制
 window.addEventListener('load', () => {
-    console.log('🎯 所有資源載入完成');
-    checkResourcesInitialization();
+    setTimeout(hideLoader, 200);
 });
 
-// 緊急回退機制 - 10秒後強制完成
-setTimeout(() => {
-    if (!loadingProgress.complete) {
-        console.warn('⚠️ 強制完成載入（超時）');
-        Object.keys(loadingProgress).forEach(key => {
-            if (key !== 'complete') loadingProgress[key] = true;
-        });
-        updateLoadingProgress();
-    }
-}, 10000);
+// 強制回退 - 2秒後必定完成
+setTimeout(hideLoader, 2000);
 
-// 進階懶加載系統
+// 極速懶加載系統
 function addLazyLoadingToImages() {
-    // 設置 Intersection Observer 選項
-    const options = {
-        root: null,
-        rootMargin: '100px', // 提前100px開始加載
-        threshold: 0.1
-    };
-    
-    // 圖片懶加載觀察器
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                loadImageWithFallback(img, observer);
-            }
-        });
-    }, options);
-    
-    // 為圖片添加懶加載屬性
+    // 只處理非關鍵圖片
     const images = document.querySelectorAll('img:not([loading])');
     images.forEach(img => {
-        // 跳過關鍵圖片（logo、hero圖片）
+        // 跳過關鍵圖片
         if (!img.src.includes('logo') && !img.closest('.hero-image') && !img.closest('.nav-brand')) {
             img.setAttribute('loading', 'lazy');
-            img.classList.add('lazy-image');
-            // 對於相簿圖片，使用觀察器
-            if (img.closest('.gallery-item')) {
-                imageObserver.observe(img);
-            }
         }
     });
 }
 
-// 圖片加載失敗處理和性能優化
-function loadImageWithFallback(img, observer) {
-    const originalSrc = img.src;
-    
-    // 添加載入動畫
-    img.style.transition = 'opacity 0.3s ease';
-    img.style.opacity = '0.5';
-    
-    const imageLoader = new Image();
-    
-    imageLoader.onload = () => {
-        img.style.opacity = '1';
-        img.classList.add('loaded');
-        observer.unobserve(img);
-    };
-    
-    imageLoader.onerror = () => {
-        img.style.opacity = '0.3';
-        img.classList.add('error');
-        img.style.filter = 'grayscale(100%)';
-        observer.unobserve(img);
-    };
-    
-    imageLoader.src = originalSrc;
-}
 
 // Video Background Initialization - 優化載入速度
 function initializeVideoBackground() {
