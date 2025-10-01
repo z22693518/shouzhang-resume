@@ -122,15 +122,16 @@ const translations = {
 
 // Gothic Loading Screen
 window.addEventListener('load', () => {
+    // 大幅縮短載入時間
     setTimeout(() => {
         const loader = document.getElementById('gothicLoader');
         if (loader) {
             loader.style.opacity = '0';
             setTimeout(() => {
                 loader.style.display = 'none';
-            }, 1000);
+            }, 500);
         }
-    }, 3500);
+    }, 1000);
     
     // Initialize video background
     initializeVideoBackground();
@@ -140,40 +141,62 @@ window.addEventListener('load', () => {
     
     // Initialize language system
     initializeLanguage();
+    
+    // 為圖片添加懶加載
+    addLazyLoadingToImages();
 });
 
-// Video Background Initialization
+// 為圖片添加懶加載功能
+function addLazyLoadingToImages() {
+    const images = document.querySelectorAll('img:not([loading])');
+    images.forEach(img => {
+        // 跳過 logo 和重要圖片
+        if (!img.src.includes('logo') && !img.closest('.hero-image')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+}
+
+// Video Background Initialization - 優化載入速度
 function initializeVideoBackground() {
     const video = document.getElementById('bgVideo');
     const videoSource = document.getElementById('videoSource');
     const fallbackBg = document.getElementById('fallbackBg');
     
+    // 先顯示備用背景，避免載入延遲
+    if (fallbackBg) fallbackBg.style.display = 'block';
+    
     // 檢查影片來源
     if (!videoSource.src || videoSource.src === '' || !videoSource.src.includes('background-video.mp4')) {
-        // 載入背景影片
+        showFallbackBackground();
+        return;
     }
     
-    // 處理影片載入成功
-    video.addEventListener('loadeddata', () => {
-        video.style.display = 'block';
-        fallbackBg.style.display = 'none';
-    });
-    
-    // 處理影片載入失敗
-    video.addEventListener('error', () => {
-        showFallbackBackground();
-    });
-    
-    // 確保影片循環播放
-    video.addEventListener('ended', () => {
-        video.currentTime = 0;
-        video.play();
-    });
-    
-    // 嘗試播放影片
-    video.play().catch(e => {
-        showFallbackBackground();
-    });
+    // 延遲載入影片，不阻塞初始載入
+    setTimeout(() => {
+        // 處理影片載入成功
+        video.addEventListener('loadeddata', () => {
+            video.style.display = 'block';
+            if (fallbackBg) fallbackBg.style.display = 'none';
+        });
+        
+        // 處理影片載入失敗
+        video.addEventListener('error', () => {
+            showFallbackBackground();
+        });
+        
+        // 確保影片循環播放
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play();
+        });
+        
+        // 嘗試播放影片
+        video.play().catch(e => {
+            console.log('Video autoplay failed, using fallback background');
+            showFallbackBackground();
+        });
+    }, 500); // 延遲 500ms 載入影片
 }
 
 function showFallbackBackground() {
@@ -315,8 +338,33 @@ gothicParticleStyle.textContent = `
 `;
 document.head.appendChild(gothicParticleStyle);
 
-// Create gothic particles periodically
-setInterval(createGothicParticle, 2000);
+// Create gothic particles periodically - 優化效能
+// 減少粒子生成頻率，並只在可見區域創建
+let particleInterval;
+function startParticleAnimation() {
+    // 只在首頁區塊可見時啟動
+    const heroSection = document.querySelector('#home');
+    if (heroSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!particleInterval) {
+                        particleInterval = setInterval(createGothicParticle, 4000); // 增加間隔
+                    }
+                } else {
+                    if (particleInterval) {
+                        clearInterval(particleInterval);
+                        particleInterval = null;
+                    }
+                }
+            });
+        });
+        observer.observe(heroSection);
+    }
+}
+
+// 延遲啟動粒子動畫
+setTimeout(startParticleAnimation, 2000);
 
 // Intersection Observer for scroll animations
 const observerOptions = {
