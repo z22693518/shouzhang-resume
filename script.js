@@ -431,7 +431,7 @@ function updateMetaTags(lang) {
     const twitterDescription = document.querySelector('meta[name="twitter:description"]');
     
     if (lang === 'en') {
-        if (title) title.textContent = 'DJ REDSHOU - EDM • Hip Hop';
+        if (title) title.textContent = 'DJ REDSHOU';
         if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
         if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
         if (description) description.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
