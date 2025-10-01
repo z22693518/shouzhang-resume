@@ -211,7 +211,7 @@ body {
     height: auto;
     transform: translateX(-50%) translateY(-50%);
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0.4; /* 調整透明度：0.1(很透明) 到 1.0(完全不透明) */
 }
 
 .video-overlay {
@@ -222,9 +222,9 @@ body {
     height: 100%;
     background: linear-gradient(
         135deg, 
-        rgba(0, 0, 0, 0.4) 0%, 
-        rgba(139, 0, 0, 0.2) 50%, 
-        rgba(0, 0, 0, 0.5) 100%
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(139, 0, 0, 0.1) 50%, 
+        rgba(0, 0, 0, 0.4) 100%
     );
     z-index: 2;
 }
