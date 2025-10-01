@@ -122,21 +122,6 @@ body {
 }
 
 /* 自定義圖示 - 減少 Font Awesome 依賴 */
-.icon-instagram::before { 
-    content: "📷"; 
-    font-size: 1.2em;
-    display: inline-block;
-}
-.icon-mixcloud::before { 
-    content: "🎵"; 
-    font-size: 1.2em;
-    display: inline-block;
-}
-.icon-soundcloud::before { 
-    content: "🔊"; 
-    font-size: 1.2em;
-    display: inline-block;
-}
 .icon-arrow-down::before { 
     content: "↓"; 
     font-size: 1.5em;
