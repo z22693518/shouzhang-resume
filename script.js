@@ -190,6 +190,20 @@ function optimizePagePerformance() {
         });
     }
 }
+
+// 緊急回退 - 確保載入畫面不會卡住
+function forceHideLoader() {
+    const loader = document.getElementById('gothicLoader');
+    if (loader && loader.style.display !== 'none') {
+        loader.style.display = 'none';
+        console.log('強制移除載入畫面');
+        // 簡化初始化
+        try {
+            initializeLanguage();
+        } catch (e) {
+            console.warn('語言系統初始化失敗', e);
+        }
+    }
 }
 
 // Gothic Loading Screen
@@ -202,10 +216,23 @@ window.addEventListener('load', () => {
             setTimeout(() => {
                 loader.style.display = 'none';
                 // 載入完成後初始化資源
-                initializePageResources();
+                try {
+                    initializePageResources();
+                } catch (e) {
+                    console.warn('頁面資源初始化失敗，使用基本模式', e);
+                    initializeLanguage();
+                }
             }, 300);
         }
     }, 800);
+});
+
+// 緊急回退機制 - 3秒後強制移除載入畫面
+setTimeout(forceHideLoader, 3000);
+
+// DOMContentLoaded 回退
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(forceHideLoader, 2000);
 });
 
 // 進階懶加載系統
