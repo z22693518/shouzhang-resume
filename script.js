@@ -183,12 +183,6 @@ function optimizePagePerformance() {
         });
     }
     
-    // 註冊 Service Worker（如果可用）
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(() => {
-            // Service Worker 註冊失敗，但不影響正常功能
-        });
-    }
 }
 
 // 假動畫載入系統 - 背景準備頁面，前台播放動畫
@@ -222,15 +216,12 @@ function preparePageInBackground() {
                 initializeVideoBackground();
                 initializeSkillBars();
                 pageReady = true;
-                console.log('📦 頁面資源準備完成');
             } catch (e) {
-                console.warn('資源準備警告:', e);
                 pageReady = true;
             }
         }, 200);
         
     } catch (e) {
-        console.warn('頁面準備警告:', e);
         pageReady = true;
     }
 }
@@ -262,7 +253,6 @@ window.addEventListener('load', () => {
 // 緊急回退 - 5秒後強制完成
 setTimeout(() => {
     if (!isLoaded) {
-        console.warn('⚠️ 緊急完成載入');
         hideLoader();
     }
 }, 5000);
@@ -316,7 +306,6 @@ function initializeVideoBackground() {
         
         // 嘗試播放影片
         video.play().catch(e => {
-            console.log('Video autoplay failed, using fallback background');
             showFallbackBackground();
         });
     }, 500); // 延遲 500ms 載入影片
@@ -938,5 +927,3 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-console.log('🌙 REDSHoU - Gothic Dark Electronic Website Loaded Successfully ⚡');
-console.log('Enter the darkness... where shadows dance with sound.');
