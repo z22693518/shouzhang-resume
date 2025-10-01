@@ -36,6 +36,91 @@ body {
 }
 
 
+/* 圖片懶加載優化樣式 */
+.lazy-image {
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    background-color: var(--secondary-black);
+    background-image: linear-gradient(45deg, transparent 40%, rgba(192, 192, 192, 0.1) 50%, transparent 60%);
+    background-size: 200% 200%;
+    animation: shimmer 1.5s infinite;
+}
+
+.lazy-image.loaded {
+    animation: none;
+    background: none;
+}
+
+.lazy-image.error {
+    background: var(--dark-gray);
+    position: relative;
+}
+
+.lazy-image.error::after {
+    content: '🖼️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 圖片容器優化 */
+.gallery-item img,
+.experience-card img,
+.hero-image img {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* 強制硬體加速 */
+}
+
+/* 性能優化類別 */
+.fonts-loaded {
+    font-display: swap;
+}
+
+/* 減少重繪的優化 */
+.nav-logo,
+.logo-main,
+.footer-logo {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* 滾動性能優化 */
+.hero,
+.about-section,
+.gallery-section {
+    contain: layout;
+}
+
+/* 動畫性能優化 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 關鍵資源優先載入 */
+.hero-image img,
+.nav-logo {
+    content-visibility: auto;
+    contain-intrinsic-size: 200px 200px;
+}
+
 /* 音符跟隨效果 */
 .cursor-note {
     position: fixed;

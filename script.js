@@ -121,41 +121,151 @@ const translations = {
 };
 
 
+// 圖片緩存管理
+const imageCache = new Map();
+
+// 資源預加載管理
+function preloadCriticalResources() {
+    const criticalImages = [
+        'https://i.ibb.co/W4Yycq12/REDSHOU-logo.png',
+        'https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png'
+    ];
+    
+    criticalImages.forEach(src => {
+        if (!imageCache.has(src)) {
+            const img = new Image();
+            img.src = src;
+            imageCache.set(src, img);
+        }
+    });
+}
+
+// 優化後的載入序列
+function initializePageResources() {
+    // 1. 預加載關鍵資源
+    preloadCriticalResources();
+    
+    // 2. 初始化核心功能
+    initializeVideoBackground();
+    initializeLanguage();
+    
+    // 3. 延遲初始化非關鍵功能
+    requestIdleCallback(() => {
+        initializeSkillBars();
+        addLazyLoadingToImages();
+        optimizePagePerformance();
+    });
+}
+
+// 頁面性能優化
+function optimizePagePerformance() {
+    // 移除未使用的 CSS 動畫
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                // 暫停不在視野內的動畫
+                entry.target.style.animationPlayState = 'paused';
+            } else {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    });
+    
+    // 觀察動畫元素
+    document.querySelectorAll('.floating-elements, .gothic-particles').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // 優化字體載入
+    if ('fonts' in document) {
+        document.fonts.ready.then(() => {
+            document.body.classList.add('fonts-loaded');
+        });
+    }
+    
+    // 註冊 Service Worker（如果可用）
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {
+            // Service Worker 註冊失敗，但不影響正常功能
+        });
+    }
+}
+}
+
 // Gothic Loading Screen
 window.addEventListener('load', () => {
-    // 大幅縮短載入時間
+    // 減少載入時間
     setTimeout(() => {
         const loader = document.getElementById('gothicLoader');
         if (loader) {
             loader.style.opacity = '0';
             setTimeout(() => {
                 loader.style.display = 'none';
-            }, 500);
+                // 載入完成後初始化資源
+                initializePageResources();
+            }, 300);
         }
-    }, 1000);
-    
-    // Initialize video background
-    initializeVideoBackground();
-    
-    // Initialize skill bars animation
-    initializeSkillBars();
-    
-    // Initialize language system
-    initializeLanguage();
-    
-    // 為圖片添加懶加載
-    addLazyLoadingToImages();
+    }, 800);
 });
 
-// 為圖片添加懶加載功能
+// 進階懶加載系統
 function addLazyLoadingToImages() {
+    // 設置 Intersection Observer 選項
+    const options = {
+        root: null,
+        rootMargin: '100px', // 提前100px開始加載
+        threshold: 0.1
+    };
+    
+    // 圖片懶加載觀察器
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                loadImageWithFallback(img, observer);
+            }
+        });
+    }, options);
+    
+    // 為圖片添加懶加載屬性
     const images = document.querySelectorAll('img:not([loading])');
     images.forEach(img => {
-        // 跳過 logo 和重要圖片
-        if (!img.src.includes('logo') && !img.closest('.hero-image')) {
+        // 跳過關鍵圖片（logo、hero圖片）
+        if (!img.src.includes('logo') && !img.closest('.hero-image') && !img.closest('.nav-brand')) {
             img.setAttribute('loading', 'lazy');
+            img.classList.add('lazy-image');
+            // 對於相簿圖片，使用觀察器
+            if (img.closest('.gallery-item')) {
+                imageObserver.observe(img);
+            }
         }
     });
+}
+
+// 圖片加載失敗處理和性能優化
+function loadImageWithFallback(img, observer) {
+    const originalSrc = img.src;
+    
+    // 添加載入動畫
+    img.style.transition = 'opacity 0.3s ease';
+    img.style.opacity = '0.5';
+    
+    const imageLoader = new Image();
+    
+    imageLoader.onload = () => {
+        img.style.opacity = '1';
+        img.classList.add('loaded');
+        observer.unobserve(img);
+    };
+    
+    imageLoader.onerror = () => {
+        img.style.opacity = '0.3';
+        img.classList.add('error');
+        img.style.filter = 'grayscale(100%)';
+        observer.unobserve(img);
+    };
+    
+    imageLoader.src = originalSrc;
 }
 
 // Video Background Initialization - 優化載入速度
