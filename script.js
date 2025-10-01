@@ -120,6 +120,110 @@ const translations = {
     }
 };
 
+// 極簡藝術風鼠標系統
+let cursor = null;
+let mouseX = 0;
+let mouseY = 0;
+let trails = [];
+
+// 初始化極簡藝術風鼠標
+function initMinimalCursor() {
+    cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    // 鼠標移動事件
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+        
+        // 創建幾何軌跡 (節流控制)
+        if (Math.random() > 0.7) {
+            createGeometricTrail();
+        }
+    });
+    
+    // 點擊事件
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+        createGeometricBurst();
+    });
+    
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+    });
+    
+    // 懸停事件
+    const interactiveElements = document.querySelectorAll('a, button, .card, .gallery-item, .nav-link, .lang-btn, .experience-card');
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+}
+
+// 創建幾何軌跡
+function createGeometricTrail() {
+    const trail = document.createElement('div');
+    trail.className = 'cursor-trail';
+    trail.style.left = mouseX + 'px';
+    trail.style.top = mouseY + 'px';
+    
+    // 隨機旋轉角度
+    const rotation = Math.random() * 360;
+    trail.style.transform = `rotate(${rotation}deg)`;
+    
+    document.body.appendChild(trail);
+    
+    // 限制軌跡數量
+    trails.push(trail);
+    if (trails.length > 8) {
+        const oldTrail = trails.shift();
+        if (oldTrail && oldTrail.parentNode) {
+            oldTrail.parentNode.removeChild(oldTrail);
+        }
+    }
+    
+    // 動畫結束後移除
+    setTimeout(() => {
+        if (trail && trail.parentNode) {
+            trail.parentNode.removeChild(trail);
+            const index = trails.indexOf(trail);
+            if (index > -1) {
+                trails.splice(index, 1);
+            }
+        }
+    }, 1200);
+}
+
+// 點擊時的幾何爆發效果
+function createGeometricBurst() {
+    for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+            const burst = document.createElement('div');
+            burst.className = 'cursor-trail';
+            burst.style.left = mouseX + 'px';
+            burst.style.top = mouseY + 'px';
+            burst.style.transform = `rotate(${i * 60}deg)`;
+            
+            document.body.appendChild(burst);
+            
+            setTimeout(() => {
+                if (burst && burst.parentNode) {
+                    burst.parentNode.removeChild(burst);
+                }
+            }, 800);
+        }, i * 50);
+    }
+}
+
 // Gothic Loading Screen
 window.addEventListener('load', () => {
     // 大幅縮短載入時間
@@ -129,6 +233,8 @@ window.addEventListener('load', () => {
             loader.style.opacity = '0';
             setTimeout(() => {
                 loader.style.display = 'none';
+                // 載入完成後初始化極簡鼠標
+                initMinimalCursor();
             }, 500);
         }
     }, 1000);
