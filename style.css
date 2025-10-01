@@ -1372,6 +1372,114 @@ section {
     cursor: not-allowed;
 }
 
+/* Music Section */
+.music-section {
+    padding: 100px 0;
+    background: linear-gradient(
+        135deg,
+        var(--primary-black) 0%,
+        var(--secondary-black) 100%
+    );
+    position: relative;
+}
+
+.music-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.mixcloud-embed {
+    background: rgba(139, 0, 0, 0.1);
+    border: 2px solid rgba(139, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.mixcloud-embed:hover {
+    border-color: var(--blood-red);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.mix-title {
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mix-description {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mix-description p {
+    color: var(--metal-silver);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.mixcloud-link {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--blood-red), var(--crimson));
+    color: var(--white);
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.mixcloud-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.5);
+}
+
+.recent-mixes {
+    margin-top: 50px;
+}
+
+.recent-mixes h3 {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.mix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.mix-item {
+    background: rgba(192, 192, 192, 0.05);
+    border: 1px solid rgba(192, 192, 192, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.mix-item:hover {
+    background: rgba(192, 192, 192, 0.1);
+    border-color: var(--metal-silver);
+    transform: translateY(-2px);
+}
+
+.mix-label {
+    display: block;
+    margin-top: 10px;
+    color: var(--metal-silver);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 /* Gallery Section */
 .gallery-section {
     background: var(--primary-black);
