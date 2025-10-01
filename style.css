@@ -211,7 +211,7 @@ body {
     height: auto;
     transform: translateX(-50%) translateY(-50%);
     object-fit: cover;
-    opacity: 0.4; /* 調整透明度：0.1(很透明) 到 1.0(完全不透明) */
+    opacity: 0.3; /* 更透明的背景效果 */
 }
 
 .video-overlay {
