@@ -186,7 +186,40 @@ body {
     width: 0%;
     height: 100%;
     background: linear-gradient(90deg, var(--metal-silver), var(--white), var(--metal-silver));
-    animation: loadingProgress 3s ease-out forwards;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-20px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(20px); opacity: 0; }
+}
+
+.loading-status {
+    margin-top: 2rem;
+    color: var(--metal-silver);
+    font-size: 1rem;
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 2px;
+    animation: loadingText 2s ease-in-out infinite alternate;
+}
+
+@keyframes loadingText {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
 }
 
 @keyframes gothicPulse {
