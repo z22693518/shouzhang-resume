@@ -121,6 +121,35 @@ body {
     contain-intrinsic-size: 200px 200px;
 }
 
+/* 自定義圖示 - 減少 Font Awesome 依賴 */
+.icon-instagram::before { 
+    content: "📷"; 
+    font-size: 1.2em;
+    display: inline-block;
+}
+.icon-mixcloud::before { 
+    content: "🎵"; 
+    font-size: 1.2em;
+    display: inline-block;
+}
+.icon-soundcloud::before { 
+    content: "🔊"; 
+    font-size: 1.2em;
+    display: inline-block;
+}
+.icon-arrow-down::before { 
+    content: "↓"; 
+    font-size: 1.5em;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
 /* 音符跟隨效果 */
 .cursor-note {
     position: fixed;
