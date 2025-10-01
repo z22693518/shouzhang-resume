@@ -1,3 +1,43 @@
+// 語言翻譯內容
+const translations = {
+    zh: {
+        'nav-home': '首頁',
+        'nav-about': '關於',
+        'nav-music': '音樂',
+        'nav-gallery': '相簿',
+        'hero-subtitle': 'EDM • Hip Hop • 電子音樂',
+        'about-title': '關於 REDSHoU',
+        'intro-p1': '我來自花蓮玉里的阿美族，音樂自小就在我生命中扮演著重要的角色。小時候，我經常沉浸在音樂的世界中，這種熱愛逐漸演變成我的人生目標，最終引領我走上 DJ 的道路。那時網路上關於 DJ 教學的資源有限，我只能依靠一些零星的 YouTube 影片自學，但這反而讓我更加堅定地追求這個夢想。',
+        'intro-p2': '隨著時間的推移，我決定更加專業地學習這門藝術，於是我走進了工作室，上了專業的 DJ 課程。在這條路上，我走過了 8 年的時間，每一步都讓我更加深入地了解音樂和這個行業。',
+        'intro-p3': 'EDM 和 Hip Hop 文化對我有著深遠的影響，它們的節奏、能量和創造性深深吸引著我，並在我的作品中佔據了重要的位置。我對這些音樂風格的熱愛和理解，讓我能夠創造出與眾不同的混音和表演，帶給觀眾獨特的音樂體驗。',
+        'experience-title': '詳細經歷',
+        'music-title': '🎵 最新作品',
+        'music-subtitle': 'REDSHoU Mixtape Series',
+        'gallery-title': '活動照片',
+        'gallery-subtitle': '音樂現場的精彩時刻',
+        'footer-links': '快速連結',
+        'footer-social': '粉絲專頁'
+    },
+    en: {
+        'nav-home': 'Home',
+        'nav-about': 'About',
+        'nav-music': 'Music',
+        'nav-gallery': 'Gallery',
+        'hero-subtitle': 'EDM • Hip Hop • Electronic Music',
+        'about-title': 'About REDSHoU',
+        'intro-p1': 'I am from the Amis tribe in Yuli, Hualien. Music has played an important role in my life since childhood. When I was young, I was often immersed in the world of music, and this passion gradually evolved into my life goal, ultimately leading me to the path of DJ. At that time, there were limited resources for DJ tutorials on the internet, and I could only rely on some scattered YouTube videos to learn by myself, but this instead made me more determined to pursue this dream.',
+        'intro-p2': 'As time went by, I decided to learn this art more professionally, so I went to the studio and took professional DJ courses. On this journey, I have walked for 8 years, and each step has allowed me to understand music and this industry more deeply.',
+        'intro-p3': 'EDM and Hip Hop culture have had a profound impact on me. Their rhythm, energy and creativity deeply attract me and occupy an important position in my work. My love and understanding of these music styles allow me to create unique mixes and performances that bring audiences a unique musical experience.',
+        'experience-title': 'Detailed Experience',
+        'music-title': '🎵 Latest Works',
+        'music-subtitle': 'REDSHoU Mixtape Series',
+        'gallery-title': 'Event Photos',
+        'gallery-subtitle': 'Exciting moments from live music scenes',
+        'footer-links': 'Quick Links',
+        'footer-social': 'Social Media'
+    }
+};
+
 // Gothic Loading Screen
 window.addEventListener('load', () => {
     setTimeout(() => {
@@ -15,6 +55,9 @@ window.addEventListener('load', () => {
     
     // Initialize skill bars animation
     initializeSkillBars();
+    
+    // Initialize language system
+    initializeLanguage();
 });
 
 // Video Background Initialization
@@ -254,6 +297,71 @@ document.querySelectorAll('.genre-card').forEach(card => {
         showGothicNotification(`Exploring ${genreName} - Enter the sonic abyss`, 'info');
     });
 });
+
+// 語言系統功能
+function initializeLanguage() {
+    // 從 localStorage 讀取儲存的語言設定，預設為中文
+    const savedLang = localStorage.getItem('preferred-language') || 'zh';
+    setLanguage(savedLang);
+    
+    // 設置語言按鈕事件監聽器
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+            localStorage.setItem('preferred-language', lang);
+        });
+    });
+}
+
+function setLanguage(lang) {
+    // 更新按鈕狀態
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // 更新頁面內容
+    const elementsToTranslate = document.querySelectorAll('[data-translate]');
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+    });
+    
+    // 更新 HTML lang 屬性
+    document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+    
+    // 更新 meta 標籤
+    updateMetaTags(lang);
+}
+
+function updateMetaTags(lang) {
+    const title = document.querySelector('title');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    const description = document.querySelector('meta[property="og:description"]');
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    
+    if (lang === 'en') {
+        if (title) title.textContent = 'DJ REDSHOU - EDM • Hip Hop • Electronic Music';
+        if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
+        if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
+        if (description) description.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
+        if (twitterDescription) twitterDescription.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
+    } else {
+        if (title) title.textContent = 'DJ REDSHOU';
+        if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU');
+        if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU');
+        if (description) description.setAttribute('content', 'EDM • Hip Hop • 電子音樂');
+        if (twitterDescription) twitterDescription.setAttribute('content', 'EDM • Hip Hop • 電子音樂');
+    }
+}
 
 // Event card interactions
 document.querySelectorAll('.event-card').forEach(card => {
