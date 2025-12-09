@@ -42,6 +42,25 @@ body {
     color: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
+    /* Modern cyberpunk styles active */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-blue));
+    z-index: 9999;
+    animation: modernGlow 3s ease-in-out infinite;
+}
+
+@keyframes modernGlow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 
 
