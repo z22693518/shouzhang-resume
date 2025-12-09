@@ -2472,31 +2472,7 @@ section {
     gap: 3rem;
 }
 
-/* Simplified Experience Items */
-.experience-item {
-    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(192, 192, 192, 0.05));
-    border: 1px solid rgba(139, 0, 0, 0.3);
-    padding: 1.2rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-}
-
-.experience-item:hover {
-    transform: translateY(-2px);
-    border-color: var(--metal-silver);
-    box-shadow: var(--shadow-glow);
-}
-
-.experience-item.featured {
-    border-color: var(--gothic-gold);
-    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1), rgba(192, 192, 192, 0.05));
-}
-
-.experience-item.cultural {
-    border-color: var(--crimson);
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(192, 192, 192, 0.05));
-}
+/* Experience Items - Modern Style Applied Above */
 
 /* Experience Items with Photos */
 .experience-item.with-photo {
