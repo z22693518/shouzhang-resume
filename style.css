@@ -1605,13 +1605,18 @@ section {
     padding: 30px;
     margin-bottom: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    cursor: pointer;
 }
 
 .mixcloud-embed:hover {
     border-color: var(--blood-red);
-    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 
+        0 25px 50px rgba(139, 0, 0, 0.6),
+        0 0 0 1px rgba(139, 0, 0, 0.2);
+    transform: perspective(1000px) rotateX(8deg) translateY(-15px) translateZ(25px);
 }
 
 .mix-title {
@@ -1694,17 +1699,22 @@ section {
 .youtube-video {
     background: rgba(139, 0, 0, 0.1);
     border: 2px solid rgba(139, 0, 0, 0.3);
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 30px;
     margin-top: 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    cursor: pointer;
 }
 
 .youtube-video:hover {
     border-color: var(--blood-red);
-    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 
+        0 30px 60px rgba(139, 0, 0, 0.6),
+        0 0 0 1px rgba(139, 0, 0, 0.3);
+    transform: perspective(1000px) rotateX(-5deg) rotateY(3deg) translateY(-20px) translateZ(30px);
 }
 
 .youtube-video h3 {
@@ -1797,13 +1807,33 @@ section {
     overflow: hidden;
     aspect-ratio: 4/3;
     border: 2px solid var(--dark-silver);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 800px;
+    cursor: pointer;
+    border-radius: 8px;
 }
 
 .gallery-item:hover {
     border-color: var(--metal-silver);
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-deep);
+    transform: perspective(800px) rotateX(10deg) rotateY(-5deg) translateY(-15px) translateZ(30px);
+    box-shadow: 
+        var(--shadow-deep),
+        0 30px 60px rgba(139, 0, 0, 0.3),
+        0 0 0 1px rgba(192, 192, 192, 0.2);
+}
+
+/* 為相簿項目添加不同的 3D 角度 */
+.gallery-item:hover:nth-child(3n+1) {
+    transform: perspective(800px) rotateX(-8deg) rotateY(12deg) translateY(-18px) translateZ(35px);
+}
+
+.gallery-item:hover:nth-child(3n+2) {
+    transform: perspective(800px) rotateX(12deg) rotateY(-8deg) translateY(-12px) translateZ(25px);
+}
+
+.gallery-item:hover:nth-child(3n+3) {
+    transform: perspective(800px) rotateX(6deg) rotateY(10deg) translateY(-20px) translateZ(40px);
 }
 
 .gallery-item img {
@@ -2205,8 +2235,12 @@ section {
     background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(192, 192, 192, 0.05));
     border: 1px solid rgba(139, 0, 0, 0.3);
     padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    position: relative;
+    cursor: pointer;
 }
 
 .experience-item.featured {
@@ -2220,9 +2254,36 @@ section {
 }
 
 .experience-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateY(-10px) translateZ(20px);
+    box-shadow: 
+        var(--shadow-glow),
+        0 25px 50px rgba(139, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
     border-color: var(--metal-silver);
+}
+
+/* 為卡片添加傾斜變化 */
+.experience-item:hover:nth-child(odd) {
+    transform: perspective(1000px) rotateX(-3deg) rotateY(8deg) translateY(-12px) translateZ(25px);
+}
+
+.experience-item:hover:nth-child(even) {
+    transform: perspective(1000px) rotateX(7deg) rotateY(-6deg) translateY(-8px) translateZ(20px);
+}
+
+/* 為卡片內容添加 3D 效果 */
+.experience-item .event-name,
+.experience-item .venue-info {
+    transition: all 0.3s ease;
+}
+
+.experience-item:hover .event-name {
+    transform: translateZ(10px);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.experience-item:hover .venue-info {
+    transform: translateZ(5px);
 }
 
 .event-name {
@@ -2431,31 +2492,7 @@ section {
     gap: 3rem;
 }
 
-/* Simplified Experience Items */
-.experience-item {
-    background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(192, 192, 192, 0.05));
-    border: 1px solid rgba(139, 0, 0, 0.3);
-    padding: 1.2rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-}
-
-.experience-item:hover {
-    transform: translateY(-2px);
-    border-color: var(--metal-silver);
-    box-shadow: var(--shadow-glow);
-}
-
-.experience-item.featured {
-    border-color: var(--gothic-gold);
-    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1), rgba(192, 192, 192, 0.05));
-}
-
-.experience-item.cultural {
-    border-color: var(--crimson);
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.1), rgba(192, 192, 192, 0.05));
-}
+/* Experience Items - Modern 3D Effects */
 
 /* Experience Items with Photos */
 .experience-item.with-photo {
