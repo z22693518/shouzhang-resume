@@ -1690,6 +1690,97 @@ section {
     letter-spacing: 1px;
 }
 
+/* YouTube Video Styles */
+.youtube-video {
+    background: rgba(139, 0, 0, 0.1);
+    border: 2px solid rgba(139, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.youtube-video:hover {
+    border-color: var(--blood-red);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.youtube-video h3 {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-gothic);
+}
+
+.video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.video-embed iframe {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+.youtube-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--metal-silver);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid rgba(192, 192, 192, 0.3);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background: rgba(192, 192, 192, 0.05);
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+}
+
+.youtube-link:hover {
+    color: #ff0000;
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.youtube-link i {
+    font-size: 1.2rem;
+}
+
+/* Responsive Design for YouTube Video */
+@media (max-width: 768px) {
+    .video-embed iframe {
+        height: 250px;
+    }
+    
+    .youtube-video {
+        padding: 20px;
+        margin-top: 30px;
+    }
+    
+    .youtube-video h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+}
+
 /* Gallery Section */
 .gallery-section {
     background: var(--primary-black);
