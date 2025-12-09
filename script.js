@@ -287,16 +287,40 @@ function initializeVideoBackground() {
         return;
     }
     
+    // 檢查網路條件和設備性能
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+    const isLowDataMode = connection && connection.saveData;
+    
+    // 在慢速連線或省流量模式下不載入影片
+    if (isSlowConnection || isLowDataMode) {
+        console.log('Slow connection detected, using fallback background');
+        showFallbackBackground();
+        return;
+    }
+    
     // 延遲載入影片，不阻塞初始載入
     setTimeout(() => {
+        // 設定載入逾時保護 (3秒)
+        const timeout = setTimeout(() => {
+            if (video.readyState < 3) {
+                console.warn('Video loading timeout, using fallback');
+                showFallbackBackground();
+            }
+        }, 3000);
+        
         // 處理影片載入成功
         video.addEventListener('loadeddata', () => {
+            clearTimeout(timeout);
             video.style.display = 'block';
             if (fallbackBg) fallbackBg.style.display = 'none';
+            console.log('Video loaded successfully');
         });
         
         // 處理影片載入失敗
-        video.addEventListener('error', () => {
+        video.addEventListener('error', (e) => {
+            clearTimeout(timeout);
+            console.warn('Video failed to load:', e);
             showFallbackBackground();
         });
         
@@ -308,9 +332,11 @@ function initializeVideoBackground() {
         
         // 嘗試播放影片
         video.play().catch(e => {
+            clearTimeout(timeout);
+            console.warn('Video autoplay failed:', e);
             showFallbackBackground();
         });
-    }, 500); // 延遲 500ms 載入影片
+    }, 1000); // 延遲 1秒 載入影片，確保關鍵內容先載入
 }
 
 function showFallbackBackground() {
