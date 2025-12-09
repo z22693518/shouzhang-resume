@@ -955,4 +955,28 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// 確保Logo 3D動畫正常啟動
+document.addEventListener('DOMContentLoaded', function() {
+    // 強制重新啟動logo動畫
+    const logos = document.querySelectorAll('.logo-main, .nav-logo, .footer-logo');
+    logos.forEach(logo => {
+        // 暫時停止動畫然後重啟，確保動畫生效
+        logo.style.animationPlayState = 'paused';
+        setTimeout(() => {
+            logo.style.animationPlayState = 'running';
+        }, 100);
+        
+        // 添加3D動畫類別確保效果生效
+        logo.classList.add('logo-3d-active');
+    });
+    
+    // 確保CSS已載入後再啟動動畫
+    setTimeout(() => {
+        logos.forEach(logo => {
+            logo.style.willChange = 'transform, filter';
+            logo.style.transformStyle = 'preserve-3d';
+        });
+    }, 200);
+});
+
 

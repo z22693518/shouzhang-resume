@@ -88,11 +88,11 @@ body {
     font-display: swap;
 }
 
-/* 減少重繪的優化 */
+/* 減少重繪的優化 - 移除transform衝突，改用will-change */
 .nav-logo,
 .logo-main,
 .footer-logo {
-    transform: translateZ(0);
+    will-change: transform, filter;
     backface-visibility: hidden;
 }
 
@@ -791,6 +791,13 @@ body {
         filter: brightness(1.3) drop-shadow(0 0 20px rgba(139, 0, 0, 0.6));
         transform: rotateY(-5deg);
     }
+}
+
+/* 確保3D動畫啟動的輔助類別 */
+.logo-3d-active {
+    animation-play-state: running !important;
+    transform-style: preserve-3d !important;
+    will-change: transform, filter !important;
 }
 
 .title-main {
