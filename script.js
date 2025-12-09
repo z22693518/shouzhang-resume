@@ -975,8 +975,23 @@ document.addEventListener('DOMContentLoaded', function() {
         logos.forEach(logo => {
             logo.style.willChange = 'transform, filter';
             logo.style.transformStyle = 'preserve-3d';
+            
+            // 特別處理導航logo
+            if (logo.classList.contains('nav-logo')) {
+                logo.style.animation = 'navLogoBreath 4s ease-in-out infinite';
+                logo.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(192, 192, 192, 0.3))';
+            }
         });
     }, 200);
+    
+    // 為導航logo添加額外的強制樣式
+    const navLogo = document.querySelector('.nav-logo');
+    if (navLogo) {
+        setTimeout(() => {
+            navLogo.style.animation = 'navLogoBreath 4s ease-in-out infinite';
+            navLogo.style.animationPlayState = 'running';
+        }, 500);
+    }
 });
 
 
