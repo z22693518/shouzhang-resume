@@ -2140,6 +2140,26 @@ section {
     .music-genres {
         grid-template-columns: 1fr;
     }
+    
+    /* 平板版詳細經歷優化 */
+    .experience-section {
+        padding: 1.8rem;
+    }
+    
+    .experience-title {
+        font-size: 1.2rem;
+    }
+    
+    .experience-item.with-photo {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .item-photo {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2154,6 +2174,67 @@ section {
     
     .social-links {
         justify-content: center;
+    }
+    
+    /* 詳細經歷手機版優化 */
+    .detailed-experience h3 {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .experience-columns {
+        gap: 2rem;
+    }
+    
+    .experience-section {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .experience-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .experience-items {
+        gap: 1rem;
+    }
+    
+    .experience-item {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .experience-item.with-photo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .item-photo {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 0.5rem auto;
+    }
+    
+    .venue-list {
+        gap: 0.5rem;
+    }
+    
+    .venue-list .venue-item {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .section-container {
+        padding: 0 1rem;
+    }
+    
+    /* 防止文字溢出 */
+    .experience-item,
+    .venue-item {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 }
 
@@ -2867,6 +2948,26 @@ section {
     }
 }
 
+
+/* ===== 全域手機優化 ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.section-container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* 防止所有文字內容溢出 */
+h1, h2, h3, h4, h5, h6, p, div, span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 
 /* ===== Spline 3D Viewer 樣式 ===== */
 .spline-viewer-container {
