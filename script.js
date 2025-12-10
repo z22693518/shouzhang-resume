@@ -936,31 +936,63 @@ document.addEventListener('DOMContentLoaded', function() {
     const splineContainer = document.getElementById('splineContainer');
     
     if (splineViewer && splineFallback && splineContainer) {
-        // 設定超時，如果3秒後還沒載入成功就使用備用iframe
-        const fallbackTimeout = setTimeout(() => {
-            console.log('Spline viewer timeout, switching to iframe fallback');
-            splineViewer.style.display = 'none';
-            splineFallback.style.display = 'block';
+        let fallbackActivated = false;
+        
+        // 啟用備用方案的函數
+        function activateFallback(reason) {
+            if (fallbackActivated) return;
+            fallbackActivated = true;
             
-            // 移除載入文字
+            console.log('Activating DJ 3D fallback:', reason);
+            splineViewer.style.display = 'none';
+            splineFallback.style.display = 'flex';
             splineContainer.classList.add('loaded');
-        }, 5000);
+        }
+        
+        // 3秒超時機制
+        const fallbackTimeout = setTimeout(() => {
+            activateFallback('timeout');
+        }, 3000);
+        
+        // 監聽全域錯誤，捕捉 Spline 解析錯誤
+        window.addEventListener('error', (event) => {
+            if (event.filename && event.filename.includes('spline-viewer')) {
+                activateFallback('script error');
+            }
+        });
+        
+        // 監聽 Promise 拒絕錯誤
+        window.addEventListener('unhandledrejection', (event) => {
+            if (event.reason && event.reason.message && 
+                event.reason.message.includes('buffer')) {
+                activateFallback('buffer read error');
+            }
+        });
         
         // 監聽 spline-viewer 載入成功事件
         splineViewer.addEventListener('load', () => {
-            clearTimeout(fallbackTimeout);
-            splineContainer.classList.add('loaded');
-            console.log('Spline viewer loaded successfully');
+            if (!fallbackActivated) {
+                clearTimeout(fallbackTimeout);
+                splineContainer.classList.add('loaded');
+                console.log('Spline viewer loaded successfully');
+            }
         });
         
-        // 如果載入失敗，也使用備用方案
+        // 監聽 spline-viewer 錯誤事件
         splineViewer.addEventListener('error', () => {
             clearTimeout(fallbackTimeout);
-            splineViewer.style.display = 'none';
-            splineFallback.style.display = 'block';
-            splineContainer.classList.add('loaded');
-            console.log('Spline viewer failed, using iframe fallback');
+            activateFallback('load error');
         });
+        
+        // 延遲檢查：如果 2 秒後 spline-viewer 還是沒有內容
+        setTimeout(() => {
+            if (!fallbackActivated && splineViewer.shadowRoot) {
+                const canvas = splineViewer.shadowRoot.querySelector('canvas');
+                if (!canvas || canvas.width === 0) {
+                    activateFallback('no canvas content');
+                }
+            }
+        }, 2000);
     }
 });
 
