@@ -955,6 +955,193 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ===== UI/UX 優化：滾動進度指示器 =====
+function updateScrollProgress() {
+    const scrollProgress = document.getElementById('scrollProgress');
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    
+    if (scrollProgress) {
+        scrollProgress.style.width = progress + '%';
+    }
+}
+
+// ===== UI/UX 優化：返回頂部按鈕 =====
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (!backToTopBtn) return;
+    
+    function toggleBackToTopBtn() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    }
+    
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    window.addEventListener('scroll', toggleBackToTopBtn);
+}
+
+// ===== UI/UX 優化：無障礙設計控制面板 =====
+function initAccessibilityPanel() {
+    const panel = document.getElementById('accessibilityPanel');
+    const toggle = document.getElementById('accessibilityToggle');
+    const increaseFontBtn = document.getElementById('increaseFontSize');
+    const decreaseFontBtn = document.getElementById('decreaseFontSize');
+    const contrastBtn = document.getElementById('toggleHighContrast');
+    const keyboardBtn = document.getElementById('toggleKeyboardNav');
+    
+    if (!panel || !toggle) return;
+    
+    // 切換面板顯示
+    toggle.addEventListener('click', () => {
+        panel.classList.toggle('active');
+    });
+    
+    // 字體大小控制
+    let currentFontSize = 'normal';
+    
+    increaseFontBtn?.addEventListener('click', () => {
+        document.body.classList.remove('small-font', 'large-font');
+        currentFontSize = currentFontSize === 'normal' ? 'large' : 'normal';
+        if (currentFontSize === 'large') {
+            document.body.classList.add('large-font');
+        }
+        localStorage.setItem('fontSize', currentFontSize);
+    });
+    
+    decreaseFontBtn?.addEventListener('click', () => {
+        document.body.classList.remove('small-font', 'large-font');
+        currentFontSize = currentFontSize === 'normal' ? 'small' : 'normal';
+        if (currentFontSize === 'small') {
+            document.body.classList.add('small-font');
+        }
+        localStorage.setItem('fontSize', currentFontSize);
+    });
+    
+    // 高對比模式
+    contrastBtn?.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        localStorage.setItem('highContrast', isHighContrast);
+    });
+    
+    // 鍵盤導航模式
+    keyboardBtn?.addEventListener('click', () => {
+        document.body.classList.toggle('keyboard-nav');
+        const isKeyboardNav = document.body.classList.contains('keyboard-nav');
+        localStorage.setItem('keyboardNav', isKeyboardNav);
+    });
+    
+    // 載入保存的設定
+    const savedFontSize = localStorage.getItem('fontSize');
+    const savedHighContrast = localStorage.getItem('highContrast') === 'true';
+    const savedKeyboardNav = localStorage.getItem('keyboardNav') === 'true';
+    
+    if (savedFontSize === 'large') {
+        document.body.classList.add('large-font');
+        currentFontSize = 'large';
+    } else if (savedFontSize === 'small') {
+        document.body.classList.add('small-font');
+        currentFontSize = 'small';
+    }
+    
+    if (savedHighContrast) {
+        document.body.classList.add('high-contrast');
+    }
+    
+    if (savedKeyboardNav) {
+        document.body.classList.add('keyboard-nav');
+    }
+    
+    // 點擊外部關閉面板
+    document.addEventListener('click', (e) => {
+        if (!panel.contains(e.target)) {
+            panel.classList.remove('active');
+        }
+    });
+}
+
+// ===== UI/UX 優化：滾動動畫 =====
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // 為主要內容區塊添加動畫
+    const animatedElements = document.querySelectorAll(
+        '.about-section, .experience-section, .music-section, .gallery-section, .experience-item, .gallery-item, .stat-card'
+    );
+    
+    animatedElements.forEach((element, index) => {
+        // 隨機分配動畫效果
+        const animations = ['fade-in-up', 'fade-in-left', 'fade-in-right'];
+        const randomAnimation = animations[index % animations.length];
+        element.classList.add(randomAnimation);
+        
+        // 延遲觀察，創造階層效果
+        setTimeout(() => {
+            observer.observe(element);
+        }, index * 100);
+    });
+}
+
+// ===== UI/UX 優化：增強hover效果 =====
+function initEnhancedHoverEffects() {
+    const hoverElements = document.querySelectorAll(
+        '.experience-item, .gallery-item, .nav-link, .social-link, .lang-btn'
+    );
+    
+    hoverElements.forEach(element => {
+        if (!element.classList.contains('enhanced-hover')) {
+            element.classList.add('enhanced-hover');
+        }
+    });
+}
+
+// ===== UI/UX 優化：導航增強 =====
+function initNavigationEnhancements() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 70; // 導航欄高度
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // 更新URL但不觸發跳轉
+                history.pushState(null, null, `#${targetId}`);
+            }
+        });
+    });
+}
+
 // 確保Logo 3D動畫正常啟動
 document.addEventListener('DOMContentLoaded', function() {
     // 強制重新啟動logo動畫
@@ -992,6 +1179,18 @@ document.addEventListener('DOMContentLoaded', function() {
             navLogo.style.animationPlayState = 'running';
         }, 500);
     }
+    
+    // ===== 初始化所有UI/UX優化功能 =====
+    initBackToTop();
+    initAccessibilityPanel();
+    initScrollAnimations();
+    initEnhancedHoverEffects();
+    initNavigationEnhancements();
 });
+
+// ===== 監聽滾動事件更新進度條 =====
+window.addEventListener('scroll', () => {
+    updateScrollProgress();
+}, { passive: true });
 
 

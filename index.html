@@ -44,7 +44,7 @@
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="script.js" as="script">
     
-    <link rel="stylesheet" href="style.css?v=nav-logo-fix-2025120902">
+    <link rel="stylesheet" href="style.css?v=uiux-optimization-2025120903">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -57,6 +57,9 @@
         </div>
     </div>
 
+    <!-- UI/UX 優化：滾動進度指示器 -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -439,6 +442,32 @@
             </div>
         </div>
     </footer>
+
+    <!-- UI/UX 優化：返回頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回頂部">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- UI/UX 優化：無障礙設計控制面板 -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <button class="accessibility-toggle" id="accessibilityToggle" aria-label="無障礙設定">
+            <i class="fas fa-universal-access"></i>
+        </button>
+        <div class="accessibility-options" id="accessibilityOptions">
+            <button class="accessibility-option" id="increaseFontSize" aria-label="增大字體">
+                <i class="fas fa-plus"></i> 字體
+            </button>
+            <button class="accessibility-option" id="decreaseFontSize" aria-label="縮小字體">
+                <i class="fas fa-minus"></i> 字體
+            </button>
+            <button class="accessibility-option" id="toggleHighContrast" aria-label="切換高對比">
+                <i class="fas fa-adjust"></i> 對比
+            </button>
+            <button class="accessibility-option" id="toggleKeyboardNav" aria-label="鍵盤導航">
+                <i class="fas fa-keyboard"></i> 鍵盤
+            </button>
+        </div>
+    </div>
 
     <script src="script.js" defer></script>
 </body>
