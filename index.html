@@ -25,6 +25,9 @@
     <link rel="dns-prefetch" href="//i.ibb.co">
     <link rel="preconnect" href="https://i.ibb.co" crossorigin>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Spline 3D Viewer -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.6/build/spline-viewer.js"></script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -100,6 +103,11 @@
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="section-container">
+            <!-- Spline 3D Scene -->
+            <div class="spline-container">
+                <spline-viewer url="undefined"></spline-viewer>
+            </div>
+            
             <div class="about-content">
                 <div class="personal-intro">
                     <h2 class="section-title" data-translate="about-title">關於 REDSHoU</h2>
