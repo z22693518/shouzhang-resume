@@ -2074,6 +2074,21 @@ section {
     transition: transform 0.3s ease;
 }
 
+.fallback-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* 當 Spline viewer 載入成功時隱藏備用 icon */
+.instagram-3d-container spline-viewer[loaded] + .fallback-icon {
+    display: none;
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
