@@ -2873,15 +2873,14 @@ section {
     height: 400px;
     margin-bottom: 3rem;
     border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.3));
+    overflow: visible;
+    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(139, 0, 0, 0.4));
     position: relative;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    perspective: 1000px;
-    border: 2px solid rgba(139, 0, 0, 0.5);
+    perspective: 1200px;
 }
 
 
@@ -2891,7 +2890,6 @@ section {
     height: 300px;
     transform-style: preserve-3d;
     animation: sceneRotate 20s linear infinite;
-    border: 1px solid rgba(255, 255, 255, 0.3);
     display: block !important;
     visibility: visible !important;
 }
