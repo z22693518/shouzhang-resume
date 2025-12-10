@@ -929,21 +929,13 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ===== Spline 3D Viewer 載入處理 =====
+// ===== DJ 3D Scene 載入處理 =====
 document.addEventListener('DOMContentLoaded', function() {
-    const splineViewer = document.querySelector('spline-viewer');
-    const splineFallback = document.getElementById('splineFallback');
-    const splineContainer = document.getElementById('splineContainer');
+    const djContainer = document.querySelector('.dj-3d-container');
     
-    if (splineViewer && splineFallback && splineContainer) {
-        console.log('Initializing custom DJ 3D scene...');
-        
-        // 由於 Spline URL 持續失效，直接顯示自定義 DJ 3D 場景
-        splineViewer.style.display = 'none';
-        splineFallback.style.display = 'flex';
-        splineContainer.classList.add('loaded');
-        
-        console.log('DJ 3D scene activated');
+    if (djContainer) {
+        console.log('DJ 3D scene initialized');
+        djContainer.style.opacity = '1';
     }
 });
 
