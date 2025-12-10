@@ -2052,6 +2052,8 @@ section {
 .instagram-3d-link {
     position: relative;
     overflow: hidden;
+    background: linear-gradient(45deg, #833AB4, #FD1D1D, #FCB045) !important;
+    border: 2px solid #E1306C !important;
 }
 
 .instagram-3d-container {
@@ -2060,6 +2062,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .instagram-3d-container spline-viewer {
@@ -2080,8 +2083,10 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
-    z-index: 1;
+    z-index: 10;
     pointer-events: none;
+    display: block !important;
+    color: var(--metal-silver);
 }
 
 /* 當 Spline viewer 載入成功時隱藏備用 icon */
