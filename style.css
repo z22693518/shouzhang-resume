@@ -2876,6 +2876,7 @@ section {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
     background: rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .spline-container spline-viewer {
@@ -2883,6 +2884,15 @@ section {
     height: 100%;
     display: block;
     border-radius: 15px;
+    background: transparent;
+}
+
+/* 確保Spline Viewer載入 */
+spline-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
 }
 
 /* 響應式設計 */
