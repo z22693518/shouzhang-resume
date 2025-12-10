@@ -2875,8 +2875,29 @@ section {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(139, 0, 0, 0.1));
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spline-container::before {
+    content: "載入 3D 場景中...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.spline-container.loaded::before {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .spline-container spline-viewer {
@@ -2885,6 +2906,19 @@ section {
     display: block;
     border-radius: 15px;
     background: transparent;
+    z-index: 2;
+    position: relative;
+}
+
+.spline-container spline-viewer:not([loaded])::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 3;
 }
 
 /* 確保Spline Viewer載入 */
@@ -2893,6 +2927,9 @@ spline-viewer {
     height: 100%;
     border: none;
     outline: none;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* 響應式設計 */

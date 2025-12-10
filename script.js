@@ -929,4 +929,39 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ===== Spline 3D Viewer 載入處理 =====
+document.addEventListener('DOMContentLoaded', function() {
+    const splineViewer = document.querySelector('spline-viewer');
+    const splineFallback = document.getElementById('splineFallback');
+    const splineContainer = document.getElementById('splineContainer');
+    
+    if (splineViewer && splineFallback && splineContainer) {
+        // 設定超時，如果3秒後還沒載入成功就使用備用iframe
+        const fallbackTimeout = setTimeout(() => {
+            console.log('Spline viewer timeout, switching to iframe fallback');
+            splineViewer.style.display = 'none';
+            splineFallback.style.display = 'block';
+            
+            // 移除載入文字
+            splineContainer.classList.add('loaded');
+        }, 5000);
+        
+        // 監聽 spline-viewer 載入成功事件
+        splineViewer.addEventListener('load', () => {
+            clearTimeout(fallbackTimeout);
+            splineContainer.classList.add('loaded');
+            console.log('Spline viewer loaded successfully');
+        });
+        
+        // 如果載入失敗，也使用備用方案
+        splineViewer.addEventListener('error', () => {
+            clearTimeout(fallbackTimeout);
+            splineViewer.style.display = 'none';
+            splineFallback.style.display = 'block';
+            splineContainer.classList.add('loaded');
+            console.log('Spline viewer failed, using iframe fallback');
+        });
+    }
+});
+
 
