@@ -929,14 +929,5 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ===== DJ 3D Scene 載入處理 =====
-document.addEventListener('DOMContentLoaded', function() {
-    const djContainer = document.querySelector('.dj-3d-container');
-    
-    if (djContainer) {
-        console.log('DJ 3D scene initialized');
-        djContainer.style.opacity = '1';
-    }
-});
 
 
