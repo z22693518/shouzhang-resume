@@ -987,12 +987,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Main Spline 3D scene failed to load');
         });
         
-        // 5秒超時檢查
-        setTimeout(() => {
-            if (splineFallback && splineFallback.style.display !== 'none') {
-                splineFallback.innerHTML = '<div>⏰ 3D 場景載入緩慢</div><div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">請檢查網路連線</div>';
-            }
-        }, 5000);
+        // 移除超時檢查，已正常載入
     }
     
     console.log('Main Spline handler initialized with loading monitoring.');
