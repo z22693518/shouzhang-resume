@@ -934,25 +934,26 @@ document.addEventListener('keydown', (e) => {
 
 // ===== Instagram 3D Icon 處理 =====
 document.addEventListener('DOMContentLoaded', function() {
-    const instagramSpline = document.querySelector('.instagram-3d-container spline-viewer');
-    const fallbackIcon = document.querySelector('.fallback-icon');
+    const instagramLink = document.querySelector('a[href*="instagram.com/redshou_89"]');
+    const instagramSpline = instagramLink ? instagramLink.querySelector('spline-viewer') : null;
+    const fallbackIcon = instagramLink ? instagramLink.querySelector('div[style*="📷"]') : null;
     
     if (instagramSpline && fallbackIcon) {
-        // 設置載入超時 (3 秒後顯示備用 icon)
-        const loadTimeout = setTimeout(() => {
-            fallbackIcon.style.display = 'block';
-        }, 3000);
+        // 初始顯示備用圖標
+        fallbackIcon.style.display = 'block';
         
         // 監聽 Spline viewer 載入成功
         instagramSpline.addEventListener('load', () => {
-            clearTimeout(loadTimeout);
-            fallbackIcon.style.display = 'none';
+            if (instagramSpline.getAttribute('url') !== 'undefined') {
+                fallbackIcon.style.display = 'none';
+                console.log('Instagram 3D icon loaded successfully');
+            }
         });
         
         // 監聽載入錯誤
         instagramSpline.addEventListener('error', () => {
-            clearTimeout(loadTimeout);
             fallbackIcon.style.display = 'block';
+            console.log('Instagram 3D icon failed to load');
         });
         
         console.log('Instagram 3D icon handler initialized');
