@@ -2048,51 +2048,7 @@ section {
     box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
 }
 
-/* Instagram 3D Icon 樣式 */
-.instagram-3d-link {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(45deg, #833AB4, #FD1D1D, #FCB045) !important;
-    border: 2px solid #E1306C !important;
-}
-
-.instagram-3d-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.instagram-3d-container spline-viewer {
-    width: 40px;
-    height: 40px;
-    display: block;
-    border-radius: 8px;
-}
-
-.instagram-3d-link:hover .instagram-3d-container spline-viewer {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.fallback-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    z-index: 10;
-    pointer-events: none;
-    display: block !important;
-    color: var(--metal-silver);
-}
-
-/* 當 Spline viewer 載入成功時隱藏備用 icon */
-.instagram-3d-container spline-viewer[loaded] + .fallback-icon {
-    display: none;
-}
+/* Instagram 3D Icon 樣式已移除 */
 
 .footer-bottom {
     text-align: center;
