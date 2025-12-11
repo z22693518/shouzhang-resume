@@ -946,19 +946,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 激活 DJ 3D 場景後備方案
     function activateFallback(reason) {
-        if (fallbackActivated) return;
+        if (fallbackActivated) {
+            console.log('Fallback already activated, ignoring:', reason);
+            return;
+        }
         fallbackActivated = true;
         
         console.log('Activating DJ 3D fallback:', reason);
+        console.log('Elements state:', {
+            splineViewer: !!splineViewer,
+            splineFallback: !!splineFallback,
+            splineContainer: !!splineContainer
+        });
         
         if (splineViewer) {
             splineViewer.style.display = 'none';
+            console.log('Hidden spline viewer');
         }
         if (splineFallback) {
             splineFallback.style.display = 'flex';
+            splineFallback.style.visibility = 'visible';
+            splineFallback.style.opacity = '1';
+            console.log('Activated fallback animation');
         }
         if (splineContainer) {
             splineContainer.classList.add('loaded');
+            console.log('Added loaded class to container');
         }
         
         clearTimeout(loadTimeout);
@@ -1059,6 +1072,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!fallbackActivated && splineFallback) {
             console.log('Emergency fallback activation - ensuring DJ animation is visible');
             activateFallback('emergency activation');
+        } else if (fallbackActivated) {
+            console.log('Fallback already activated successfully');
+        } else {
+            console.log('Fallback elements missing:', {
+                splineContainer: !!splineContainer,
+                splineViewer: !!splineViewer,
+                splineFallback: !!splineFallback
+            });
         }
     }, 2000);
 });
