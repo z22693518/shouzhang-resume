@@ -970,8 +970,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Main Spline viewer created with URL:', splineUrl);
     };
     
-    // 自動載入主要 Spline 3D 場景
-    loadMainSpline('https://prod.spline.design/NUizpsQ-AeS8dsDh/scene.splinecode');
+    // 主要 Spline 3D 場景已在 HTML 中設置
+    // 如需載入不同場景，可使用 loadMainSpline(url)
     
-    console.log('Main Spline handler initialized and 3D scene loaded.');
+    console.log('Main Spline handler initialized. Use loadMainSpline(url) to load 3D scene.');
 });
