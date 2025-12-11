@@ -970,8 +970,30 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Main Spline viewer created with URL:', splineUrl);
     };
     
-    // 主要 Spline 3D 場景已在 HTML 中設置
-    // 如需載入不同場景，可使用 loadMainSpline(url)
+    // 監控主要 Spline 3D 場景載入狀態
+    const mainSplineViewer = mainSplineContainer ? mainSplineContainer.querySelector('spline-viewer') : null;
+    const splineFallback = mainSplineContainer ? mainSplineContainer.querySelector('.spline-fallback') : null;
     
-    console.log('Main Spline handler initialized. Use loadMainSpline(url) to load 3D scene.');
+    if (mainSplineViewer && splineFallback) {
+        // 監聽載入成功事件
+        mainSplineViewer.addEventListener('load', () => {
+            splineFallback.style.display = 'none';
+            console.log('Main Spline 3D scene loaded successfully');
+        });
+        
+        // 監聽載入錯誤事件  
+        mainSplineViewer.addEventListener('error', () => {
+            splineFallback.innerHTML = '<div>❌ 3D 場景載入失敗</div><div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">請稍後再試</div>';
+            console.log('Main Spline 3D scene failed to load');
+        });
+        
+        // 5秒超時檢查
+        setTimeout(() => {
+            if (splineFallback && splineFallback.style.display !== 'none') {
+                splineFallback.innerHTML = '<div>⏰ 3D 場景載入緩慢</div><div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">請檢查網路連線</div>';
+            }
+        }, 5000);
+    }
+    
+    console.log('Main Spline handler initialized with loading monitoring.');
 });
