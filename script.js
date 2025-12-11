@@ -936,59 +936,118 @@ document.addEventListener('keydown', (e) => {
 
 // ===== 主要 Spline 3D 場景處理 =====
 document.addEventListener('DOMContentLoaded', function() {
-    const mainSplineContainer = document.getElementById('main-spline-container');
-    const splineLoading = mainSplineContainer ? mainSplineContainer.querySelector('.spline-loading') : null;
+    const splineContainer = document.getElementById('splineContainer');
+    const splineViewer = splineContainer ? splineContainer.querySelector('spline-viewer') : null;
+    const splineFallback = document.getElementById('splineFallback');
     
-    // 創建載入主要 Spline 3D 場景的函數
-    window.loadMainSpline = function(splineUrl) {
-        if (!mainSplineContainer || !splineUrl) {
-            console.log('Invalid main Spline URL provided');
-            return;
+    let fallbackActivated = false;
+    let loadTimeout;
+    let scriptLoadError = false;
+    
+    // 激活 DJ 3D 場景後備方案
+    function activateFallback(reason) {
+        if (fallbackActivated) return;
+        fallbackActivated = true;
+        
+        console.log('Activating DJ 3D fallback:', reason);
+        
+        if (splineViewer) {
+            splineViewer.style.display = 'none';
+        }
+        if (splineFallback) {
+            splineFallback.style.display = 'flex';
+        }
+        if (splineContainer) {
+            splineContainer.classList.add('loaded');
         }
         
-        // 創建 spline-viewer 元素
-        const splineViewer = document.createElement('spline-viewer');
-        splineViewer.setAttribute('url', splineUrl);
-        splineViewer.style.cssText = 'width: 100%; height: 100%; display: block;';
-        
-        // 監聽載入事件
-        splineViewer.addEventListener('load', () => {
-            if (splineLoading) splineLoading.style.display = 'none';
-            console.log('Main Spline 3D scene loaded successfully');
-        });
-        
-        splineViewer.addEventListener('error', () => {
-            if (splineLoading) {
-                splineLoading.textContent = '3D 場景載入失敗';
-                splineLoading.style.color = '#ff6b6b';
-            }
-            console.log('Main Spline 3D scene failed to load');
-        });
-        
-        // 添加到容器中
-        mainSplineContainer.appendChild(splineViewer);
-        console.log('Main Spline viewer created with URL:', splineUrl);
-    };
-    
-    // 監控主要 Spline 3D 場景載入狀態
-    const mainSplineViewer = mainSplineContainer ? mainSplineContainer.querySelector('spline-viewer') : null;
-    const splineFallback = mainSplineContainer ? mainSplineContainer.querySelector('.spline-fallback') : null;
-    
-    if (mainSplineViewer && splineFallback) {
-        // 監聽載入成功事件
-        mainSplineViewer.addEventListener('load', () => {
-            splineFallback.style.display = 'none';
-            console.log('Main Spline 3D scene loaded successfully');
-        });
-        
-        // 監聽載入錯誤事件  
-        mainSplineViewer.addEventListener('error', () => {
-            splineFallback.innerHTML = '<div>❌ 3D 場景載入失敗</div><div style="font-size: 12px; margin-top: 10px; opacity: 0.7;">請稍後再試</div>';
-            console.log('Main Spline 3D scene failed to load');
-        });
-        
-        // 移除超時檢查，已正常載入
+        clearTimeout(loadTimeout);
     }
     
-    console.log('Main Spline handler initialized with loading monitoring.');
+    // 全域錯誤處理
+    window.addEventListener('error', (event) => {
+        if (event.message && (
+            event.message.includes('spline') || 
+            event.message.includes('scene.splinecode') ||
+            event.message.includes('viewer')
+        )) {
+            console.error('Spline script error detected:', event.message);
+            activateFallback('script error');
+            scriptLoadError = true;
+        }
+    });
+    
+    // Promise rejection 處理
+    window.addEventListener('unhandledrejection', (event) => {
+        if (event.reason && event.reason.toString().includes('spline')) {
+            console.error('Spline promise rejection:', event.reason);
+            activateFallback('promise rejection');
+        }
+    });
+    
+    if (splineViewer && splineFallback && splineContainer) {
+        console.log('Initializing Spline viewer with comprehensive error handling...');
+        
+        // 設定載入超時
+        loadTimeout = setTimeout(() => {
+            if (!fallbackActivated) {
+                console.log('Spline loading timeout - activating fallback');
+                activateFallback('timeout');
+            }
+        }, 8000);
+        
+        // Spline 載入成功處理
+        splineViewer.addEventListener('load', () => {
+            if (!fallbackActivated && !scriptLoadError) {
+                console.log('Spline scene loaded successfully');
+                clearTimeout(loadTimeout);
+                splineFallback.style.display = 'none';
+                splineContainer.classList.add('loaded');
+            }
+        });
+        
+        // Spline 載入錯誤處理
+        splineViewer.addEventListener('error', (event) => {
+            console.error('Spline load error event:', event);
+            activateFallback('load error');
+        });
+        
+        // 檢查 canvas 渲染狀態
+        setTimeout(() => {
+            if (!fallbackActivated && !scriptLoadError) {
+                const canvas = splineViewer.shadowRoot ? 
+                    splineViewer.shadowRoot.querySelector('canvas') :
+                    splineViewer.querySelector('canvas');
+                    
+                if (!canvas) {
+                    console.log('No canvas found in Spline viewer - activating fallback');
+                    activateFallback('no canvas');
+                } else {
+                    console.log('Spline canvas found, monitoring rendering...');
+                }
+            }
+        }, 5000);
+        
+        // 檢查是否有緩衝區讀取錯誤（根據之前的錯誤日誌）
+        setTimeout(() => {
+            if (!fallbackActivated && !scriptLoadError) {
+                // 檢查 console 是否有特定錯誤
+                const originalConsoleError = console.error;
+                console.error = function(...args) {
+                    const errorMessage = args.join(' ');
+                    if (errorMessage.includes('Data read, but end of buffer not reached') ||
+                        errorMessage.includes('403') ||
+                        errorMessage.includes('Forbidden')) {
+                        activateFallback('buffer read error');
+                    }
+                    originalConsoleError.apply(console, args);
+                };
+            }
+        }, 3000);
+        
+        console.log('Spline error handling initialized with DJ 3D fallback ready');
+    } else {
+        console.log('Spline elements not found, activating fallback immediately');
+        activateFallback('elements not found');
+    }
 });
