@@ -965,10 +965,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Spline viewer created with URL:', splineUrl);
     };
     
-    // 示例：如果有預設的 3D icon URL，可以在這裡載入
-    // loadInstagram3D('YOUR_SPLINE_URL_HERE');
+    // 載入 Instagram 3D icon
+    loadInstagram3D('https://prod.spline.design/NUizpsQ-AeS8dsDh/scene.splinecode');
     
-    console.log('Instagram 3D icon handler initialized. Use loadInstagram3D(url) to load 3D icon.');
+    console.log('Instagram 3D icon handler initialized.');
     
     // ===== 主要 Spline 3D 場景處理 =====
     const mainSplineContainer = document.getElementById('main-spline-container');
