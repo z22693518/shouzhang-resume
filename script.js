@@ -964,12 +964,13 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(loadTimeout);
     }
     
-    // 全域錯誤處理
+    // 增強的全域錯誤處理
     window.addEventListener('error', (event) => {
         if (event.message && (
             event.message.includes('spline') || 
             event.message.includes('scene.splinecode') ||
-            event.message.includes('viewer')
+            event.message.includes('viewer') ||
+            event.message.includes('buffer not reached')
         )) {
             console.error('Spline script error detected:', event.message);
             activateFallback('script error');
@@ -977,24 +978,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Promise rejection 處理
+    // 增強的 Promise rejection 處理
     window.addEventListener('unhandledrejection', (event) => {
-        if (event.reason && event.reason.toString().includes('spline')) {
+        const errorString = event.reason?.toString() || '';
+        if (errorString.includes('spline') || 
+            errorString.includes('buffer not reached') ||
+            errorString.includes('Data read')) {
             console.error('Spline promise rejection:', event.reason);
             activateFallback('promise rejection');
+            event.preventDefault();
         }
     });
+    
+    // 即時監控 console.error 以捕捉 Spline 錯誤
+    const originalConsoleError = console.error;
+    console.error = function(...args) {
+        const errorMessage = args.join(' ');
+        if (errorMessage.includes('Data read, but end of buffer not reached') ||
+            errorMessage.includes('spline-viewer.js') ||
+            errorMessage.includes('403') ||
+            errorMessage.includes('Forbidden')) {
+            if (!fallbackActivated) {
+                activateFallback('console error detected');
+            }
+        }
+        originalConsoleError.apply(console, args);
+    };
     
     if (splineViewer && splineFallback && splineContainer) {
         console.log('Initializing Spline viewer with comprehensive error handling...');
         
-        // 設定載入超時
+        // 設定載入超時 (縮短至 5 秒)
         loadTimeout = setTimeout(() => {
             if (!fallbackActivated) {
                 console.log('Spline loading timeout - activating fallback');
                 activateFallback('timeout');
             }
-        }, 8000);
+        }, 5000);
         
         // Spline 載入成功處理
         splineViewer.addEventListener('load', () => {
@@ -1012,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', function() {
             activateFallback('load error');
         });
         
-        // 檢查 canvas 渲染狀態
+        // 檢查 canvas 渲染狀態 (縮短檢查時間)
         setTimeout(() => {
             if (!fallbackActivated && !scriptLoadError) {
                 const canvas = splineViewer.shadowRoot ? 
@@ -1026,23 +1046,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('Spline canvas found, monitoring rendering...');
                 }
             }
-        }, 5000);
-        
-        // 檢查是否有緩衝區讀取錯誤（根據之前的錯誤日誌）
-        setTimeout(() => {
-            if (!fallbackActivated && !scriptLoadError) {
-                // 檢查 console 是否有特定錯誤
-                const originalConsoleError = console.error;
-                console.error = function(...args) {
-                    const errorMessage = args.join(' ');
-                    if (errorMessage.includes('Data read, but end of buffer not reached') ||
-                        errorMessage.includes('403') ||
-                        errorMessage.includes('Forbidden')) {
-                        activateFallback('buffer read error');
-                    }
-                    originalConsoleError.apply(console, args);
-                };
-            }
         }, 3000);
         
         console.log('Spline error handling initialized with DJ 3D fallback ready');
@@ -1050,4 +1053,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Spline elements not found, activating fallback immediately');
         activateFallback('elements not found');
     }
+    
+    // 額外的安全檢查 - 確保後備動畫在 2 秒後總是顯示
+    setTimeout(() => {
+        if (!fallbackActivated && splineFallback) {
+            console.log('Emergency fallback activation - ensuring DJ animation is visible');
+            activateFallback('emergency activation');
+        }
+    }, 2000);
 });
