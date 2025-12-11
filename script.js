@@ -1067,7 +1067,13 @@ document.addEventListener('DOMContentLoaded', function() {
         activateFallback('elements not found');
     }
     
-    // 額外的安全檢查 - 確保後備動畫在 2 秒後總是顯示
+    // 強制顯示 DJ 3D 動畫 - 確保總是可見
+    console.log('Force activating DJ 3D animation...');
+    if (splineFallback && splineContainer) {
+        activateFallback('force activation for visibility');
+    }
+    
+    // 額外的安全檢查 - 確保後備動畫在 1 秒後總是顯示
     setTimeout(() => {
         if (!fallbackActivated && splineFallback) {
             console.log('Emergency fallback activation - ensuring DJ animation is visible');
@@ -1081,5 +1087,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 splineFallback: !!splineFallback
             });
         }
-    }, 2000);
+    }, 1000);
 });
