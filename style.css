@@ -3171,6 +3171,16 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     border-radius: 15px;
 }
 
+.spline-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    text-align: center;
+}
+
 /* 響應式設計 */
 @media (max-width: 768px) {
     .spline-viewer-container {

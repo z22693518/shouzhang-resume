@@ -969,4 +969,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // loadInstagram3D('YOUR_SPLINE_URL_HERE');
     
     console.log('Instagram 3D icon handler initialized. Use loadInstagram3D(url) to load 3D icon.');
+    
+    // ===== 主要 Spline 3D 場景處理 =====
+    const mainSplineContainer = document.getElementById('main-spline-container');
+    const splineLoading = mainSplineContainer ? mainSplineContainer.querySelector('.spline-loading') : null;
+    
+    // 創建載入主要 Spline 3D 場景的函數
+    window.loadMainSpline = function(splineUrl) {
+        if (!mainSplineContainer || !splineUrl) {
+            console.log('Invalid main Spline URL provided');
+            return;
+        }
+        
+        // 創建 spline-viewer 元素
+        const splineViewer = document.createElement('spline-viewer');
+        splineViewer.setAttribute('url', splineUrl);
+        splineViewer.style.cssText = 'width: 100%; height: 100%; display: block;';
+        
+        // 監聽載入事件
+        splineViewer.addEventListener('load', () => {
+            if (splineLoading) splineLoading.style.display = 'none';
+            console.log('Main Spline 3D scene loaded successfully');
+        });
+        
+        splineViewer.addEventListener('error', () => {
+            if (splineLoading) {
+                splineLoading.textContent = '3D 場景載入失敗';
+                splineLoading.style.color = '#ff6b6b';
+            }
+            console.log('Main Spline 3D scene failed to load');
+        });
+        
+        // 添加到容器中
+        mainSplineContainer.appendChild(splineViewer);
+        console.log('Main Spline viewer created with URL:', splineUrl);
+    };
+    
+    console.log('Main Spline handler initialized. Use loadMainSpline(url) to load 3D scene.');
 });
