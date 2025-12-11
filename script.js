@@ -933,8 +933,9 @@ document.addEventListener('keydown', (e) => {
 
 
 // Instagram 3D icon 功能已移除
-    
-    // ===== 主要 Spline 3D 場景處理 =====
+
+// ===== 主要 Spline 3D 場景處理 =====
+document.addEventListener('DOMContentLoaded', function() {
     const mainSplineContainer = document.getElementById('main-spline-container');
     const splineLoading = mainSplineContainer ? mainSplineContainer.querySelector('.spline-loading') : null;
     
