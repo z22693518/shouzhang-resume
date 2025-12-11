@@ -947,7 +947,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 創建 spline-viewer 元素
         const splineViewer = document.createElement('spline-viewer');
         splineViewer.setAttribute('url', splineUrl);
-        splineViewer.style.cssText = 'width: 40px; height: 40px; position: absolute; top: 5px; left: 5px; z-index: 2;';
+        splineViewer.style.cssText = 'width: 30px; height: 30px; position: absolute; top: 10px; left: 10px; z-index: 2;';
         
         // 監聽載入事件
         splineViewer.addEventListener('load', () => {
@@ -965,8 +965,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Spline viewer created with URL:', splineUrl);
     };
     
-    // 載入 Instagram 3D icon
-    loadInstagram3D('https://prod.spline.design/NUizpsQ-AeS8dsDh/scene.splinecode');
+    // 延遲載入 Instagram 3D icon，確保頁面完全載入
+    setTimeout(() => {
+        loadInstagram3D('https://prod.spline.design/NUizpsQ-AeS8dsDh/scene.splinecode');
+    }, 1000);
     
     console.log('Instagram 3D icon handler initialized.');
     
