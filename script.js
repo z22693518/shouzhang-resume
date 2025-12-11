@@ -934,28 +934,39 @@ document.addEventListener('keydown', (e) => {
 
 // ===== Instagram 3D Icon 處理 =====
 document.addEventListener('DOMContentLoaded', function() {
-    const instagramLink = document.querySelector('a[href*="instagram.com/redshou_89"]');
-    const instagramSpline = instagramLink ? instagramLink.querySelector('spline-viewer') : null;
-    const fallbackIcon = instagramLink ? instagramLink.querySelector('div[style*="📷"]') : null;
+    const instagramButton = document.querySelector('.instagram-3d-button');
+    const placeholder = instagramButton ? instagramButton.querySelector('.spline-placeholder') : null;
     
-    if (instagramSpline && fallbackIcon) {
-        // 初始顯示備用圖標
-        fallbackIcon.style.display = 'block';
+    // 創建載入 Spline 3D Icon 的函數
+    window.loadInstagram3D = function(splineUrl) {
+        if (!instagramButton || !splineUrl || splineUrl === 'undefined') {
+            console.log('Invalid Spline URL provided');
+            return;
+        }
         
-        // 監聽 Spline viewer 載入成功
-        instagramSpline.addEventListener('load', () => {
-            if (instagramSpline.getAttribute('url') !== 'undefined') {
-                fallbackIcon.style.display = 'none';
-                console.log('Instagram 3D icon loaded successfully');
-            }
+        // 創建 spline-viewer 元素
+        const splineViewer = document.createElement('spline-viewer');
+        splineViewer.setAttribute('url', splineUrl);
+        splineViewer.style.cssText = 'width: 40px; height: 40px; position: absolute; top: 5px; left: 5px; z-index: 2;';
+        
+        // 監聽載入事件
+        splineViewer.addEventListener('load', () => {
+            if (placeholder) placeholder.style.display = 'none';
+            console.log('Instagram 3D icon loaded successfully');
         });
         
-        // 監聽載入錯誤
-        instagramSpline.addEventListener('error', () => {
-            fallbackIcon.style.display = 'block';
-            console.log('Instagram 3D icon failed to load');
+        splineViewer.addEventListener('error', () => {
+            if (placeholder) placeholder.style.display = 'block';
+            console.log('Instagram 3D icon failed to load, showing fallback');
         });
         
-        console.log('Instagram 3D icon handler initialized');
-    }
+        // 添加到按鈕中
+        instagramButton.appendChild(splineViewer);
+        console.log('Spline viewer created with URL:', splineUrl);
+    };
+    
+    // 示例：如果有預設的 3D icon URL，可以在這裡載入
+    // loadInstagram3D('YOUR_SPLINE_URL_HERE');
+    
+    console.log('Instagram 3D icon handler initialized. Use loadInstagram3D(url) to load 3D icon.');
 });
