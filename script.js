@@ -939,12 +939,46 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Spline 3D viewer initialized');
     
     const splineViewer = document.querySelector('spline-viewer');
+    const splineLoading = document.getElementById('splineLoading');
+    const splineContainer = document.getElementById('splineContainer');
+    
     if (splineViewer) {
-        // 確保 Spline viewer 有適當的樣式
+        console.log('Spline viewer found:', splineViewer.getAttribute('url'));
+        
+        // 監聽載入事件
+        splineViewer.addEventListener('load', function() {
+            console.log('Spline scene loaded successfully');
+            if (splineLoading) splineLoading.style.display = 'none';
+            splineContainer.style.background = 'transparent';
+        });
+        
+        // 監聽錯誤事件
+        splineViewer.addEventListener('error', function(e) {
+            console.error('Spline scene failed to load:', e);
+            if (splineLoading) {
+                splineLoading.textContent = '3D 場景載入失敗 ❌';
+                splineLoading.style.color = '#ff6b6b';
+            }
+        });
+        
+        // 超時檢查
+        setTimeout(function() {
+            if (splineLoading && splineLoading.style.display !== 'none') {
+                console.warn('Spline scene loading timeout');
+                splineLoading.textContent = '3D 場景載入超時 ⏰';
+                splineLoading.style.color = '#ffa500';
+            }
+        }, 10000); // 10秒超時
+        
+        // 確保 viewer 有正確的屬性
         splineViewer.style.width = '100%';
         splineViewer.style.height = '100%';
         splineViewer.style.display = 'block';
-        
-        console.log('Spline viewer configured:', splineViewer.getAttribute('url'));
+    } else {
+        console.error('Spline viewer not found');
+        if (splineLoading) {
+            splineLoading.textContent = 'Spline viewer 未找到 ❌';
+            splineLoading.style.color = '#ff6b6b';
+        }
     }
 });

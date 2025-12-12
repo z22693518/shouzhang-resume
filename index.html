@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- Spline 3D Viewer -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.9/build/spline-viewer.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -104,8 +104,10 @@
     <section id="about" class="about-section">
         <div class="section-container">
             <!-- Spline 3D Viewer -->
-            <div style="width: 100%; height: 400px; margin-bottom: 3rem; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);">
-                <spline-viewer url="https://prod.spline.design/2LtwsgR8ZJE1w9-M/scene.splinecode"></spline-viewer>
+            <div id="splineContainer" style="width: 100%; height: 400px; margin-bottom: 3rem; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.3)); position: relative; display: flex; align-items: center; justify-content: center;">
+                <!-- 載入指示 -->
+                <div id="splineLoading" style="position: absolute; color: white; font-size: 18px; z-index: 5;">載入中... ⚡</div>
+                <spline-viewer url="https://prod.spline.design/2LtwsgR8ZJE1w9-M/scene.splinecode" style="width: 100%; height: 100%;"></spline-viewer>
             </div>
             
             <div class="about-content">
