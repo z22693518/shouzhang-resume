@@ -1067,25 +1067,19 @@ document.addEventListener('DOMContentLoaded', function() {
         activateFallback('elements not found');
     }
     
-    // 強制顯示 DJ 3D 動畫 - 確保總是可見
-    console.log('Force activating DJ 3D animation...');
-    if (splineFallback && splineContainer) {
-        activateFallback('force activation for visibility');
-    }
-    
-    // 額外的安全檢查 - 確保後備動畫在 1 秒後總是顯示
+    // 安全檢查 - 只在必要時啟動後備動畫
     setTimeout(() => {
         if (!fallbackActivated && splineFallback) {
-            console.log('Emergency fallback activation - ensuring DJ animation is visible');
-            activateFallback('emergency activation');
+            console.log('Safety check: Spline not loaded after 8 seconds, activating fallback');
+            activateFallback('safety timeout');
         } else if (fallbackActivated) {
-            console.log('Fallback already activated successfully');
+            console.log('Fallback already activated');
         } else {
-            console.log('Fallback elements missing:', {
+            console.log('Spline elements state:', {
                 splineContainer: !!splineContainer,
                 splineViewer: !!splineViewer,
                 splineFallback: !!splineFallback
             });
         }
-    }, 1000);
+    }, 8000); // 給 Spline 更多時間載入
 });
