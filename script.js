@@ -934,38 +934,17 @@ document.addEventListener('keydown', (e) => {
 
 // Instagram 3D icon 功能已移除
 
-// ===== 簡化的 Spline 3D 場景處理 =====
+// ===== Spline 3D 場景處理 =====
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DJ 3D Animation System Initialized');
+    console.log('Spline 3D viewer initialized');
     
-    const splineContainer = document.getElementById('splineContainer');
-    const splineViewer = splineContainer ? splineContainer.querySelector('spline-viewer') : null;
-    const splineFallback = document.getElementById('splineFallback');
-    
-    console.log('Elements found:', {
-        splineContainer: !!splineContainer,
-        splineViewer: !!splineViewer,
-        splineFallback: !!splineFallback
-    });
-    
-    // 確保容器可見
-    if (splineContainer) {
-        splineContainer.style.display = 'flex';
-        splineContainer.style.visibility = 'visible';
-        console.log('Spline container made visible');
-    }
-    
-    // 由於 Spline 有 WebGL 問題，直接顯示後備動畫
-    if (splineFallback) {
-        splineFallback.style.display = 'flex';
-        splineFallback.style.visibility = 'visible';
-        splineFallback.style.opacity = '1';
-        console.log('DJ 3D fallback animation activated');
+    const splineViewer = document.querySelector('spline-viewer');
+    if (splineViewer) {
+        // 確保 Spline viewer 有適當的樣式
+        splineViewer.style.width = '100%';
+        splineViewer.style.height = '100%';
+        splineViewer.style.display = 'block';
         
-        // 隱藏有問題的 Spline viewer
-        if (splineViewer) {
-            splineViewer.style.display = 'none';
-            console.log('Spline viewer hidden due to WebGL issues');
-        }
+        console.log('Spline viewer configured:', splineViewer.getAttribute('url'));
     }
 });
