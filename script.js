@@ -967,11 +967,21 @@ document.addEventListener('DOMContentLoaded', function() {
             splineFallback.style.display = 'flex';
             splineFallback.style.visibility = 'visible';
             splineFallback.style.opacity = '1';
-            console.log('Activated fallback animation');
+            splineFallback.style.position = 'absolute';
+            splineFallback.style.top = '0';
+            splineFallback.style.left = '0';
+            splineFallback.style.width = '100%';
+            splineFallback.style.height = '100%';
+            splineFallback.style.zIndex = '10';
+            console.log('Activated fallback animation with forced styles');
         }
         if (splineContainer) {
             splineContainer.classList.add('loaded');
-            console.log('Added loaded class to container');
+            splineContainer.style.display = 'flex';
+            splineContainer.style.visibility = 'visible';
+            splineContainer.style.opacity = '1';
+            splineContainer.style.minHeight = '400px';
+            console.log('Added loaded class to container and forced visibility');
         }
         
         clearTimeout(loadTimeout);
