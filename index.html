@@ -104,23 +104,19 @@
     <section id="about" class="about-section">
         <div class="section-container">
             <!-- Spline 3D Viewer -->
-            <div class="spline-container" id="splineContainer" style="display: flex; width: 100%; height: 400px; background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.3)); border-radius: 15px; margin-bottom: 3rem; position: relative; align-items: center; justify-content: center; border: 3px solid red;">
-                <!-- 容器測試標籤 -->
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 32px; z-index: 5; background: blue; padding: 20px;">CONTAINER TEST</div>
-                <spline-viewer url="https://prod.spline.design/2LtwsgR8ZJE1w9-M/scene.splinecode"></spline-viewer>
+            <div class="spline-container" id="splineContainer" style="display: flex; width: 100%; height: 400px; background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.3)); border-radius: 15px; margin-bottom: 3rem; position: relative; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);">
+                <spline-viewer url="https://prod.spline.design/2LtwsgR8ZJE1w9-M/scene.splinecode" style="display: none;"></spline-viewer>
                 <div class="spline-fallback" id="splineFallback" style="display: flex; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(139, 0, 0, 0.2), rgba(0, 0, 0, 0.9)); border-radius: 15px; z-index: 10;">
-                    <!-- 測試可見性 -->
-                    <div style="position: absolute; top: 10px; left: 10px; color: white; font-size: 24px; z-index: 100; background: red; padding: 10px;">DJ ANIMATION TEST</div>
-                    <div class="dj-3d-scene">
-                        <div class="vinyl-record">
-                            <div class="vinyl-center"></div>
+                    <div class="dj-3d-scene" style="position: relative; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center; perspective: 1000px; transform-style: preserve-3d;">
+                        <div class="vinyl-record" style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 50%), linear-gradient(45deg, #1a1a1a 0%, #333 25%, #1a1a1a 50%, #333 75%, #1a1a1a 100%); border: 3px solid #8b0000; animation: vinylSpin 3s linear infinite; box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.8); transform: rotateX(10deg);">
+                            <div class="vinyl-center" style="position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; background: #8b0000; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 10px rgba(139, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2);"></div>
                         </div>
-                        <div class="music-waves">
-                            <div class="wave wave-1"></div>
-                            <div class="wave wave-2"></div>
-                            <div class="wave wave-3"></div>
+                        <div class="music-waves" style="position: absolute; width: 100%; height: 100%; pointer-events: none;">
+                            <div class="wave wave-1" style="position: absolute; top: 50%; left: 50%; border: 2px solid #8b0000; border-radius: 50%; transform: translate(-50%, -50%); opacity: 0; animation: waveExpand 2s ease-out infinite; animation-delay: 0s;"></div>
+                            <div class="wave wave-2" style="position: absolute; top: 50%; left: 50%; border: 2px solid #8b0000; border-radius: 50%; transform: translate(-50%, -50%); opacity: 0; animation: waveExpand 2s ease-out infinite; animation-delay: 0.7s;"></div>
+                            <div class="wave wave-3" style="position: absolute; top: 50%; left: 50%; border: 2px solid #8b0000; border-radius: 50%; transform: translate(-50%, -50%); opacity: 0; animation: waveExpand 2s ease-out infinite; animation-delay: 1.4s;"></div>
                         </div>
-                        <div class="dj-text">REDSHoU</div>
+                        <div class="dj-text" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: #8b0000; text-shadow: 0 0 10px rgba(139, 0, 0, 0.8), 0 0 20px rgba(139, 0, 0, 0.4); letter-spacing: 3px; animation: djTextPulse 2s ease-in-out infinite alternate;">REDSHoU</div>
                     </div>
                 </div>
             </div>
