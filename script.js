@@ -934,162 +934,38 @@ document.addEventListener('keydown', (e) => {
 
 // Instagram 3D icon 功能已移除
 
-// ===== 主要 Spline 3D 場景處理 =====
+// ===== 簡化的 Spline 3D 場景處理 =====
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DJ 3D Animation System Initialized');
+    
     const splineContainer = document.getElementById('splineContainer');
     const splineViewer = splineContainer ? splineContainer.querySelector('spline-viewer') : null;
     const splineFallback = document.getElementById('splineFallback');
     
-    let fallbackActivated = false;
-    let loadTimeout;
-    let scriptLoadError = false;
+    console.log('Elements found:', {
+        splineContainer: !!splineContainer,
+        splineViewer: !!splineViewer,
+        splineFallback: !!splineFallback
+    });
     
-    // 激活 DJ 3D 場景後備方案
-    function activateFallback(reason) {
-        if (fallbackActivated) {
-            console.log('Fallback already activated, ignoring:', reason);
-            return;
-        }
-        fallbackActivated = true;
+    // 確保容器可見
+    if (splineContainer) {
+        splineContainer.style.display = 'flex';
+        splineContainer.style.visibility = 'visible';
+        console.log('Spline container made visible');
+    }
+    
+    // 由於 Spline 有 WebGL 問題，直接顯示後備動畫
+    if (splineFallback) {
+        splineFallback.style.display = 'flex';
+        splineFallback.style.visibility = 'visible';
+        splineFallback.style.opacity = '1';
+        console.log('DJ 3D fallback animation activated');
         
-        console.log('Activating DJ 3D fallback:', reason);
-        console.log('Elements state:', {
-            splineViewer: !!splineViewer,
-            splineFallback: !!splineFallback,
-            splineContainer: !!splineContainer
-        });
-        
+        // 隱藏有問題的 Spline viewer
         if (splineViewer) {
             splineViewer.style.display = 'none';
-            console.log('Hidden spline viewer');
+            console.log('Spline viewer hidden due to WebGL issues');
         }
-        if (splineFallback) {
-            splineFallback.style.display = 'flex';
-            splineFallback.style.visibility = 'visible';
-            splineFallback.style.opacity = '1';
-            splineFallback.style.position = 'absolute';
-            splineFallback.style.top = '0';
-            splineFallback.style.left = '0';
-            splineFallback.style.width = '100%';
-            splineFallback.style.height = '100%';
-            splineFallback.style.zIndex = '10';
-            console.log('Activated fallback animation with forced styles');
-        }
-        if (splineContainer) {
-            splineContainer.classList.add('loaded');
-            splineContainer.style.display = 'flex';
-            splineContainer.style.visibility = 'visible';
-            splineContainer.style.opacity = '1';
-            splineContainer.style.minHeight = '400px';
-            console.log('Added loaded class to container and forced visibility');
-        }
-        
-        clearTimeout(loadTimeout);
     }
-    
-    // 增強的全域錯誤處理
-    window.addEventListener('error', (event) => {
-        if (event.message && (
-            event.message.includes('spline') || 
-            event.message.includes('scene.splinecode') ||
-            event.message.includes('viewer') ||
-            event.message.includes('buffer not reached')
-        )) {
-            console.error('Spline script error detected:', event.message);
-            activateFallback('script error');
-            scriptLoadError = true;
-        }
-    });
-    
-    // 增強的 Promise rejection 處理
-    window.addEventListener('unhandledrejection', (event) => {
-        const errorString = event.reason?.toString() || '';
-        if (errorString.includes('spline') || 
-            errorString.includes('buffer not reached') ||
-            errorString.includes('Data read')) {
-            console.error('Spline promise rejection:', event.reason);
-            activateFallback('promise rejection');
-            event.preventDefault();
-        }
-    });
-    
-    // 即時監控 console.error 以捕捉 Spline 錯誤
-    const originalConsoleError = console.error;
-    console.error = function(...args) {
-        const errorMessage = args.join(' ');
-        if (errorMessage.includes('Data read, but end of buffer not reached') ||
-            errorMessage.includes('spline-viewer.js') ||
-            errorMessage.includes('403') ||
-            errorMessage.includes('Forbidden')) {
-            if (!fallbackActivated) {
-                activateFallback('console error detected');
-            }
-        }
-        originalConsoleError.apply(console, args);
-    };
-    
-    if (splineViewer && splineFallback && splineContainer) {
-        console.log('Initializing Spline viewer with comprehensive error handling...');
-        
-        // 設定載入超時 (縮短至 5 秒)
-        loadTimeout = setTimeout(() => {
-            if (!fallbackActivated) {
-                console.log('Spline loading timeout - activating fallback');
-                activateFallback('timeout');
-            }
-        }, 5000);
-        
-        // Spline 載入成功處理
-        splineViewer.addEventListener('load', () => {
-            if (!fallbackActivated && !scriptLoadError) {
-                console.log('Spline scene loaded successfully');
-                clearTimeout(loadTimeout);
-                splineFallback.style.display = 'none';
-                splineContainer.classList.add('loaded');
-            }
-        });
-        
-        // Spline 載入錯誤處理
-        splineViewer.addEventListener('error', (event) => {
-            console.error('Spline load error event:', event);
-            activateFallback('load error');
-        });
-        
-        // 檢查 canvas 渲染狀態 (縮短檢查時間)
-        setTimeout(() => {
-            if (!fallbackActivated && !scriptLoadError) {
-                const canvas = splineViewer.shadowRoot ? 
-                    splineViewer.shadowRoot.querySelector('canvas') :
-                    splineViewer.querySelector('canvas');
-                    
-                if (!canvas) {
-                    console.log('No canvas found in Spline viewer - activating fallback');
-                    activateFallback('no canvas');
-                } else {
-                    console.log('Spline canvas found, monitoring rendering...');
-                }
-            }
-        }, 3000);
-        
-        console.log('Spline error handling initialized with DJ 3D fallback ready');
-    } else {
-        console.log('Spline elements not found, activating fallback immediately');
-        activateFallback('elements not found');
-    }
-    
-    // 安全檢查 - 只在必要時啟動後備動畫
-    setTimeout(() => {
-        if (!fallbackActivated && splineFallback) {
-            console.log('Safety check: Spline not loaded after 8 seconds, activating fallback');
-            activateFallback('safety timeout');
-        } else if (fallbackActivated) {
-            console.log('Fallback already activated');
-        } else {
-            console.log('Spline elements state:', {
-                splineContainer: !!splineContainer,
-                splineViewer: !!splineViewer,
-                splineFallback: !!splineFallback
-            });
-        }
-    }, 8000); // 給 Spline 更多時間載入
 });
