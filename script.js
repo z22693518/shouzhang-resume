@@ -1381,7 +1381,7 @@ function generateYearOptions(yearSelect, currentYear) {
     // 添加今年和明年，保持value和textContent一致
     for (let year = currentYear; year <= currentYear + 1; year++) {
         const option = document.createElement('option');
-        option.value = year;
+        option.value = `${year}年`;
         option.textContent = `${year} 年`;
         yearSelect.appendChild(option);
     }
@@ -1406,7 +1406,7 @@ function generateMonthOptions(monthSelect, currentLang) {
     
     for (let month = 1; month <= 12; month++) {
         const option = document.createElement('option');
-        option.value = month;
+        option.value = names[month - 1];
         option.textContent = names[month - 1];
         monthSelect.appendChild(option);
     }
@@ -1420,9 +1420,21 @@ function updateDayOptions() {
     
     if (!yearSelect || !monthSelect || !daySelect) return;
     
-    // 解析年份值（現在是純數字）
-    const selectedYear = parseInt(yearSelect.value);
-    const selectedMonth = parseInt(monthSelect.value);
+    // 解析年份和月份值
+    const selectedYear = parseInt(yearSelect.value.replace('年', ''));
+    
+    // 解析月份值（可能是中文或英文）
+    let selectedMonth = 0;
+    if (monthSelect.value) {
+        if (monthSelect.value.includes('月')) {
+            selectedMonth = parseInt(monthSelect.value.replace('月', ''));
+        } else {
+            // 處理英文月份
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            selectedMonth = monthNames.indexOf(monthSelect.value) + 1;
+        }
+    }
     const today = new Date();
     
     // 保存用戶當前選擇的日期
@@ -1466,7 +1478,7 @@ function updateDayOptions() {
     // 生成日期選項，確保至少有一個可選
     for (let day = startDay; day <= daysInMonth; day++) {
         const option = document.createElement('option');
-        option.value = day;
+        option.value = `${day}日`;
         option.textContent = `${day} 日`;
         daySelect.appendChild(option);
     }
@@ -1475,7 +1487,7 @@ function updateDayOptions() {
     if (daySelect.children.length === 1) {
         for (let day = 1; day <= daysInMonth; day++) {
             const option = document.createElement('option');
-            option.value = day;
+            option.value = `${day}日`;
             option.textContent = `${day} 日`;
             daySelect.appendChild(option);
         }
