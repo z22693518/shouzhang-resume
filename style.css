@@ -3550,10 +3550,11 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 /* 日期選擇器樣式 */
 .date-selectors {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.2rem;
     margin-top: 0.5rem;
     align-items: center;
+    width: 100%;
 }
 
 /* 為日期選擇器添加標籤 */
@@ -3574,18 +3575,18 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     padding: 0.8rem 2.5rem 0.8rem 1.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-align: left;
+    text-align: center;
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.4;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     color: var(--white);
     font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
     border-radius: 6px;
     min-height: 2.8rem;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    box-sizing: border-box;
 }
 
 /* 未選擇時的 placeholder 樣式 */
@@ -3620,16 +3621,10 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     border-color: var(--metal-silver);
 }
 
-/* 年份選擇器特殊樣式 - 使用更強的選擇器 */
-.date-selectors #eventYear,
-.date-selectors select#eventYear {
-    font-size: 1.1rem !important;
+/* 年份選擇器特殊樣式 */
+.date-selectors #eventYear {
+    font-size: 1rem !important;
     font-weight: 500 !important;
-    padding: 0.9rem 2.8rem 0.9rem 1.4rem !important;
-    letter-spacing: 1px !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
     text-align: center !important;
 }
 
@@ -3675,8 +3670,8 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .date-selectors {
-        grid-template-columns: 1.3fr 1fr 1fr;
-        gap: 0.7rem;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.8rem;
     }
     
     .date-selectors select {
@@ -3684,16 +3679,15 @@ h1, h2, h3, h4, h5, h6, p, div, span {
         padding: 0.75rem 2rem 0.75rem 1rem;
         text-align: center;
         font-weight: 400;
-        letter-spacing: 0.4px;
+        letter-spacing: 0.3px;
         min-height: 2.5rem;
+        overflow: visible;
     }
     
     .date-selectors #eventYear {
-        font-size: 1rem !important;
+        font-size: 0.9rem !important;
         font-weight: 500 !important;
-        letter-spacing: 0.8px !important;
         text-align: center !important;
-        padding: 0.8rem 2.2rem 0.8rem 1.1rem !important;
     }
     
     .contact-form {
