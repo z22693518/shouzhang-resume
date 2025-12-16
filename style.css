@@ -3464,17 +3464,22 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 }
 
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    display: flex;
+    gap: 2rem;
     margin-bottom: 1.5rem;
     align-items: end;
 }
 
-/* 確保日期選擇器不影響表單佈局 */
-.form-group:has(.date-selectors) {
-    width: fit-content;
-    align-self: end;
+/* 日期選擇器欄位固定寬度 */
+.form-row .form-group:has(.date-selectors) {
+    flex: 0 0 auto;
+    width: 350px;
+}
+
+/* 活動地點欄位填滿剩餘空間 */
+.form-row .form-group:not(:has(.date-selectors)) {
+    flex: 1;
+    min-width: 0;
 }
 
 /* 確保活動地點欄位與日期選擇器對齊 */
@@ -3485,6 +3490,7 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 
 .form-row .form-group label {
     margin-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
 .form-row .form-group input,
@@ -3579,11 +3585,12 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 /* 日期選擇器樣式 */
 .date-selectors {
     display: grid;
-    grid-template-columns: 120px 100px 90px;
-    gap: 1rem;
+    grid-template-columns: 110px 90px 80px;
+    gap: 0.8rem;
     margin-top: 0;
     align-items: center;
-    width: 350px;
+    width: 100%;
+    max-width: 320px;
     justify-content: start;
     height: 3rem;
 }
@@ -3658,24 +3665,24 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     font-size: 1.1rem !important;
     font-weight: 500 !important;
     text-align: center !important;
-    width: 120px !important;
-    min-width: 120px !important;
+    width: 110px !important;
+    min-width: 110px !important;
 }
 
 /* 月份選擇器樣式 */
 .date-selectors #eventMonth {
     font-size: 1.1rem !important;
     text-align: center !important;
-    width: 100px !important;
-    min-width: 100px !important;
+    width: 90px !important;
+    min-width: 90px !important;
 }
 
 /* 日期選擇器樣式 */
 .date-selectors #eventDay {
     font-size: 1.1rem !important;
     text-align: center !important;
-    width: 90px !important;
-    min-width: 90px !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .btn-submit {
