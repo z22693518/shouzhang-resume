@@ -3550,11 +3550,12 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 /* 日期選擇器樣式 */
 .date-selectors {
     display: grid;
-    grid-template-columns: 1.3fr 1.2fr 1fr;
+    grid-template-columns: 120px 100px 90px;
     gap: 1rem;
     margin-top: 0.5rem;
     align-items: center;
     width: 100%;
+    justify-content: start;
 }
 
 /* 為日期選擇器添加標籤 */
@@ -3570,23 +3571,24 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23c0c0c0' d='m2 0-2 2h4zm0 5 2-2h-4z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.8rem center;
-    background-size: 0.6rem auto;
-    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+    background-position: right 0.7rem center;
+    background-size: 0.5rem auto;
+    padding: 0.9rem 2rem 0.9rem 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
     font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.4;
-    letter-spacing: 0.3px;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
     color: var(--white);
     font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
     border-radius: 6px;
-    min-height: 2.8rem;
+    min-height: 3rem;
     white-space: nowrap;
     overflow: visible;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 /* 未選擇時的 placeholder 樣式 */
@@ -3623,11 +3625,27 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 
 /* 年份選擇器特殊樣式 */
 .date-selectors #eventYear {
-    font-size: 1rem !important;
+    font-size: 1.1rem !important;
     font-weight: 500 !important;
     text-align: center !important;
+    width: 120px !important;
+    min-width: 120px !important;
+}
+
+/* 月份選擇器樣式 */
+.date-selectors #eventMonth {
+    font-size: 1.1rem !important;
+    text-align: center !important;
+    width: 100px !important;
     min-width: 100px !important;
-    padding: 0.8rem 2.5rem 0.8rem 1rem !important;
+}
+
+/* 日期選擇器樣式 */
+.date-selectors #eventDay {
+    font-size: 1.1rem !important;
+    text-align: center !important;
+    width: 90px !important;
+    min-width: 90px !important;
 }
 
 .btn-submit {
@@ -3672,24 +3690,38 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .date-selectors {
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 0.8rem;
+        grid-template-columns: 100px 80px 70px;
+        gap: 0.5rem;
+        justify-content: start;
     }
     
     .date-selectors select {
-        font-size: 0.9rem;
-        padding: 0.75rem 2rem 0.75rem 1rem;
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem 0.8rem 0.5rem;
         text-align: center;
         font-weight: 400;
         letter-spacing: 0.3px;
-        min-height: 2.5rem;
+        min-height: 2.8rem;
         overflow: visible;
     }
     
     .date-selectors #eventYear {
-        font-size: 0.9rem !important;
+        font-size: 1rem !important;
         font-weight: 500 !important;
-        text-align: center !important;
+        width: 100px !important;
+        min-width: 100px !important;
+    }
+    
+    .date-selectors #eventMonth {
+        font-size: 1rem !important;
+        width: 80px !important;
+        min-width: 80px !important;
+    }
+    
+    .date-selectors #eventDay {
+        font-size: 1rem !important;
+        width: 70px !important;
+        min-width: 70px !important;
     }
     
     .contact-form {
