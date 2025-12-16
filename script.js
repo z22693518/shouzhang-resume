@@ -5,6 +5,7 @@ const translations = {
         'nav-about': '關於',
         'nav-music': '音樂',
         'nav-gallery': '相簿',
+        'nav-contact': '聯絡',
         'hero-subtitle': 'EDM • Hip Hop • 電子音樂',
         'about-title': '關於 REDSHoU',
         'intro-p1': 'DJ REDSHoU 一股來自花蓮玉里阿美族血液中的原古之力，令人振奮、膽怯又瀰漫酒色薰陶，接踵而來一杯又一杯的醞釀，仍要保持清醒……。',
@@ -58,13 +59,45 @@ const translations = {
         'nightclub-title': '夜店',
         'bar-title': '酒吧',
         'recent-works-title': '近期精選作品',
-        'footer-about-link': '關於'
+        'footer-about-link': '關於',
+        // 聯絡表單翻譯
+        'contact-booking-title': '📞 聯絡 & 預訂',
+        'contact-booking-subtitle': 'DJ REDSHoU Booking Inquiry',
+        'contact-booking-section-title': '演出預訂',
+        'contact-performance-title': '演出類型',
+        'contact-performance-desc': '夜店表演 • 私人派對<br>企業活動 • 音樂節',
+        'contact-schedule-title': '檔期查詢',
+        'contact-schedule-desc': '提前預訂享優惠<br>歡迎洽詢檔期',
+        'contact-response-title': '快速回覆',
+        'contact-response-desc': '24小時內回覆<br>專業服務保證',
+        'booking-form-title': '預訂詢問表單',
+        'client-name-label': '姓名 / 公司 *',
+        'client-email-label': '聯絡信箱 *',
+        'client-phone-label': '聯絡電話 *',
+        'event-type-label': '演出類型 *',
+        'event-type-placeholder': '請選擇演出類型',
+        'event-type-nightclub': '夜店表演',
+        'event-type-private': '私人派對',
+        'event-type-corporate': '企業活動',
+        'event-type-festival': '音樂節',
+        'event-type-wedding': '婚禮派對',
+        'event-type-other': '其他',
+        'event-date-label': '預訂日期 *',
+        'year-placeholder': '年份',
+        'month-placeholder': '月份', 
+        'day-placeholder': '日期',
+        'event-location-label': '活動地點 *',
+        'event-location-placeholder': '例：台北市信義區',
+        'event-details-label': '活動詳情 *',
+        'event-details-placeholder': '請描述活動規模、時間、特殊需求等...',
+        'submit-button': '送出預訂詢問'
     },
     en: {
         'nav-home': 'Home',
         'nav-about': 'About',
         'nav-music': 'Music',
         'nav-gallery': 'Gallery',
+        'nav-contact': 'Contact',
         'hero-subtitle': 'EDM • Hip Hop • Electronic Music',
         'about-title': 'About REDSHoU',
         'intro-p1': 'DJ REDSHoU - An ancient force from the Amis tribal blood of Yuli, Hualien, both invigorating and intimidating, permeated with the intoxication of alcohol, one cup after another brewing, yet still needing to stay awake...',
@@ -118,7 +151,38 @@ const translations = {
         'nightclub-title': 'Nightclubs',
         'bar-title': 'Bars',
         'recent-works-title': 'Recent Featured Works',
-        'footer-about-link': 'About'
+        'footer-about-link': 'About',
+        // 聯絡表單英文翻譯
+        'contact-booking-title': '📞 Contact & Booking',
+        'contact-booking-subtitle': 'DJ REDSHoU Booking Inquiry',
+        'contact-booking-section-title': 'Performance Booking',
+        'contact-performance-title': 'Performance Types',
+        'contact-performance-desc': 'Nightclub Shows • Private Parties<br>Corporate Events • Music Festivals',
+        'contact-schedule-title': 'Schedule Inquiry',
+        'contact-schedule-desc': 'Early Booking Discounts<br>Availability Inquiry Welcome',
+        'contact-response-title': 'Quick Response',
+        'contact-response-desc': '24-Hour Response<br>Professional Service Guaranteed',
+        'booking-form-title': 'Booking Inquiry Form',
+        'client-name-label': 'Name / Company *',
+        'client-email-label': 'Email Address *',
+        'client-phone-label': 'Phone Number *',
+        'event-type-label': 'Event Type *',
+        'event-type-placeholder': 'Please select event type',
+        'event-type-nightclub': 'Nightclub Performance',
+        'event-type-private': 'Private Party',
+        'event-type-corporate': 'Corporate Event',
+        'event-type-festival': 'Music Festival',
+        'event-type-wedding': 'Wedding Party',
+        'event-type-other': 'Other',
+        'event-date-label': 'Event Date *',
+        'year-placeholder': 'Year',
+        'month-placeholder': 'Month',
+        'day-placeholder': 'Day',
+        'event-location-label': 'Event Location *',
+        'event-location-placeholder': 'e.g., Xinyi District, Taipei',
+        'event-details-label': 'Event Details *',
+        'event-details-placeholder': 'Please describe event scale, timing, special requirements...',
+        'submit-button': 'Submit Booking Inquiry'
     }
 };
 
@@ -574,7 +638,20 @@ function setLanguage(lang) {
     elementsToTranslate.forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
+            if (element.innerHTML.includes('<br>')) {
+                element.innerHTML = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+    
+    // 更新 placeholder 翻譯
+    const elementsWithPlaceholder = document.querySelectorAll('[data-translate-placeholder]');
+    elementsWithPlaceholder.forEach(element => {
+        const key = element.getAttribute('data-translate-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+            element.setAttribute('placeholder', translations[lang][key]);
         }
     });
     
@@ -583,6 +660,9 @@ function setLanguage(lang) {
     
     // 更新 meta 標籤
     updateMetaTags(lang);
+    
+    // 重新生成日期選項以反映語言變更
+    generateDateOptions();
 }
 
 function updateMetaTags(lang) {
@@ -944,4 +1024,418 @@ document.addEventListener('DOMContentLoaded', function() {
         splineViewer.style.height = '100%';
         splineViewer.style.display = 'block';
     }
+    
+    // 初始化 EmailJS
+    initializeEmailJS();
+    
+    // 初始化 Booking 表單功能
+    initializeBookingForm();
+    
+    // 生成日期選項
+    generateDateOptions();
 });
+
+// ===== EmailJS 初始化 =====
+function initializeEmailJS() {
+    // 檢查 EmailJS v4 是否已載入
+    if (typeof emailjs !== 'undefined') {
+        // 初始化 EmailJS v4
+        emailjs.init({
+            publicKey: 'nWjVZ2ZP-kQNz85AU'
+        });
+    }
+}
+
+// ===== Booking 表單處理 =====
+function initializeBookingForm() {
+    const bookingForm = document.getElementById('bookingForm');
+    if (!bookingForm) return;
+
+    // 表單提交處理
+    bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 獲取表單數據
+        const formData = new FormData(this);
+        const name = formData.get('name')?.trim();
+        const email = formData.get('email')?.trim();
+        const phone = formData.get('phone')?.trim();
+        const eventType = formData.get('event-type');
+        const eventYear = formData.get('event-year');
+        const eventMonth = formData.get('event-month');
+        const eventDay = formData.get('event-day');
+        const location = formData.get('location')?.trim();
+        const details = formData.get('details')?.trim();
+
+        // 驗證必填欄位
+        if (!name || !email || !phone || !eventType || !eventYear || !eventMonth || !eventDay || !location || !details) {
+            showGothicNotification('請填寫所有必填欄位以完成預約 ⚡', 'error');
+            highlightEmptyFields();
+            return;
+        }
+
+        // 驗證電子郵件格式
+        if (!isValidEmail(email)) {
+            showGothicNotification('請提供有效的電子郵件地址 📧', 'error');
+            return;
+        }
+
+        // 驗證電話號碼
+        if (!isValidPhone(phone)) {
+            showGothicNotification('請提供有效的電話號碼 📱', 'error');
+            return;
+        }
+
+        // 驗證日期（檢查選擇的日期是否為未來日期）
+        const selectedDate = new Date(eventYear, eventMonth - 1, eventDay);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate <= today) {
+            showGothicNotification('活動日期必須是未來的日期 📅', 'error');
+            return;
+        }
+
+        // 顯示提交中狀態
+        const submitBtn = this.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+
+        // 使用 EmailJS 發送郵件
+        sendBookingEmail({
+            name,
+            email,
+            phone,
+            eventType,
+            eventYear,
+            eventMonth,
+            eventDay,
+            location,
+            details
+        }).then(() => {
+            // 成功提交
+            showGothicNotification('🎉 預約申請已成功送出！我們將於24小時內回覆您', 'success');
+            
+            // 重置表單
+            bookingForm.reset();
+            generateDateOptions(); // 重新生成日期選項
+            
+            // 恢復按鈕狀態
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            
+            // 創建慶祝效果
+            createBookingCelebration();
+            
+            // 滾動到頂部
+            setTimeout(() => {
+                document.querySelector('#contact').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 1000);
+        }).catch((error) => {
+            console.error('Email sending failed:', error);
+            
+            // 發送失敗處理
+            showGothicNotification('❌ 發送失敗，請稍後再試或直接聯絡我們', 'error');
+            
+            // 恢復按鈕狀態
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
+    });
+
+    // 實時表單驗證
+    addRealTimeValidation();
+}
+
+// EmailJS v4 發送郵件函數
+async function sendBookingEmail(formData) {
+    // 檢查 EmailJS v4 是否可用
+    if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS not loaded');
+    }
+
+    const eventDate = `${formData.eventYear}年${formData.eventMonth}月${formData.eventDay}日`;
+    const eventTypeNames = {
+        'nightclub': '夜店表演',
+        'private': '私人派對', 
+        'corporate': '企業活動',
+        'festival': '音樂節',
+        'wedding': '婚禮派對',
+        'other': '其他'
+    };
+    
+    const templateParams = {
+        to_email: 'z22693518@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        event_type: eventTypeNames[formData.eventType] || formData.eventType,
+        event_date: eventDate,
+        location: formData.location,
+        details: formData.details,
+        message: `
+🎵 DJ REDSHoU 演出預訂申請
+
+👤 客戶資訊：
+姓名/公司：${formData.name}
+聯絡信箱：${formData.email}
+聯絡電話：${formData.phone}
+
+🎉 活動詳情：
+演出類型：${eventTypeNames[formData.eventType] || formData.eventType}
+活動日期：${eventDate}
+活動地點：${formData.location}
+
+📝 活動詳情：
+${formData.details}
+
+---
+此訊息來自 DJ REDSHoU 官方網站
+        `.trim()
+    };
+
+    // 使用 EmailJS v4 發送郵件到 z22693518@gmail.com
+    return emailjs.send('service_g999a66', 'template_wm6bzkj', templateParams);
+}
+
+// 電話號碼驗證
+function isValidPhone(phone) {
+    const phoneRegex = /^(\+?886\s?)?[\-\s]?0?9\d{8}$|^(\+?886\s?)?[\-\s]?\d{2,3}[\-\s]?\d{3,4}[\-\s]?\d{3,4}$/;
+    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+}
+
+// 高亮空白欄位
+function highlightEmptyFields() {
+    const requiredFields = document.querySelectorAll('#bookingForm [required]');
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            field.style.border = '2px solid #dc143c';
+            field.style.boxShadow = '0 0 10px rgba(220, 20, 60, 0.3)';
+            
+            setTimeout(() => {
+                field.style.border = '';
+                field.style.boxShadow = '';
+            }, 3000);
+        }
+    });
+}
+
+// 實時表單驗證
+function addRealTimeValidation() {
+    const emailField = document.querySelector('#bookingForm input[name="email"]');
+    const phoneField = document.querySelector('#bookingForm input[name="phone"]');
+
+    // 電子郵件驗證
+    if (emailField) {
+        emailField.addEventListener('blur', function() {
+            if (this.value && !isValidEmail(this.value)) {
+                this.style.border = '2px solid #dc143c';
+                showFieldError(this, '請輸入有效的電子郵件地址');
+            } else {
+                this.style.border = '';
+                hideFieldError(this);
+            }
+        });
+    }
+
+    // 電話號碼驗證
+    if (phoneField) {
+        phoneField.addEventListener('blur', function() {
+            if (this.value && !isValidPhone(this.value)) {
+                this.style.border = '2px solid #dc143c';
+                showFieldError(this, '請輸入有效的電話號碼');
+            } else {
+                this.style.border = '';
+                hideFieldError(this);
+            }
+        });
+    }
+}
+
+// 顯示欄位錯誤
+function showFieldError(field, message) {
+    hideFieldError(field);
+    
+    const errorElement = document.createElement('div');
+    errorElement.className = 'field-error';
+    errorElement.textContent = message;
+    errorElement.style.cssText = `
+        color: #dc143c;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        opacity: 0.8;
+    `;
+    
+    field.parentNode.appendChild(errorElement);
+}
+
+// 隱藏欄位錯誤
+function hideFieldError(field) {
+    const errorElement = field.parentNode.querySelector('.field-error');
+    if (errorElement) {
+        errorElement.remove();
+    }
+}
+
+// 預約成功慶祝效果
+function createBookingCelebration() {
+    const colors = ['#8b0000', '#dc143c', '#c0c0c0', '#ffd700'];
+    
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.innerHTML = ['🎵', '🎧', '💫', '⚡', '🎉'][Math.floor(Math.random() * 5)];
+            particle.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                font-size: ${Math.random() * 20 + 20}px;
+                pointer-events: none;
+                z-index: 10000;
+                animation: bookingBurst 4s ease-out forwards;
+                user-select: none;
+            `;
+            
+            const angle = (i * 12) * (Math.PI / 180);
+            const velocity = 200 + Math.random() * 150;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            particle.style.setProperty('--vx', `${vx}px`);
+            particle.style.setProperty('--vy', `${vy}px`);
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 4000);
+        }, i * 80);
+    }
+}
+
+// 添加預約慶祝動畫樣式
+const bookingAnimationStyle = document.createElement('style');
+bookingAnimationStyle.textContent = `
+    @keyframes bookingBurst {
+        0% {
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 1;
+        }
+        20% {
+            transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(calc(-50% + var(--vx)), calc(-50% + var(--vy))) scale(0.3) rotate(720deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(bookingAnimationStyle);
+
+// 生成日期選項
+function generateDateOptions() {
+    const yearSelect = document.querySelector('#eventYear');
+    const monthSelect = document.querySelector('#eventMonth');
+    const daySelect = document.querySelector('#eventDay');
+    
+    if (!yearSelect || !monthSelect || !daySelect) return;
+    
+    const currentLang = localStorage.getItem('preferred-language') || 'zh';
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    
+    // 生成年份選項 (今年和明年)
+    generateYearOptions(yearSelect, currentYear);
+    
+    // 生成月份選項
+    generateMonthOptions(monthSelect, currentLang);
+    
+    // 為年份和月份選擇添加事件監聽器來更新日期
+    yearSelect.addEventListener('change', () => updateDayOptions());
+    monthSelect.addEventListener('change', () => updateDayOptions());
+    
+    // 初始化日期選項
+    updateDayOptions();
+}
+
+// 生成年份選項
+function generateYearOptions(yearSelect, currentYear) {
+    // 清空選項但保留 placeholder
+    const placeholder = yearSelect.querySelector('option[value=""]');
+    yearSelect.innerHTML = '';
+    if (placeholder) yearSelect.appendChild(placeholder);
+    
+    // 添加今年和明年
+    for (let year = currentYear; year <= currentYear + 1; year++) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+    }
+}
+
+// 生成月份選項
+function generateMonthOptions(monthSelect, currentLang) {
+    // 清空選項但保留 placeholder
+    const placeholder = monthSelect.querySelector('option[value=""]');
+    monthSelect.innerHTML = '';
+    if (placeholder) monthSelect.appendChild(placeholder);
+    
+    const monthNames = {
+        'zh': ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        'en': ['January', 'February', 'March', 'April', 'May', 'June', 
+               'July', 'August', 'September', 'October', 'November', 'December']
+    };
+    
+    const names = monthNames[currentLang] || monthNames['zh'];
+    
+    for (let month = 1; month <= 12; month++) {
+        const option = document.createElement('option');
+        option.value = month;
+        option.textContent = names[month - 1];
+        monthSelect.appendChild(option);
+    }
+}
+
+// 更新日期選項
+function updateDayOptions() {
+    const yearSelect = document.querySelector('#eventYear');
+    const monthSelect = document.querySelector('#eventMonth');
+    const daySelect = document.querySelector('#eventDay');
+    
+    if (!yearSelect || !monthSelect || !daySelect) return;
+    
+    const selectedYear = parseInt(yearSelect.value);
+    const selectedMonth = parseInt(monthSelect.value);
+    const today = new Date();
+    
+    // 清空日期選項但保留 placeholder
+    const placeholder = daySelect.querySelector('option[value=""]');
+    daySelect.innerHTML = '';
+    if (placeholder) daySelect.appendChild(placeholder);
+    
+    if (!selectedYear || !selectedMonth) return;
+    
+    // 獲取該月的天數
+    const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+    
+    // 如果是當年當月，只顯示今天之後的日期
+    let startDay = 1;
+    if (selectedYear === today.getFullYear() && selectedMonth === (today.getMonth() + 1)) {
+        startDay = today.getDate() + 1; // 從明天開始
+    }
+    
+    for (let day = startDay; day <= daysInMonth; day++) {
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
+    }
+}

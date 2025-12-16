@@ -18,6 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS v4 CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- 預加載關鍵圖片 -->
     <link rel="preload" href="https://i.ibb.co/W4Yycq12/REDSHOU-logo.png" as="image">
     <link rel="preload" href="https://i.ibb.co/NHBgVJS/IMG-9559-removebg-preview.png" as="image">
@@ -51,6 +53,7 @@
                 <li><a href="#about" class="nav-link" data-translate="nav-about">關於</a></li>
                 <li><a href="#music" class="nav-link" data-translate="nav-music">音樂</a></li>
                 <li><a href="#gallery" class="nav-link" data-translate="nav-gallery">相簿</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="nav-contact">聯絡</a></li>
             </ul>
             <div class="nav-controls">
                 <div class="language-switch">
@@ -392,6 +395,106 @@
         </div>
     </section>
 
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="contact-booking-title">📞 聯絡 & 預訂</h2>
+                <p class="section-subtitle" data-translate="contact-booking-subtitle">DJ REDSHoU Booking Inquiry</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-translate="contact-booking-section-title">演出預訂</h3>
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <i class="fas fa-music"></i>
+                            <h4 data-translate="contact-performance-title">演出類型</h4>
+                            <p data-translate="contact-performance-desc">夜店表演 • 私人派對<br>企業活動 • 音樂節</p>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-calendar"></i>
+                            <h4 data-translate="contact-schedule-title">檔期查詢</h4>
+                            <p data-translate="contact-schedule-desc">提前預訂享優惠<br>歡迎洽詢檔期</p>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h4 data-translate="contact-response-title">快速回覆</h4>
+                            <p data-translate="contact-response-desc">24小時內回覆<br>專業服務保證</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-form">
+                    <h3 data-translate="booking-form-title">預訂詢問表單</h3>
+                    <form class="contact-form" id="bookingForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientName" data-translate="client-name-label">姓名 / 公司 *</label>
+                                <input type="text" id="clientName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clientEmail" data-translate="client-email-label">聯絡信箱 *</label>
+                                <input type="email" id="clientEmail" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientPhone" data-translate="client-phone-label">聯絡電話 *</label>
+                                <input type="tel" id="clientPhone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventType" data-translate="event-type-label">演出類型 *</label>
+                                <select id="eventType" name="event-type" required>
+                                    <option value="" data-translate="event-type-placeholder">請選擇演出類型</option>
+                                    <option value="nightclub" data-translate="event-type-nightclub">夜店表演</option>
+                                    <option value="private" data-translate="event-type-private">私人派對</option>
+                                    <option value="corporate" data-translate="event-type-corporate">企業活動</option>
+                                    <option value="festival" data-translate="event-type-festival">音樂節</option>
+                                    <option value="wedding" data-translate="event-type-wedding">婚禮派對</option>
+                                    <option value="other" data-translate="event-type-other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate="event-date-label">預訂日期 *</label>
+                                <div class="date-selectors">
+                                    <select id="eventYear" name="event-year" required>
+                                        <option value="" data-translate="year-placeholder">年份</option>
+                                    </select>
+                                    <select id="eventMonth" name="event-month" required>
+                                        <option value="" data-translate="month-placeholder">月份</option>
+                                    </select>
+                                    <select id="eventDay" name="event-day" required>
+                                        <option value="" data-translate="day-placeholder">日期</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventLocation" data-translate="event-location-label">活動地點 *</label>
+                                <input type="text" id="eventLocation" name="location" data-translate-placeholder="event-location-placeholder" placeholder="例：台北市信義區" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDetails" data-translate="event-details-label">活動詳情 *</label>
+                            <textarea id="eventDetails" name="details" rows="4" data-translate-placeholder="event-details-placeholder" placeholder="請描述活動規模、時間、特殊需求等..." required></textarea>
+                        </div>
+                        
+                        
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-translate="submit-button">送出預訂詢問</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
