@@ -3550,7 +3550,7 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 /* 日期選擇器樣式 */
 .date-selectors {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1fr;
     gap: 0.8rem;
     margin-top: 0.5rem;
 }
@@ -3570,17 +3570,21 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     background-repeat: no-repeat;
     background-position: right 0.8rem center;
     background-size: 0.6rem auto;
-    padding: 0.75rem 2.2rem 0.75rem 1rem;
+    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: left;
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    letter-spacing: 0.3px;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
     color: var(--white);
     font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
     border-radius: 6px;
+    min-height: 2.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 未選擇時的 placeholder 樣式 */
@@ -3613,6 +3617,14 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 .date-selectors select:not(:focus):valid {
     background-color: var(--secondary-black);
     border-color: var(--metal-silver);
+}
+
+/* 年份選擇器特殊樣式 */
+#eventYear {
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 0.85rem 2.5rem 0.85rem 1.3rem;
+    letter-spacing: 0.8px;
 }
 
 .btn-submit {
@@ -3657,16 +3669,23 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .date-selectors {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1.1fr 1fr 1fr;
         gap: 0.5rem;
     }
     
     .date-selectors select {
         font-size: 0.9rem;
-        padding: 0.7rem 2rem 0.7rem 0.9rem;
+        padding: 0.75rem 2rem 0.75rem 1rem;
         text-align: left;
-        font-weight: 300;
-        letter-spacing: 0.2px;
+        font-weight: 400;
+        letter-spacing: 0.4px;
+        min-height: 2.5rem;
+    }
+    
+    #eventYear {
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.6px;
     }
     
     .contact-form {
