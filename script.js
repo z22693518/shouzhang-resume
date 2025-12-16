@@ -1367,25 +1367,8 @@ function generateDateOptions() {
         dateOptionsInitialized = true;
     }
     
-    // 立即更新日期選項，並設置預設值
-    updateDayOptions();
-    
-    // 如果當前月份沒有可選日期，預設選擇下個月
-    setTimeout(() => {
-        const daySelect = document.querySelector('#eventDay');
-        if (daySelect.children.length <= 1) { // 只有placeholder
-            const monthSelect = document.querySelector('#eventMonth');
-            const currentMonth = today.getMonth() + 1;
-            if (currentMonth < 12) {
-                monthSelect.value = currentMonth + 1;
-            } else {
-                const yearSelect = document.querySelector('#eventYear');
-                yearSelect.value = currentYear + 1;
-                monthSelect.value = 1;
-            }
-            updateDayOptions();
-        }
-    }, 50);
+    // 不設置預設值，讓用戶手動選擇
+    // updateDayOptions(); // 不立即更新，等用戶選擇年份和月份後再更新
 }
 
 // 生成年份選項
@@ -1395,11 +1378,11 @@ function generateYearOptions(yearSelect, currentYear) {
     yearSelect.innerHTML = '';
     if (placeholder) yearSelect.appendChild(placeholder);
     
-    // 添加今年和明年
+    // 添加今年和明年，格式更自然
     for (let year = currentYear; year <= currentYear + 1; year++) {
         const option = document.createElement('option');
         option.value = year;
-        option.textContent = year;
+        option.textContent = `${year} 年`;
         yearSelect.appendChild(option);
     }
 }
@@ -1441,6 +1424,9 @@ function updateDayOptions() {
     const selectedMonth = parseInt(monthSelect.value);
     const today = new Date();
     
+    // 保存用戶當前選擇的日期
+    const currentSelectedDay = daySelect.value;
+    
     // 保存原有的 placeholder
     const placeholder = daySelect.querySelector('option[value=""]');
     const placeholderText = placeholder ? placeholder.textContent : '日期';
@@ -1456,7 +1442,9 @@ function updateDayOptions() {
     daySelect.appendChild(newPlaceholder);
     
     // 如果沒有選擇年份和月份，不生成日期
-    if (!selectedYear || !selectedMonth) return;
+    if (!selectedYear || !selectedMonth) {
+        return;
+    }
     
     // 獲取該月的天數
     const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
@@ -1478,7 +1466,7 @@ function updateDayOptions() {
     for (let day = startDay; day <= daysInMonth; day++) {
         const option = document.createElement('option');
         option.value = day;
-        option.textContent = day;
+        option.textContent = `${day} 日`;
         daySelect.appendChild(option);
     }
     
@@ -1487,8 +1475,16 @@ function updateDayOptions() {
         for (let day = 1; day <= daysInMonth; day++) {
             const option = document.createElement('option');
             option.value = day;
-            option.textContent = day;
+            option.textContent = `${day} 日`;
             daySelect.appendChild(option);
+        }
+    }
+    
+    // 如果之前有選擇的日期且該日期仍然有效，恢復選擇
+    if (currentSelectedDay && currentSelectedDay !== '') {
+        const dayExists = daySelect.querySelector(`option[value="${currentSelectedDay}"]`);
+        if (dayExists) {
+            daySelect.value = currentSelectedDay;
         }
     }
 }
