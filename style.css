@@ -3470,6 +3470,11 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     margin-bottom: 1.5rem;
 }
 
+/* 確保日期選擇器不影響表單佈局 */
+.form-group:has(.date-selectors) {
+    width: fit-content;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -3554,7 +3559,7 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     gap: 1rem;
     margin-top: 0.5rem;
     align-items: center;
-    width: 100%;
+    width: 350px;
     justify-content: start;
 }
 
@@ -3693,6 +3698,11 @@ h1, h2, h3, h4, h5, h6, p, div, span {
         grid-template-columns: 100px 80px 70px;
         gap: 0.5rem;
         justify-content: start;
+        width: 280px;
+    }
+    
+    .form-group:has(.date-selectors) {
+        width: fit-content;
     }
     
     .date-selectors select {
