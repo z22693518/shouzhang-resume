@@ -1378,10 +1378,10 @@ function generateYearOptions(yearSelect, currentYear) {
     yearSelect.innerHTML = '';
     if (placeholder) yearSelect.appendChild(placeholder);
     
-    // 添加今年和明年，格式更自然
+    // 添加今年和明年，保持value和textContent一致
     for (let year = currentYear; year <= currentYear + 1; year++) {
         const option = document.createElement('option');
-        option.value = year;
+        option.value = `${year}年`;
         option.textContent = `${year} 年`;
         yearSelect.appendChild(option);
     }
@@ -1420,7 +1420,8 @@ function updateDayOptions() {
     
     if (!yearSelect || !monthSelect || !daySelect) return;
     
-    const selectedYear = parseInt(yearSelect.value);
+    // 解析年份值，移除"年"字
+    const selectedYear = parseInt(yearSelect.value.replace('年', ''));
     const selectedMonth = parseInt(monthSelect.value);
     const today = new Date();
     
