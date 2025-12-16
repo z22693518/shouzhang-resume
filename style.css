@@ -3464,38 +3464,10 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 }
 
 .form-row {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
-    align-items: end;
-}
-
-/* 日期選擇器欄位固定寬度 */
-.form-row .form-group:has(.date-selectors) {
-    flex: 0 0 auto;
-    width: 350px;
-}
-
-/* 活動地點欄位填滿剩餘空間 */
-.form-row .form-group:not(:has(.date-selectors)) {
-    flex: 1;
-    min-width: 0;
-}
-
-/* 確保活動地點欄位與日期選擇器對齊 */
-.form-row .form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-row .form-group label {
-    margin-bottom: 0.5rem;
-    flex-shrink: 0;
-}
-
-.form-row .form-group input,
-.form-row .form-group .date-selectors {
-    margin-top: auto;
 }
 
 .form-group {
@@ -3526,12 +3498,6 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     transition: all 0.3s ease;
 }
 
-/* 確保form-row中的input與日期選擇器對齊 */
-.form-row .form-group input {
-    height: 3rem;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-}
 
 .form-group input:focus,
 .form-group select:focus,
@@ -3585,14 +3551,13 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 /* 日期選擇器樣式 */
 .date-selectors {
     display: grid;
-    grid-template-columns: 110px 90px 80px;
-    gap: 0.8rem;
-    margin-top: 0;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
     align-items: center;
     width: 100%;
-    max-width: 320px;
+    max-width: 400px;
     justify-content: start;
-    height: 3rem;
 }
 
 /* 為日期選擇器添加標籤 */
@@ -3662,27 +3627,21 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 
 /* 年份選擇器特殊樣式 */
 .date-selectors #eventYear {
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
     font-weight: 500 !important;
     text-align: center !important;
-    width: 110px !important;
-    min-width: 110px !important;
 }
 
 /* 月份選擇器樣式 */
 .date-selectors #eventMonth {
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
     text-align: center !important;
-    width: 90px !important;
-    min-width: 90px !important;
 }
 
 /* 日期選擇器樣式 */
 .date-selectors #eventDay {
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
     text-align: center !important;
-    width: 80px !important;
-    min-width: 80px !important;
 }
 
 .btn-submit {
@@ -3722,35 +3681,15 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .form-row {
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 1rem;
-        align-items: stretch;
     }
     
     .date-selectors {
-        grid-template-columns: 100px 80px 70px;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 0.5rem;
-        justify-content: start;
-        width: 100%;
-        max-width: 280px;
-        height: 2.8rem;
-        margin-top: 0;
-    }
-    
-    .form-row .form-group:has(.date-selectors) {
-        width: auto;
-        flex: none;
-    }
-    
-    .form-row .form-group:not(:has(.date-selectors)) {
-        width: 100%;
-        flex: none;
-    }
-    
-    .form-row .form-group input {
-        height: 2.8rem;
-        padding: 0.4rem 1rem;
+        max-width: none;
+        margin-top: 0.5rem;
     }
     
     .date-selectors select {
@@ -3759,27 +3698,8 @@ h1, h2, h3, h4, h5, h6, p, div, span {
         text-align: center;
         font-weight: 400;
         letter-spacing: 0.3px;
-        min-height: 2.8rem;
+        min-height: auto;
         overflow: visible;
-    }
-    
-    .date-selectors #eventYear {
-        font-size: 1rem !important;
-        font-weight: 500 !important;
-        width: 100px !important;
-        min-width: 100px !important;
-    }
-    
-    .date-selectors #eventMonth {
-        font-size: 1rem !important;
-        width: 80px !important;
-        min-width: 80px !important;
-    }
-    
-    .date-selectors #eventDay {
-        font-size: 1rem !important;
-        width: 70px !important;
-        min-width: 70px !important;
     }
     
     .contact-form {
