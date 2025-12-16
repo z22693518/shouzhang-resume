@@ -3722,7 +3722,8 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .form-row {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
         align-items: stretch;
     }
@@ -3731,13 +3732,20 @@ h1, h2, h3, h4, h5, h6, p, div, span {
         grid-template-columns: 100px 80px 70px;
         gap: 0.5rem;
         justify-content: start;
-        width: 280px;
+        width: 100%;
+        max-width: 280px;
         height: 2.8rem;
         margin-top: 0;
     }
     
-    .form-group:has(.date-selectors) {
-        width: fit-content;
+    .form-row .form-group:has(.date-selectors) {
+        width: auto;
+        flex: none;
+    }
+    
+    .form-row .form-group:not(:has(.date-selectors)) {
+        width: 100%;
+        flex: none;
     }
     
     .form-row .form-group input {
