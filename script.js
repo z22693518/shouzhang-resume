@@ -1381,7 +1381,7 @@ function generateYearOptions(yearSelect, currentYear) {
     // 添加今年和明年，保持value和textContent一致
     for (let year = currentYear; year <= currentYear + 1; year++) {
         const option = document.createElement('option');
-        option.value = `${year}年`;
+        option.value = year;
         option.textContent = `${year} 年`;
         yearSelect.appendChild(option);
     }
@@ -1420,8 +1420,8 @@ function updateDayOptions() {
     
     if (!yearSelect || !monthSelect || !daySelect) return;
     
-    // 解析年份值，移除"年"字
-    const selectedYear = parseInt(yearSelect.value.replace('年', ''));
+    // 解析年份值（現在是純數字）
+    const selectedYear = parseInt(yearSelect.value);
     const selectedMonth = parseInt(monthSelect.value);
     const today = new Date();
     
