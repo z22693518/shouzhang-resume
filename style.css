@@ -3508,7 +3508,36 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--gray);
+    color: rgba(192, 192, 192, 0.6);
+    opacity: 0.7;
+    font-style: italic;
+    transition: opacity 0.3s ease;
+}
+
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+    opacity: 0.4;
+}
+
+.form-group select option:first-child {
+    color: rgba(192, 192, 192, 0.6);
+    font-style: italic;
+}
+
+/* 為 select 添加 placeholder 效果 */
+.form-group select {
+    color: var(--white);
+}
+
+.form-group select:invalid {
+    color: rgba(192, 192, 192, 0.6);
+    font-style: italic;
+}
+
+/* 選擇器焦點時的樣式 */
+.form-group select:focus {
+    color: var(--white);
+    font-style: normal;
 }
 
 .form-group select option {

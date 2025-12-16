@@ -1339,6 +1339,9 @@ bookingAnimationStyle.textContent = `
 `;
 document.head.appendChild(bookingAnimationStyle);
 
+// 全局變數來追蹤是否已經初始化
+let dateOptionsInitialized = false;
+
 // 生成日期選項
 function generateDateOptions() {
     const yearSelect = document.querySelector('#eventYear');
@@ -1357,12 +1360,32 @@ function generateDateOptions() {
     // 生成月份選項
     generateMonthOptions(monthSelect, currentLang);
     
-    // 為年份和月份選擇添加事件監聽器來更新日期
-    yearSelect.addEventListener('change', () => updateDayOptions());
-    monthSelect.addEventListener('change', () => updateDayOptions());
+    // 只在第一次初始化時添加事件監聽器
+    if (!dateOptionsInitialized) {
+        yearSelect.addEventListener('change', () => updateDayOptions());
+        monthSelect.addEventListener('change', () => updateDayOptions());
+        dateOptionsInitialized = true;
+    }
     
-    // 初始化日期選項
+    // 立即更新日期選項，並設置預設值
     updateDayOptions();
+    
+    // 如果當前月份沒有可選日期，預設選擇下個月
+    setTimeout(() => {
+        const daySelect = document.querySelector('#eventDay');
+        if (daySelect.children.length <= 1) { // 只有placeholder
+            const monthSelect = document.querySelector('#eventMonth');
+            const currentMonth = today.getMonth() + 1;
+            if (currentMonth < 12) {
+                monthSelect.value = currentMonth + 1;
+            } else {
+                const yearSelect = document.querySelector('#eventYear');
+                yearSelect.value = currentYear + 1;
+                monthSelect.value = 1;
+            }
+            updateDayOptions();
+        }
+    }, 50);
 }
 
 // 生成年份選項
@@ -1388,12 +1411,14 @@ function generateMonthOptions(monthSelect, currentLang) {
     monthSelect.innerHTML = '';
     if (placeholder) monthSelect.appendChild(placeholder);
     
+    // 正確的月份對應
     const monthNames = {
         'zh': ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
         'en': ['January', 'February', 'March', 'April', 'May', 'June', 
                'July', 'August', 'September', 'October', 'November', 'December']
     };
     
+    // 確保使用正確的語言
     const names = monthNames[currentLang] || monthNames['zh'];
     
     for (let month = 1; month <= 12; month++) {
@@ -1416,26 +1441,54 @@ function updateDayOptions() {
     const selectedMonth = parseInt(monthSelect.value);
     const today = new Date();
     
-    // 清空日期選項但保留 placeholder
+    // 保存原有的 placeholder
     const placeholder = daySelect.querySelector('option[value=""]');
-    daySelect.innerHTML = '';
-    if (placeholder) daySelect.appendChild(placeholder);
+    const placeholderText = placeholder ? placeholder.textContent : '日期';
     
+    // 清空日期選項
+    daySelect.innerHTML = '';
+    
+    // 重新添加 placeholder
+    const newPlaceholder = document.createElement('option');
+    newPlaceholder.value = '';
+    newPlaceholder.textContent = placeholderText;
+    newPlaceholder.setAttribute('data-translate', 'day-placeholder');
+    daySelect.appendChild(newPlaceholder);
+    
+    // 如果沒有選擇年份和月份，不生成日期
     if (!selectedYear || !selectedMonth) return;
     
     // 獲取該月的天數
     const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
     
-    // 如果是當年當月，只顯示今天之後的日期
+    // 決定開始日期
     let startDay = 1;
+    
+    // 如果是當年當月，從明天開始
     if (selectedYear === today.getFullYear() && selectedMonth === (today.getMonth() + 1)) {
-        startDay = today.getDate() + 1; // 從明天開始
+        startDay = today.getDate() + 1;
     }
     
+    // 如果沒有可選日期（例如今天是月底），顯示所有日期但標記為未來預訂
+    if (startDay > daysInMonth) {
+        startDay = 1;
+    }
+    
+    // 生成日期選項，確保至少有一個可選
     for (let day = startDay; day <= daysInMonth; day++) {
         const option = document.createElement('option');
         option.value = day;
         option.textContent = day;
         daySelect.appendChild(option);
+    }
+    
+    // 如果沒有任何日期被添加，添加一個提示
+    if (daySelect.children.length === 1) {
+        for (let day = 1; day <= daysInMonth; day++) {
+            const option = document.createElement('option');
+            option.value = day;
+            option.textContent = day;
+            daySelect.appendChild(option);
+        }
     }
 }
