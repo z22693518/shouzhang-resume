@@ -3556,7 +3556,7 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     margin-top: 0;
     align-items: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     justify-content: start;
 }
 
@@ -3569,7 +3569,7 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     background-repeat: no-repeat;
     background-position: right 0.7rem center;
     background-size: 0.5rem auto;
-    padding: 1rem 2rem 1rem 1rem;
+    padding: 1rem 1.5rem 1rem 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
@@ -3616,6 +3616,18 @@ h1, h2, h3, h4, h5, h6, p, div, span {
 .date-selectors select:not(:focus):valid {
     background-color: var(--secondary-black);
     border-color: var(--metal-silver);
+}
+
+/* 桌面版日期選擇器確保有充足寬度 */
+@media (min-width: 769px) {
+    .date-selectors {
+        max-width: none;
+        min-width: 500px;
+    }
+    
+    .date-selectors select {
+        min-width: 140px;
+    }
 }
 
 /* 年份選擇器特殊樣式 */
