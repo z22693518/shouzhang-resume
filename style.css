@@ -1,4 +1,5 @@
 :root {
+    /* Colors */
     --primary-black: #0a0a0a;
     --secondary-black: #1a1a1a;
     --tertiary-black: #2a2a2a;
@@ -13,12 +14,51 @@
     --gothic-gold: #b8860b;
     --white: #ffffff;
     
+    /* Typography */
     --font-primary: 'Oswald', sans-serif;
     --font-gothic: 'Cinzel', serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 3rem;
     
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 50%;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.8);
     --shadow-glow: 0 0 20px rgba(192, 192, 192, 0.3);
     --shadow-deep: 0 15px 50px rgba(0, 0, 0, 0.9);
+    
+    /* Z-index */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal: 1040;
+    --z-popover: 1050;
+    --z-tooltip: 1060;
 }
 
 * {
@@ -35,10 +75,60 @@ body {
     overflow-x: hidden;
 }
 
+/* ===== UTILITY CLASSES ===== */
+/* Flex utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1; }
 
-/* 圖片懶加載優化樣式 */
+/* Spacing utilities */
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+.gap-xl { gap: var(--spacing-xl); }
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+
+/* Border radius utilities */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Transition utilities */
+.transition { transition: var(--transition-base); }
+.transition-fast { transition: var(--transition-fast); }
+.transition-slow { transition: var(--transition-slow); }
+
+/* Shadow utilities */
+.shadow { box-shadow: var(--shadow-base); }
+.shadow-dark { box-shadow: var(--shadow-dark); }
+.shadow-glow { box-shadow: var(--shadow-glow); }
+.shadow-deep { box-shadow: var(--shadow-deep); }
+
+
+/* ===== IMAGE OPTIMIZATION ===== */
 .lazy-image {
-    transition: opacity 0.3s ease, filter 0.3s ease;
+    transition: opacity var(--transition-base), filter var(--transition-base);
     background-color: var(--secondary-black);
     background-image: linear-gradient(45deg, transparent 40%, rgba(192, 192, 192, 0.1) 50%, transparent 60%);
     background-size: 200% 200%;
@@ -48,6 +138,55 @@ body {
 .lazy-image.loaded {
     animation: none;
     background: none;
+}
+
+.image-placeholder {
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-base);
+    font-size: var(--font-size-sm);
+}
+
+.image-placeholder:hover {
+    background: linear-gradient(45deg, #3a3a3a, #2a2a2a) !important;
+    border-color: #888 !important;
+}
+
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.placeholder-content i {
+    font-size: var(--font-size-2xl);
+    color: var(--light-gray);
+    margin-bottom: var(--spacing-sm);
+}
+
+.retry-btn {
+    background: linear-gradient(135deg, var(--blood-red), var(--crimson));
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: var(--transition-base);
+    margin-top: var(--spacing-sm);
+}
+
+.retry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3);
+}
+
+.retry-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
 }
 
 .lazy-image.error {
@@ -438,21 +577,27 @@ body {
     z-index: 2;
 }
 
-/* Fallback Background */
+/* 優化的備用背景 - 更佳視覺效果且載入更快 */
 .basic-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        135deg, 
-        rgba(0, 0, 0, 0.7) 0%, 
-        rgba(139, 0, 0, 0.3) 50%, 
-        rgba(0, 0, 0, 0.8) 100%
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(139, 0, 0, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(139, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.95) 100%
     );
     z-index: 1;
     display: none; /* 預設隱藏，影片失敗時顯示 */
+    animation: backgroundPulse 8s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
 /* Floating Music Notes */
@@ -3724,4 +3869,520 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     .contact-card i {
         font-size: 2rem;
     }
+}
+
+/* ===== ENHANCED RESPONSIVE DESIGN ===== */
+
+/* 1. 超寬屏幕優化 (>1920px) - 4K, 5K, 超寬顯示器 */
+@media (min-width: 1921px) {
+    .section-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .hero-content {
+        transform: scale(1.1);
+    }
+    
+    .hero-image img {
+        max-width: 500px;
+        max-height: 500px;
+    }
+    
+    .logo-main {
+        max-width: 400px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2rem;
+    }
+    
+    .experience-columns {
+        gap: 4rem;
+    }
+    
+    .contact-content {
+        gap: 4rem;
+    }
+    
+    /* 超寬屏導航優化 */
+    .nav-menu {
+        gap: 3rem;
+    }
+    
+    .nav-menu a {
+        font-size: 1.2rem;
+        padding: 1rem 1.5rem;
+    }
+    
+    /* 超寬屏幕字體縮放 */
+    .section-title {
+        font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 2rem;
+    }
+}
+
+/* 2A. 折疊屏幕優化 - 小尺寸 (360px-430px) */
+@media (max-width: 430px) and (min-width: 360px) {
+    /* 導航優化 */
+    .navbar {
+        padding: 0.5rem 0;
+        min-height: 60px;
+    }
+    
+    .nav-brand img {
+        width: 100px;
+        height: auto;
+    }
+    
+    .language-switch {
+        margin-right: 0.5rem;
+    }
+    
+    .lang-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Hero區域優化 */
+    .hero {
+        min-height: 100vh;
+        padding: 1rem;
+    }
+    
+    .hero-image img {
+        max-width: 200px;
+        max-height: 200px;
+    }
+    
+    .logo-main {
+        max-width: 180px;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* 內容區域優化 */
+    .section-container {
+        padding: 0 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    /* 關於區域優化 */
+    .intro-paragraph {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .experience-items {
+        gap: 0.8rem;
+    }
+    
+    /* 相簿優化 */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* 聯絡表單優化 */
+    .contact-form {
+        padding: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+}
+
+/* 2B. 折疊屏幕優化 - 中等尺寸 (430px-540px) */
+@media (max-width: 540px) and (min-width: 431px) {
+    .hero-image img {
+        max-width: 250px;
+        max-height: 250px;
+    }
+    
+    .logo-main {
+        max-width: 200px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .experience-columns {
+        gap: 1.5rem;
+    }
+    
+    .contact-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* 3. 平板橫屏優化 (768px-1024px) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    /* 導航優化 */
+    .navbar {
+        padding: 1rem 0;
+    }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .nav-menu a {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    /* Hero區域優化 - 橫屏佈局 */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .hero-image {
+        order: 2;
+    }
+    
+    .hero-logo {
+        order: 1;
+        text-align: left;
+    }
+    
+    .hero-subtitle {
+        order: 3;
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    /* 內容區域優化 */
+    .section-container {
+        max-width: 950px;
+        padding: 0 2rem;
+    }
+    
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+    
+    .experience-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    /* 相簿優化 */
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* 聯絡區域優化 */
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 2rem;
+        align-items: start;
+    }
+    
+    .contact-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .contact-form {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+/* 4. 平板直屏精細調整 (768px-1024px portrait) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .hero-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .hero-image img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+    
+    .logo-main {
+        max-width: 250px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .experience-columns {
+        gap: 2rem;
+    }
+    
+    .contact-content {
+        gap: 2rem;
+    }
+    
+    .contact-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* 5. 極小屏幕優化 (<360px) - Galaxy Fold等 */
+@media (max-width: 359px) {
+    .section-container {
+        padding: 0 0.5rem;
+    }
+    
+    .hero-image img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+    
+    .logo-main {
+        max-width: 140px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .contact-form {
+        padding: 0.5rem;
+    }
+    
+    .navbar {
+        padding: 0.3rem 0;
+    }
+    
+    .nav-brand img {
+        width: 80px;
+    }
+    
+    .lang-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* 6. 動態視窗單位支援 (現代瀏覽器) */
+@supports (height: 100dvh) {
+    .hero {
+        min-height: 100dvh; /* 動態視窗高度，考慮移動端地址欄 */
+    }
+}
+
+@supports (height: 100svh) {
+    .hero {
+        min-height: 100svh; /* 小視窗高度 */
+    }
+}
+
+/* 7. 容器查詢支援 (未來兼容) */
+@supports (container-type: inline-size) {
+    .section-container {
+        container-type: inline-size;
+    }
+    
+    @container (max-width: 600px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    @container (min-width: 800px) {
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+/* 8. 偏好設置支援 */
+@media (prefers-color-scheme: light) {
+    /* 為偏好淺色主題的用戶提供調整 */
+    :root {
+        --contrast-adjustment: 0.1;
+    }
+}
+
+@media (prefers-contrast: high) {
+    /* 高對比度支援 */
+    :root {
+        --shadow-dark: 0 10px 30px rgba(0, 0, 0, 1);
+        --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    
+    .retry-btn:hover {
+        outline: 2px solid white;
+    }
+}
+
+/* ===== RESPONSIVE JAVASCRIPT ENHANCEMENT CLASSES ===== */
+
+/* Touch device optimizations */
+.touch-device .lang-btn,
+.touch-device .social-link,
+.touch-device button {
+    min-height: 44px;
+    min-width: 44px;
+    -webkit-tap-highlight-color: rgba(139, 0, 0, 0.3);
+}
+
+.touch-device .gallery-grid {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile fixed navigation */
+.mobile .navbar.mobile-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.mobile .navbar.mobile-fixed ~ * {
+    margin-top: 70px;
+}
+
+/* Tablet landscape mode */
+.tablet-landscape .hero-content.landscape-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "logo image"
+        "subtitle subtitle";
+    gap: 2rem;
+    max-width: 900px;
+}
+
+.tablet-landscape .hero-logo {
+    grid-area: logo;
+    align-self: center;
+}
+
+.tablet-landscape .hero-image {
+    grid-area: image;
+    align-self: center;
+}
+
+.tablet-landscape .hero-subtitle {
+    grid-area: subtitle;
+    text-align: center;
+}
+
+/* Ultrawide specific styles */
+.ultrawide .section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.ultrawide .gallery-grid {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+/* High DPI enhancements */
+.high-dpi img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Hover enabled devices */
+.hover-enabled .contact-card:hover,
+.hover-enabled .stat-card:hover,
+.hover-enabled .gallery-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    transition: all var(--transition-base);
+}
+
+/* No-touch device optimizations */
+.no-touch .lang-btn {
+    min-height: auto;
+    min-width: auto;
+}
+
+/* Device-specific utilities */
+.mobile .hide-mobile { display: none !important; }
+.tablet .hide-tablet { display: none !important; }
+.desktop .hide-desktop { display: none !important; }
+.ultrawide .hide-ultrawide { display: none !important; }
+
+.mobile .show-mobile { display: block !important; }
+.tablet .show-tablet { display: block !important; }
+.desktop .show-desktop { display: block !important; }
+.ultrawide .show-ultrawide { display: block !important; }
+
+/* Performance optimizations for different devices */
+.mobile .gothic-particles,
+.mobile .floating-elements {
+    animation-duration: 8s; /* Slower animations on mobile */
+}
+
+.ultrawide .gothic-particles,
+.ultrawide .floating-elements {
+    animation-duration: 4s; /* Faster animations on powerful devices */
+}
+
+/* Enhanced accessibility for touch devices */
+.touch-device button:focus,
+.touch-device a:focus,
+.touch-device input:focus {
+    outline: 2px solid var(--blood-red);
+    outline-offset: 2px;
+}
+
+/* Prevent zoom on input focus for mobile */
+.mobile input,
+.mobile select,
+.mobile textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
 }

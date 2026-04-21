@@ -1,3 +1,62 @@
+// ===== TIMER MANAGEMENT SYSTEM =====
+class TimerManager {
+    constructor() {
+        this.timers = new Map();
+        this.intervals = new Map();
+    }
+    
+    setTimeout(callback, delay, id = `timer_${Date.now()}_${Math.random()}`) {
+        this.clearTimer(id);
+        const timer = setTimeout(() => {
+            callback();
+            this.timers.delete(id);
+        }, delay);
+        this.timers.set(id, timer);
+        return { id, timer };
+    }
+    
+    setInterval(callback, interval, id = `interval_${Date.now()}_${Math.random()}`) {
+        this.clearInterval(id);
+        const intervalTimer = setInterval(callback, interval);
+        this.intervals.set(id, intervalTimer);
+        return { id, timer: intervalTimer };
+    }
+    
+    clearTimer(id) {
+        const timer = this.timers.get(id);
+        if (timer) {
+            clearTimeout(timer);
+            this.timers.delete(id);
+        }
+    }
+    
+    clearInterval(id) {
+        const interval = this.intervals.get(id);
+        if (interval) {
+            clearInterval(interval);
+            this.intervals.delete(id);
+        }
+    }
+    
+    clearAll() {
+        this.timers.forEach(timer => clearTimeout(timer));
+        this.intervals.forEach(interval => clearInterval(interval));
+        this.timers.clear();
+        this.intervals.clear();
+    }
+    
+    getActiveTimers() {
+        return {
+            timers: this.timers.size,
+            intervals: this.intervals.size,
+            total: this.timers.size + this.intervals.size
+        };
+    }
+}
+
+// 全局定時器管理器
+const timerManager = new TimerManager();
+
 // 語言翻譯內容
 const translations = {
     zh: {
@@ -190,7 +249,81 @@ const translations = {
 // 圖片緩存管理
 const imageCache = new Map();
 
-// 資源預加載管理
+// ===== WEBP SUPPORT DETECTION =====
+function supportsWebP() {
+    return new Promise((resolve) => {
+        const webp = new Image();
+        webp.onload = webp.onerror = () => resolve(webp.height === 2);
+        webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+    });
+}
+
+// ===== SMART IMAGE OPTIMIZATION =====
+class ImageOptimizer {
+    constructor() {
+        this.webpSupported = false;
+        this.init();
+    }
+    
+    async init() {
+        this.webpSupported = await supportsWebP();
+        console.log(`WebP support: ${this.webpSupported ? '✅' : '❌'}`);
+    }
+    
+    optimizeImageSrc(originalSrc) {
+        // 模擬WebP轉換 - 實際環境中會替換為真實的WebP URL
+        if (this.webpSupported && originalSrc.includes('.jpg') || originalSrc.includes('.png')) {
+            // 在實際應用中，這裡會替換為WebP版本的URL
+            return {
+                webp: originalSrc.replace(/\.(jpg|jpeg|png)$/, '.webp'),
+                fallback: originalSrc,
+                optimized: true
+            };
+        }
+        return {
+            webp: originalSrc,
+            fallback: originalSrc,
+            optimized: false
+        };
+    }
+    
+    createOptimizedPicture(imgElement) {
+        const originalSrc = imgElement.src;
+        const { webp, fallback } = this.optimizeImageSrc(originalSrc);
+        
+        if (!this.webpSupported || webp === fallback) {
+            return imgElement; // No optimization needed
+        }
+        
+        // 創建 picture 元素
+        const picture = document.createElement('picture');
+        
+        // WebP source
+        const webpSource = document.createElement('source');
+        webpSource.srcset = webp;
+        webpSource.type = 'image/webp';
+        
+        // Fallback source
+        const fallbackSource = document.createElement('source');
+        fallbackSource.srcset = fallback;
+        fallbackSource.type = imgElement.src.includes('.png') ? 'image/png' : 'image/jpeg';
+        
+        // 保留原始img屬性
+        const optimizedImg = imgElement.cloneNode(true);
+        optimizedImg.src = fallback;
+        
+        picture.appendChild(webpSource);
+        picture.appendChild(fallbackSource);
+        picture.appendChild(optimizedImg);
+        
+        return picture;
+    }
+}
+
+// 全局圖片優化器
+const imageOptimizer = new ImageOptimizer();
+
+// 資源預加載管理 - 優化版
 function preloadCriticalResources() {
     const criticalImages = [
         'https://i.ibb.co/W4Yycq12/REDSHOU-logo.png',
@@ -200,27 +333,169 @@ function preloadCriticalResources() {
     criticalImages.forEach(src => {
         if (!imageCache.has(src)) {
             const img = new Image();
-            img.src = src;
+            const optimized = imageOptimizer.optimizeImageSrc(src);
+            
+            // 優先嘗試載入WebP格式
+            img.src = optimized.webp;
+            img.onerror = () => {
+                // WebP載入失敗，回退到原始格式
+                img.src = optimized.fallback;
+            };
+            
             imageCache.set(src, img);
         }
     });
 }
 
-// 優化後的載入序列
+// 優化後的載入序列 + 網路監控
 function initializePageResources() {
-    // 1. 預加載關鍵資源
+    // 1. 檢查網路狀況
+    monitorNetworkStatus();
+    
+    // 2. 預加載關鍵資源
     preloadCriticalResources();
     
-    // 2. 初始化核心功能
+    // 3. 初始化核心功能
     initializeVideoBackground();
     initializeLanguage();
     
-    // 3. 延遲初始化非關鍵功能
+    // 4. 延遲初始化非關鍵功能
     requestIdleCallback(() => {
         initializeSkillBars();
         addLazyLoadingToImages();
         optimizePagePerformance();
+        monitorExternalResources();
     });
+}
+
+// 網路狀況監控
+function monitorNetworkStatus() {
+    // 檢測網路連線狀態
+    function updateNetworkStatus() {
+        if (!navigator.onLine) {
+            showGothicNotification('網路連線中斷，部分功能可能受影響', 'error');
+        }
+    }
+    
+    // 監聽網路狀態變化
+    window.addEventListener('online', () => {
+        showGothicNotification('網路連線已恢復', 'success');
+        // 重新載入失敗的資源
+        retryFailedResources();
+    });
+    
+    window.addEventListener('offline', updateNetworkStatus);
+    
+    // 初始檢查
+    if (!navigator.onLine) {
+        updateNetworkStatus();
+    }
+}
+
+// 監控外部資源載入狀況
+function monitorExternalResources() {
+    const criticalResources = [
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+        'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js',
+        'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Cinzel:wght@600&display=swap'
+    ];
+    
+    criticalResources.forEach(resource => {
+        checkResourceLoading(resource);
+    });
+}
+
+// 檢查資源載入狀況
+function checkResourceLoading(resourceUrl) {
+    const timeout = setTimeout(() => {
+        console.warn(`外部資源載入超時: ${resourceUrl}`);
+        handleResourceFailure(resourceUrl);
+    }, 15000);
+    
+    // 嘗試載入資源
+    fetch(resourceUrl, { method: 'HEAD' })
+        .then(response => {
+            clearTimeout(timeout);
+            if (!response.ok) {
+                handleResourceFailure(resourceUrl);
+            }
+        })
+        .catch(error => {
+            clearTimeout(timeout);
+            handleResourceFailure(resourceUrl);
+        });
+}
+
+// 處理資源載入失敗
+function handleResourceFailure(resourceUrl) {
+    console.error(`資源載入失敗: ${resourceUrl}`);
+    
+    // 根據資源類型提供降級方案
+    if (resourceUrl.includes('font-awesome')) {
+        provideFallbackIcons();
+    } else if (resourceUrl.includes('emailjs')) {
+        provideFallbackContactForm();
+    } else if (resourceUrl.includes('fonts.googleapis')) {
+        provideFallbackFonts();
+    }
+}
+
+// 圖示降級方案
+function provideFallbackIcons() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .fas::before, .fab::before, .fa::before {
+            content: '●';
+            font-family: system-ui, sans-serif;
+        }
+        .fa-play::before { content: '▶'; }
+        .fa-pause::before { content: '⏸'; }
+        .fa-music::before { content: '♪'; }
+        .fa-envelope::before { content: '✉'; }
+        .fa-instagram::before { content: 'IG'; }
+        .fa-mixcloud::before { content: 'MC'; }
+        .fa-soundcloud::before { content: 'SC'; }
+        .fa-youtube::before { content: 'YT'; }
+    `;
+    document.head.appendChild(style);
+}
+
+// 聯絡表單降級方案
+function provideFallbackContactForm() {
+    const form = document.getElementById('bookingForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showGothicNotification('EmailJS 服務暫時無法使用，請直接聯絡 Instagram @redshou_89', 'error');
+        });
+    }
+}
+
+// 字體降級方案
+function provideFallbackFonts() {
+    const style = document.createElement('style');
+    style.textContent = `
+        body, * {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// 重試失敗的資源
+function retryFailedResources() {
+    // 重試載入圖片
+    document.querySelectorAll('.image-placeholder').forEach(placeholder => {
+        const retryBtn = placeholder.querySelector('.retry-btn');
+        if (retryBtn) {
+            retryBtn.click();
+        }
+    });
+    
+    // 重新檢查外部資源
+    setTimeout(() => {
+        monitorExternalResources();
+    }, 2000);
 }
 
 // 頁面性能優化
@@ -292,12 +567,12 @@ function preparePageInBackground() {
     }
 }
 
-// 等待假動畫完成再隱藏
+// 等待假動畫完成再隱藏 - 優化載入時間
 function waitForAnimationComplete() {
-    // 假動畫播放 2.5 秒，再等 0.8 秒讓使用者看到完成
-    setTimeout(() => {
+    // 假動畫播放 1.5 秒，提升感知速度
+    timerManager.setTimeout(() => {
         hideLoader();
-    }, 3300);
+    }, 1800, 'loader_animation');
 }
 
 // DOM 載入完成
@@ -317,26 +592,127 @@ window.addEventListener('load', () => {
 });
 
 // 緊急回退 - 5秒後強制完成
-setTimeout(() => {
+timerManager.setTimeout(() => {
     if (!isLoaded) {
         hideLoader();
     }
-}, 5000);
+}, 5000, 'emergency_loader_fallback');
 
-// 極速懶加載系統
+// 極速懶加載系統 + 錯誤處理
 function addLazyLoadingToImages() {
-    // 只處理非關鍵圖片
-    const images = document.querySelectorAll('img:not([loading])');
-    images.forEach(img => {
-        // 跳過關鍵圖片
+    // 處理所有圖片
+    const images = document.querySelectorAll('img');
+    images.forEach((img, index) => {
+        // 為非關鍵圖片設定懶加載
         if (!img.src.includes('logo') && !img.closest('.hero-image') && !img.closest('.nav-brand')) {
             img.setAttribute('loading', 'lazy');
         }
+        
+        // 添加錯誤處理
+        addImageErrorHandling(img, index);
+    });
+}
+
+// 圖片載入錯誤處理系統
+function addImageErrorHandling(img, index) {
+    // 設定載入超時
+    const { id: timeoutId } = timerManager.setTimeout(() => {
+        if (!img.complete) {
+            handleImageError(img, '載入超時');
+        }
+    }, 10000, `image_timeout_${index}`); // 10秒超時
+    
+    // 載入成功處理
+    img.addEventListener('load', () => {
+        timerManager.clearTimer(timeoutId);
+        img.style.opacity = '1';
+    });
+    
+    // 載入錯誤處理
+    img.addEventListener('error', (e) => {
+        timerManager.clearTimer(timeoutId);
+        handleImageError(img, '載入失敗');
+    });
+    
+    // 初始設定
+    img.style.transition = 'opacity 0.3s ease';
+    img.style.opacity = '0.5';
+}
+
+// 處理圖片載入錯誤
+function handleImageError(img, errorType) {
+    const parent = img.parentElement;
+    
+    // 創建替代內容
+    const placeholder = document.createElement('div');
+    placeholder.className = 'image-placeholder';
+    placeholder.innerHTML = `
+        <div class="placeholder-content">
+            <i class="fas fa-image"></i>
+            <span>圖片${errorType}</span>
+            <button onclick="retryImageLoad(this)" class="retry-btn">重試</button>
+        </div>
+    `;
+    
+    placeholder.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: ${img.offsetWidth || 300}px;
+        height: ${img.offsetHeight || 200}px;
+        background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+        border: 2px dashed #666;
+        color: #999;
+        text-align: center;
+        font-family: inherit;
+    `;
+    
+    // 儲存原始圖片資訊
+    placeholder.dataset.originalSrc = img.src;
+    placeholder.dataset.originalAlt = img.alt;
+    
+    // 替換圖片
+    parent.replaceChild(placeholder, img);
+    
+    // 記錄錯誤
+    console.warn(`圖片載入${errorType}:`, img.src);
+}
+
+// 重試載入圖片
+function retryImageLoad(button) {
+    const placeholder = button.closest('.image-placeholder');
+    const originalSrc = placeholder.dataset.originalSrc;
+    const originalAlt = placeholder.dataset.originalAlt;
+    
+    // 創建新圖片元素
+    const newImg = document.createElement('img');
+    newImg.src = originalSrc;
+    newImg.alt = originalAlt;
+    
+    // 添加重試標記
+    newImg.src = originalSrc + (originalSrc.includes('?') ? '&' : '?') + 'retry=' + Date.now();
+    
+    // 顯示載入中狀態
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    button.disabled = true;
+    
+    // 重新添加錯誤處理
+    addImageErrorHandling(newImg, 0);
+    
+    // 載入成功後替換
+    newImg.addEventListener('load', () => {
+        placeholder.parentNode.replaceChild(newImg, placeholder);
+    });
+    
+    // 載入失敗則恢復按鈕
+    newImg.addEventListener('error', () => {
+        button.innerHTML = '重試';
+        button.disabled = false;
     });
 }
 
 
-// Video Background Initialization - 優化載入速度
+// Video Background Initialization - 大幅優化載入速度
 function initializeVideoBackground() {
     const video = document.getElementById('bgVideo');
     const videoSource = document.getElementById('videoSource');
@@ -345,23 +721,47 @@ function initializeVideoBackground() {
     // 先顯示備用背景，避免載入延遲
     if (fallbackBg) fallbackBg.style.display = 'block';
     
+    // 檢查網路連接狀況和裝置類型
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // 如果是慢速連接或行動裝置，跳過影片載入
+    if (isSlowConnection || isMobile) {
+        showFallbackBackground();
+        return;
+    }
+    
     // 檢查影片來源
     if (!videoSource.src || videoSource.src === '' || !videoSource.src.includes('background-video.mp4')) {
         showFallbackBackground();
         return;
     }
     
-    // 延遲載入影片，不阻塞初始載入
+    // 大幅延遲載入影片，優先載入關鍵內容
     setTimeout(() => {
+        // 設定影片品質和載入優化
+        video.preload = 'metadata'; // 只載入元數據，不預載影片
+        video.poster = ''; // 移除poster減少請求
+        
         // 處理影片載入成功
-        video.addEventListener('loadeddata', () => {
+        video.addEventListener('canplay', () => {
             video.style.display = 'block';
             if (fallbackBg) fallbackBg.style.display = 'none';
         });
         
-        // 處理影片載入失敗
+        // 處理影片載入失敗或超時
         video.addEventListener('error', () => {
             showFallbackBackground();
+        });
+        
+        // 設定載入超時保護
+        const loadTimeout = setTimeout(() => {
+            showFallbackBackground();
+        }, 8000); // 8秒後強制使用備用背景
+        
+        video.addEventListener('loadeddata', () => {
+            clearTimeout(loadTimeout);
         });
         
         // 確保影片循環播放
@@ -374,7 +774,7 @@ function initializeVideoBackground() {
         video.play().catch(e => {
             showFallbackBackground();
         });
-    }, 500); // 延遲 500ms 載入影片
+    }, 2000); // 延遲 2秒載入影片，讓頁面先完全載入
 }
 
 function showFallbackBackground() {
@@ -665,26 +1065,584 @@ function setLanguage(lang) {
     generateDateOptions();
 }
 
-function updateMetaTags(lang) {
-    const title = document.querySelector('title');
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-    const description = document.querySelector('meta[property="og:description"]');
-    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-    
-    if (lang === 'en') {
-        if (title) title.textContent = 'DJ REDSHOU';
-        if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
-        if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU - EDM • Hip Hop • Electronic Music');
-        if (description) description.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
-        if (twitterDescription) twitterDescription.setAttribute('content', 'Professional DJ from Taiwan specializing in EDM, Hip Hop, and Electronic Music');
-    } else {
-        if (title) title.textContent = 'DJ REDSHOU';
-        if (ogTitle) ogTitle.setAttribute('content', 'DJ REDSHOU');
-        if (twitterTitle) twitterTitle.setAttribute('content', 'DJ REDSHOU');
-        if (description) description.setAttribute('content', 'EDM • Hip Hop • 電子音樂');
-        if (twitterDescription) twitterDescription.setAttribute('content', 'EDM • Hip Hop • 電子音樂');
+// ===== DYNAMIC SEO SYSTEM =====
+class DynamicSEO {
+    constructor() {
+        this.sections = {
+            'home': {
+                zh: {
+                    title: 'DJ REDSHoU | 專業EDM・Hip Hop DJ | 台北夜生活 | 國際演出',
+                    description: 'DJ REDSHoU - 來自花蓮阿美族的專業DJ，專精EDM與Hip Hop音樂。合作過Jay Park、Lil Mosey等國際藝人。'
+                },
+                en: {
+                    title: 'DJ REDSHoU | Professional EDM・Hip Hop DJ | Taipei Nightlife',
+                    description: 'DJ REDSHoU - Professional DJ from Hualien, Taiwan, specializing in EDM and Hip Hop. Collaborated with Jay Park, Lil Mosey and other international artists.'
+                }
+            },
+            'about': {
+                zh: {
+                    title: '關於 DJ REDSHoU | 阿美族DJ | 花蓮玉里 | 音樂之路',
+                    description: '了解DJ REDSHoU的音樂歷程，從花蓮玉里阿美族血液中的原古之力，到台北夜生活的專業DJ。'
+                },
+                en: {
+                    title: 'About DJ REDSHoU | Amis Tribe DJ | Hualien Taiwan | Music Journey',
+                    description: 'Learn about DJ REDSHoU\'s musical journey from the ancient Amis tribal roots in Hualien to becoming a professional DJ in Taipei nightlife.'
+                }
+            },
+            'music': {
+                zh: {
+                    title: 'DJ REDSHoU 最新作品 | Mixtape系列 | EDM Hip Hop音樂',
+                    description: '聆聽DJ REDSHoU最新Mixtape作品，包含EDM、Hip Hop精選混音，展現專業DJ技巧與音樂創意。'
+                },
+                en: {
+                    title: 'DJ REDSHoU Latest Works | Mixtape Series | EDM Hip Hop Music',
+                    description: 'Listen to DJ REDSHoU\'s latest Mixtape works featuring EDM and Hip Hop selections, showcasing professional DJ skills and musical creativity.'
+                }
+            },
+            'gallery': {
+                zh: {
+                    title: 'DJ REDSHoU 演出照片 | 現場表演 | 夜店活動紀錄',
+                    description: '瀏覽DJ REDSHoU精彩演出照片，包含與國際藝人合作、夜店表演、音樂節活動等珍貴影像紀錄。'
+                },
+                en: {
+                    title: 'DJ REDSHoU Performance Gallery | Live Shows | Club Events',
+                    description: 'Browse DJ REDSHoU\'s performance photos including collaborations with international artists, club performances, and music festival events.'
+                }
+            },
+            'contact': {
+                zh: {
+                    title: 'DJ REDSHoU 聯絡預訂 | 演出邀請 | 專業DJ服務',
+                    description: 'DJ REDSHoU演出預訂，提供夜店表演、私人派對、企業活動等專業DJ服務。24小時內回覆，歡迎洽詢檔期。'
+                },
+                en: {
+                    title: 'DJ REDSHoU Contact & Booking | Performance Inquiry | Professional DJ Services',
+                    description: 'Book DJ REDSHoU for club performances, private parties, corporate events and more. Professional DJ services with 24-hour response guarantee.'
+                }
+            }
+        };
+        
+        this.currentSection = 'home';
+        this.currentLang = 'zh';
+        
+        this.initSectionObserver();
     }
+    
+    initSectionObserver() {
+        const sections = document.querySelectorAll('section[id]');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    this.updatePageMetadata(entry.target.id);
+                }
+            });
+        }, {
+            threshold: [0.3],
+            rootMargin: '-10% 0px -10% 0px'
+        });
+        
+        sections.forEach(section => observer.observe(section));
+    }
+    
+    updatePageMetadata(sectionId) {
+        if (this.currentSection === sectionId) return;
+        
+        this.currentSection = sectionId;
+        const sectionData = this.sections[sectionId];
+        
+        if (!sectionData) return;
+        
+        const { title, description } = sectionData[this.currentLang];
+        
+        // 更新頁面標題
+        document.title = title;
+        
+        // 更新Meta描述
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', description);
+        
+        // 更新OG標籤
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogTitle) ogTitle.setAttribute('content', title);
+        if (ogDesc) ogDesc.setAttribute('content', description);
+        
+        // 更新Twitter卡片
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twitterTitle) twitterTitle.setAttribute('content', title);
+        if (twitterDesc) twitterDesc.setAttribute('content', description);
+        
+        // Console log for debugging
+        console.log(`📍 Section changed: ${sectionId} (${this.currentLang})`);
+    }
+    
+    updateLanguage(lang) {
+        this.currentLang = lang;
+        this.updatePageMetadata(this.currentSection);
+    }
+}
+
+// 全局動態SEO管理器
+const dynamicSEO = new DynamicSEO();
+
+// ===== RESPONSIVE ENHANCEMENT SYSTEM =====
+class ResponsiveManager {
+    constructor() {
+        this.breakpoints = {
+            mobile: 768,
+            tablet: 1024,
+            desktop: 1440,
+            ultrawide: 1920
+        };
+        
+        this.currentBreakpoint = this.getCurrentBreakpoint();
+        this.orientation = this.getOrientation();
+        
+        this.init();
+    }
+    
+    init() {
+        this.setupOrientationListener();
+        this.setupViewportListener();
+        this.optimizeForCurrentDevice();
+        this.handleTouchDevices();
+    }
+    
+    getCurrentBreakpoint() {
+        const width = window.innerWidth;
+        
+        if (width <= this.breakpoints.mobile) return 'mobile';
+        if (width <= this.breakpoints.tablet) return 'tablet';
+        if (width <= this.breakpoints.desktop) return 'desktop';
+        if (width <= this.breakpoints.ultrawide) return 'large';
+        return 'ultrawide';
+    }
+    
+    getOrientation() {
+        return window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+    }
+    
+    setupOrientationListener() {
+        const handleOrientationChange = () => {
+            const newOrientation = this.getOrientation();
+            const newBreakpoint = this.getCurrentBreakpoint();
+            
+            if (newOrientation !== this.orientation || newBreakpoint !== this.currentBreakpoint) {
+                this.orientation = newOrientation;
+                this.currentBreakpoint = newBreakpoint;
+                
+                // 延遲執行以等待螢幕旋轉完成
+                timerManager.setTimeout(() => {
+                    this.optimizeForCurrentDevice();
+                    this.adjustLayoutForOrientation();
+                }, 300, 'orientation_change');
+            }
+        };
+        
+        window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('resize', handleOrientationChange);
+    }
+    
+    setupViewportListener() {
+        // 處理移動端視窗高度變化（地址欄顯示/隱藏）
+        let initialHeight = window.innerHeight;
+        
+        const handleViewportChange = () => {
+            const currentHeight = window.innerHeight;
+            const heightDiff = Math.abs(initialHeight - currentHeight);
+            
+            // 如果高度變化超過100px（可能是地址欄變化）
+            if (heightDiff > 100) {
+                this.adjustForAddressBar(currentHeight < initialHeight);
+            }
+        };
+        
+        window.addEventListener('resize', handleViewportChange);
+        window.addEventListener('scroll', handleViewportChange);
+    }
+    
+    optimizeForCurrentDevice() {
+        document.body.classList.remove('mobile', 'tablet', 'desktop', 'large', 'ultrawide');
+        document.body.classList.add(this.currentBreakpoint);
+        
+        // 根據設備類型調整
+        switch (this.currentBreakpoint) {
+            case 'mobile':
+                this.optimizeMobile();
+                break;
+            case 'tablet':
+                this.optimizeTablet();
+                break;
+            case 'ultrawide':
+                this.optimizeUltrawide();
+                break;
+            default:
+                this.optimizeDesktop();
+        }
+        
+        console.log(`📱 Device optimized: ${this.currentBreakpoint} (${this.orientation})`);
+    }
+    
+    optimizeMobile() {
+        // 移動端特殊優化
+        this.enableTouchOptimizations();
+        this.adjustMobileNavigation();
+        this.optimizeMobileImages();
+    }
+    
+    optimizeTablet() {
+        // 平板優化
+        this.adjustTabletLayout();
+        this.enableTouchOptimizations();
+    }
+    
+    optimizeUltrawide() {
+        // 超寬屏優化
+        this.adjustUltrawideLayout();
+        this.enableHighResolutionFeatures();
+    }
+    
+    optimizeDesktop() {
+        // 桌面優化
+        this.enableDesktopFeatures();
+    }
+    
+    adjustLayoutForOrientation() {
+        if (this.orientation === 'landscape' && this.currentBreakpoint === 'tablet') {
+            // 平板橫屏特殊處理
+            this.enableTabletLandscapeMode();
+        }
+    }
+    
+    enableTouchOptimizations() {
+        // 增大觸摸目標
+        document.body.classList.add('touch-device');
+        
+        // 為小元素添加更大的觸摸區域
+        const smallButtons = document.querySelectorAll('.lang-btn, .social-link');
+        smallButtons.forEach(btn => {
+            btn.style.minHeight = '44px';
+            btn.style.minWidth = '44px';
+        });
+    }
+    
+    adjustMobileNavigation() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            // 移動端導航欄置頂固定
+            navbar.classList.add('mobile-fixed');
+        }
+    }
+    
+    optimizeMobileImages() {
+        // 為移動端提供較小的圖片（如果可用）
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            if (img.src.includes('i.ibb.co')) {
+                // 可以在這裡實現圖片尺寸調整邏輯
+                img.loading = 'lazy';
+            }
+        });
+    }
+    
+    enableTabletLandscapeMode() {
+        document.body.classList.add('tablet-landscape');
+        
+        // 調整Hero區域佈局
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.classList.add('landscape-layout');
+        }
+    }
+    
+    adjustUltrawideLayout() {
+        // 超寬屏幕內容居中限制寬度
+        const sections = document.querySelectorAll('.section-container');
+        sections.forEach(section => {
+            section.style.maxWidth = '1400px';
+            section.style.margin = '0 auto';
+        });
+    }
+    
+    enableHighResolutionFeatures() {
+        // 高分辨率螢幕特殊功能
+        if (window.devicePixelRatio >= 2) {
+            document.body.classList.add('high-dpi');
+        }
+    }
+    
+    adjustForAddressBar(isHidden) {
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            if (isHidden) {
+                hero.style.minHeight = '100vh';
+            } else {
+                hero.style.minHeight = 'calc(100vh - 60px)';
+            }
+        }
+    }
+    
+    handleTouchDevices() {
+        // 檢測觸摸設備
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchDevice) {
+            document.body.classList.add('touch-device');
+            this.enableTouchGestures();
+        } else {
+            document.body.classList.add('no-touch');
+            this.enableMouseOptimizations();
+        }
+    }
+    
+    enableTouchGestures() {
+        // 為相簿添加滑動手勢（簡單示例）
+        const galleryGrid = document.querySelector('.gallery-grid');
+        if (galleryGrid && this.currentBreakpoint === 'mobile') {
+            let startX = 0;
+            let scrollLeft = 0;
+            
+            galleryGrid.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX;
+                scrollLeft = galleryGrid.scrollLeft;
+            });
+            
+            galleryGrid.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX;
+                const walk = (x - startX) * 2;
+                galleryGrid.scrollLeft = scrollLeft - walk;
+            });
+        }
+    }
+    
+    enableMouseOptimizations() {
+        // 桌面端滑鼠優化
+        document.body.classList.add('mouse-device');
+        
+        // 為hover效果進行優化
+        const cards = document.querySelectorAll('.contact-card, .stat-card, .gallery-item');
+        cards.forEach(card => {
+            card.classList.add('hover-enabled');
+        });
+    }
+    
+    enableDesktopFeatures() {
+        // 桌面端特殊功能
+        this.enableKeyboardShortcuts();
+    }
+    
+    enableKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            // 桌面端鍵盤快捷鍵
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.querySelector('#music').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        document.querySelector('#gallery').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '5':
+                        e.preventDefault();
+                        document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                }
+            }
+        });
+    }
+}
+
+// 全局響應式管理器
+const responsiveManager = new ResponsiveManager();
+
+// ===== MICROSOFT CLARITY ENHANCEMENTS =====
+class ClarityAnalytics {
+    constructor() {
+        this.isInitialized = false;
+        this.init();
+    }
+    
+    init() {
+        // 等待Clarity載入
+        if (typeof clarity !== 'undefined') {
+            this.isInitialized = true;
+            this.setupCustomTags();
+            this.setupUserInteractionTracking();
+        } else {
+            // 如果Clarity還沒載入，等待一下再嘗試
+            timerManager.setTimeout(() => {
+                this.init();
+            }, 1000, 'clarity_init');
+        }
+    }
+    
+    setupCustomTags() {
+        if (!this.isInitialized) return;
+        
+        try {
+            // 設置自定義標籤
+            clarity('set', 'page_type', 'dj_portfolio');
+            clarity('set', 'site_section', 'main');
+            clarity('set', 'user_type', 'visitor');
+            clarity('set', 'device_type', responsiveManager.currentBreakpoint);
+            clarity('set', 'language', localStorage.getItem('preferred-language') || 'zh');
+            
+            console.log('✅ Clarity custom tags set successfully');
+        } catch (error) {
+            console.warn('⚠️ Clarity custom tags failed:', error);
+        }
+    }
+    
+    setupUserInteractionTracking() {
+        if (!this.isInitialized) return;
+        
+        // 追蹤重要的用戶互動
+        this.trackNavigationClicks();
+        this.trackLanguageSwitch();
+        this.trackFormInteractions();
+        this.trackMusicInteractions();
+        this.trackSocialClicks();
+    }
+    
+    trackNavigationClicks() {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const section = link.getAttribute('href').replace('#', '');
+                this.sendEvent('navigation_click', { section });
+            });
+        });
+    }
+    
+    trackLanguageSwitch() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const language = btn.getAttribute('data-lang');
+                this.sendEvent('language_switch', { language });
+                clarity('set', 'language', language);
+            });
+        });
+    }
+    
+    trackFormInteractions() {
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            // 表單開始填寫
+            bookingForm.addEventListener('focusin', (e) => {
+                this.sendEvent('form_start', { field: e.target.name });
+            }, { once: true });
+            
+            // 表單提交
+            bookingForm.addEventListener('submit', (e) => {
+                const formData = new FormData(bookingForm);
+                const eventType = formData.get('event-type');
+                this.sendEvent('booking_submit', { event_type: eventType });
+            });
+        }
+    }
+    
+    trackMusicInteractions() {
+        // 追蹤音樂播放互動
+        document.querySelectorAll('.play-btn, .mixcloud-link, .youtube-link').forEach(element => {
+            element.addEventListener('click', (e) => {
+                const musicType = element.classList.contains('mixcloud-link') ? 'mixcloud' : 
+                                element.classList.contains('youtube-link') ? 'youtube' : 'play_button';
+                this.sendEvent('music_interaction', { type: musicType });
+            });
+        });
+    }
+    
+    trackSocialClicks() {
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const platform = this.getSocialPlatform(link.href);
+                this.sendEvent('social_click', { platform });
+            });
+        });
+    }
+    
+    getSocialPlatform(url) {
+        if (url.includes('instagram')) return 'instagram';
+        if (url.includes('mixcloud')) return 'mixcloud';
+        if (url.includes('soundcloud')) return 'soundcloud';
+        return 'other';
+    }
+    
+    sendEvent(eventName, properties = {}) {
+        if (!this.isInitialized) return;
+        
+        try {
+            // 使用Clarity的自定義事件
+            clarity('event', eventName, properties);
+            console.log(`📊 Clarity event: ${eventName}`, properties);
+        } catch (error) {
+            console.warn('⚠️ Clarity event failed:', error);
+        }
+    }
+    
+    // 追蹤頁面停留時間
+    trackTimeOnPage() {
+        const startTime = Date.now();
+        
+        window.addEventListener('beforeunload', () => {
+            const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+            this.sendEvent('page_time', { seconds: timeOnPage });
+        });
+    }
+    
+    // 追蹤滾動深度
+    trackScrollDepth() {
+        let maxScrollDepth = 0;
+        
+        window.addEventListener('scroll', () => {
+            const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                
+                // 每25%發送一次事件
+                if (scrollDepth >= 25 && scrollDepth < 50 && maxScrollDepth >= 25) {
+                    this.sendEvent('scroll_depth', { depth: 25 });
+                } else if (scrollDepth >= 50 && scrollDepth < 75 && maxScrollDepth >= 50) {
+                    this.sendEvent('scroll_depth', { depth: 50 });
+                } else if (scrollDepth >= 75 && scrollDepth < 100 && maxScrollDepth >= 75) {
+                    this.sendEvent('scroll_depth', { depth: 75 });
+                } else if (scrollDepth >= 100 && maxScrollDepth >= 100) {
+                    this.sendEvent('scroll_depth', { depth: 100 });
+                }
+            }
+        });
+    }
+}
+
+// 初始化Clarity分析
+const clarityAnalytics = new ClarityAnalytics();
+
+// 延遲啟動進階追蹤功能
+timerManager.setTimeout(() => {
+    if (clarityAnalytics.isInitialized) {
+        clarityAnalytics.trackTimeOnPage();
+        clarityAnalytics.trackScrollDepth();
+        console.log('📊 Advanced Clarity tracking enabled');
+    }
+}, 2000, 'clarity_advanced_init');
+
+function updateMetaTags(lang) {
+    // 更新語言並觸發SEO更新
+    dynamicSEO.updateLanguage(lang);
+    
+    // 更新HTML lang屬性
+    document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
 }
 
 // Event card interactions
