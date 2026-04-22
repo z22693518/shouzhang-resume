@@ -400,10 +400,9 @@ function monitorNetworkStatus() {
 
 // 監控外部資源載入狀況
 function monitorExternalResources() {
+    // 簡化資源監控，只檢查關鍵資源
     const criticalResources = [
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-        'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js',
-        'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Cinzel:wght@600&display=swap'
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
     ];
     
     criticalResources.forEach(resource => {
@@ -606,6 +605,9 @@ timerManager.setTimeout(() => {
 
 // 極速懶加載系統 + 錯誤處理
 function addLazyLoadingToImages() {
+    // 初始化懶載入
+    initLazyLoading();
+    
     // 處理所有圖片
     const images = document.querySelectorAll('img');
     images.forEach((img, index) => {
@@ -614,19 +616,80 @@ function addLazyLoadingToImages() {
             img.setAttribute('loading', 'lazy');
         }
         
-        // 添加錯誤處理
-        addImageErrorHandling(img, index);
+        // 只對已經有 src 的圖片添加錯誤處理
+        if (img.src && !img.classList.contains('lazy-img')) {
+            addImageErrorHandling(img, index);
+        }
     });
+}
+
+// 懶載入功能
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('.lazy-img');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.dataset.src;
+                    
+                    if (src) {
+                        // 延遲載入，減少同時載入的圖片數量
+                        setTimeout(() => {
+                            img.src = src;
+                            img.classList.remove('lazy-img');
+                            img.classList.add('loading');
+                            
+                            img.onload = function() {
+                                img.classList.remove('loading');
+                                img.classList.add('loaded');
+                            };
+                            
+                            img.onerror = function() {
+                                img.classList.remove('loading');
+                                img.classList.add('error');
+                                // 對載入失敗的圖片套用錯誤處理
+                                handleImageError(img, '載入失敗');
+                            };
+                        }, Math.random() * 1000); // 隨機延遲 0-1 秒
+                        
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '100px 0px', // 提前100px開始載入
+            threshold: 0.01
+        });
+        
+        lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback 對於不支援 IntersectionObserver 的瀏覽器
+        lazyImages.forEach(img => {
+            img.src = img.dataset.src;
+            img.classList.remove('lazy-img');
+        });
+    }
 }
 
 // 圖片載入錯誤處理系統
 function addImageErrorHandling(img, index) {
-    // 設定載入超時
+    // 對於 i.ibb.co 圖片，給予額外載入時間
+    const isIbbImage = img.src.includes('i.ibb.co');
+    let timeoutDuration = 15000; // 預設 15 秒
+    
+    if (isIbbImage) {
+        timeoutDuration = index === 'retry' ? 45000 : 30000; // ibb.co 圖片：正常30秒，重試45秒
+    } else {
+        timeoutDuration = index === 'retry' ? 25000 : 15000; // 其他圖片：正常15秒，重試25秒
+    }
+    
     const { id: timeoutId } = timerManager.setTimeout(() => {
         if (!img.complete) {
             handleImageError(img, '載入超時');
         }
-    }, 10000, `image_timeout_${index}`); // 10秒超時
+    }, timeoutDuration, `image_timeout_${index}`);
     
     // 載入成功處理
     img.addEventListener('load', () => {
@@ -690,31 +753,37 @@ function retryImageLoad(button) {
     const originalSrc = placeholder.dataset.originalSrc;
     const originalAlt = placeholder.dataset.originalAlt;
     
-    // 創建新圖片元素
-    const newImg = document.createElement('img');
-    newImg.src = originalSrc;
-    newImg.alt = originalAlt;
-    
-    // 添加重試標記
-    newImg.src = originalSrc + (originalSrc.includes('?') ? '&' : '?') + 'retry=' + Date.now();
-    
     // 顯示載入中狀態
     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     button.disabled = true;
     
-    // 重新添加錯誤處理
-    addImageErrorHandling(newImg, 0);
+    // 對於 i.ibb.co 圖片，延遲 2 秒再重試
+    const isIbbImage = originalSrc.includes('i.ibb.co');
+    const retryDelay = isIbbImage ? 2000 : 500;
     
-    // 載入成功後替換
-    newImg.addEventListener('load', () => {
-        placeholder.parentNode.replaceChild(newImg, placeholder);
-    });
-    
-    // 載入失敗則恢復按鈕
-    newImg.addEventListener('error', () => {
-        button.innerHTML = '重試';
-        button.disabled = false;
-    });
+    setTimeout(() => {
+        // 創建新圖片元素
+        const newImg = document.createElement('img');
+        newImg.src = originalSrc;
+        newImg.alt = originalAlt;
+        
+        // 添加重試標記
+        newImg.src = originalSrc + (originalSrc.includes('?') ? '&' : '?') + 'retry=' + Date.now();
+        
+        // 重新添加錯誤處理（重試時給予更長時間）
+        addImageErrorHandling(newImg, 'retry');
+        
+        // 載入成功後替換
+        newImg.addEventListener('load', () => {
+            placeholder.parentNode.replaceChild(newImg, placeholder);
+        });
+        
+        // 載入失敗則恢復按鈕
+        newImg.addEventListener('error', () => {
+            button.innerHTML = '重試';
+            button.disabled = false;
+        });
+    }, retryDelay);
 }
 
 
@@ -747,7 +816,7 @@ function initializeVideoBackground() {
     // 大幅延遲載入影片，優先載入關鍵內容
     setTimeout(() => {
         // 設定影片品質和載入優化
-        video.preload = 'metadata'; // 只載入元數據，不預載影片
+        video.preload = 'none'; // 完全不預載影片，只有用戶需要時才載入
         video.poster = ''; // 移除poster減少請求
         
         // 處理影片載入成功
