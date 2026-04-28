@@ -2853,11 +2853,62 @@ section {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.experience-item.with-photo:hover .item-photo {
+/* 統一所有 item-photo 容器樣式 */
+.item-photo {
+    width: 400px;
+    height: 300px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.item-photo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* 統一所有 item-photo 內的圖片樣式 */
+.item-photo img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: auto;
+    -ms-interpolation-mode: bicubic;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    border: 4px solid var(--blood-red);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 調整新三張圖片的亮度，讓它們與其他圖片一致 */
+.item-photo img[src*="camo-performance"],
+.item-photo img[src*="lil-pump-performance"], 
+.item-photo img[src*="knowknow-performance"] {
+    filter: brightness(1.15) contrast(1.05);
+}
+
+/* 統一所有 item-photo 的 hover 效果 */
+.item-photo:hover {
     transform: none;
 }
 
-.experience-item.with-photo:hover .item-photo img {
+.item-photo:hover img {
     transform: scale(1.05);
     box-shadow: 0 8px 25px rgba(139, 0, 0, 0.6);
     border-color: rgba(220, 20, 60, 0.9);
