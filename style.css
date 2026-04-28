@@ -2897,10 +2897,7 @@ section {
 }
 
 /* 調整新三張圖片的亮度，讓它們與其他圖片一致 */
-.item-photo img[src*="camo-performance"] {
-    filter: brightness(1.15) contrast(1.05);
-}
-
+.item-photo img[src*="camo-performance"],
 .item-photo img[src*="lil-pump-performance"], 
 .item-photo img[src*="knowknow-performance"] {
     filter: brightness(1.25) contrast(1.1) saturate(1.05);
