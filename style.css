@@ -2900,7 +2900,7 @@ section {
 .item-photo img[src*="camo-performance"],
 .item-photo img[src*="lil-pump-performance"], 
 .item-photo img[src*="knowknow-performance"] {
-    filter: brightness(1.25) contrast(1.1) saturate(1.05);
+    filter: brightness(1.4) contrast(1.15) saturate(1.1);
 }
 
 /* 統一所有 item-photo 的 hover 效果 */
