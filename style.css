@@ -2813,8 +2813,8 @@ section {
 }
 
 .experience-item.with-photo .item-photo {
-    width: 350px;
-    height: 263px;
+    width: 400px;
+    height: 300px;
     border-radius: 8px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -2854,12 +2854,13 @@ section {
 }
 
 .experience-item.with-photo:hover .item-photo {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+    transform: none;
 }
 
 .experience-item.with-photo:hover .item-photo img {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(139, 0, 0, 0.6);
+    border-color: rgba(220, 20, 60, 0.9);
 }
 
 .event-name {
@@ -3228,8 +3229,8 @@ section {
     
     /* 移動設備圖片容器優化 */
     .experience-item.with-photo .item-photo {
-        width: 300px;
-        height: 225px;
+        width: 330px;
+        height: 248px;
     }
     
     .experience-item.with-photo {
@@ -3241,16 +3242,16 @@ section {
 /* 中等螢幕優化 */
 @media (max-width: 1024px) and (min-width: 769px) {
     .experience-item.with-photo .item-photo {
-        width: 320px;
-        height: 240px;
+        width: 360px;
+        height: 270px;
     }
 }
 
 /* 小平板設備優化 */
 @media (max-width: 480px) {
     .experience-item.with-photo .item-photo {
-        width: 240px;
-        height: 180px;
+        width: 280px;
+        height: 210px;
     }
     
     .experience-item.with-photo {
@@ -3333,8 +3334,8 @@ h1, h2, h3, h4, h5, h6, p, div, span {
     }
     
     .experience-item.with-photo .item-photo {
-        width: 220px;
-        height: 165px;
+        width: 260px;
+        height: 195px;
     }
     
     .current-resident {
