@@ -2338,9 +2338,9 @@ section {
         gap: 1rem;
     }
     
-    .item-photo {
-        width: 70px;
-        height: 70px;
+    .experience-item.with-photo .item-photo {
+        width: 200px;
+        height: 150px;
     }
 }
 
@@ -2386,9 +2386,9 @@ section {
         padding: 1rem 0.8rem;
     }
     
-    .item-photo {
-        width: 50px;
-        height: 50px;
+    .experience-item.with-photo .item-photo {
+        width: 180px;
+        height: 135px;
         margin: 0 auto 0.4rem auto;
     }
     
@@ -2472,9 +2472,9 @@ section {
         text-align: center;
     }
     
-    .item-photo {
-        width: 60px;
-        height: 60px;
+    .experience-item.with-photo .item-photo {
+        width: 220px;
+        height: 165px;
         margin: 0 auto 0.5rem auto;
     }
     
@@ -2894,6 +2894,8 @@ section {
     border: 4px solid var(--blood-red);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* 為所有演出圖片添加基礎亮度調整 */
+    filter: brightness(1.15) contrast(1.05) saturate(1.02);
 }
 
 /* 調整新三張圖片的亮度，讓它們與其他圖片一致 */
@@ -3380,11 +3382,6 @@ h1, h2, h3, h4, h5, h6, p, div, span {
         padding: 0.6rem;
         font-size: 0.75rem;
         line-height: 1.25;
-    }
-    
-    .item-photo {
-        width: 180px;
-        height: 135px;
     }
     
     .experience-item.with-photo .item-photo {
